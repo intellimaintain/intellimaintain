@@ -1,4 +1,4 @@
-import { ErrorsAnd, hasErrors, mapErrors, mapErrorsK } from "@laoban/utils";
+import { ErrorsAnd, mapErrors, mapErrorsK } from "@laoban/utils";
 import { FileOps } from "@laoban/fileops";
 
 //To support chain of responsibility
@@ -15,12 +15,18 @@ export interface CliConfigTC<Config, Clean> {
 
 export type CliTcFinder<Config, Clean> = ( fileOps: FileOps, startDir: string ) => Promise<ErrorsAnd<FileNameAndCliConfigTc<Config, Clean>>> //might be file or directory. Doesn't matter. Is handed to load
 
+export interface ConfigAndCliTc<Config, Clean> {
+  cliConfigTc: CliConfigTC<Config, Clean>
+  config: Clean
 
-export async function loadConfig<Config, Clean> ( fileOps: FileOps, tcFinder: CliTcFinder<Config, Clean>, startDir: string ): Promise<ErrorsAnd<Clean>> {
+}
+
+export async function loadConfig<Config, Clean> ( fileOps: FileOps, tcFinder: CliTcFinder<Config, Clean>, startDir: string ): Promise<ErrorsAnd<ConfigAndCliTc<Config, Clean>>> {
   let found = await await tcFinder ( fileOps, startDir );
   return mapErrorsK ( found,
-    async ( { tc: actualTc, fileName } ) =>
-      mapErrors ( await actualTc.load ( fileOps ) ( fileName ), actualTc.validate ) )
+    async ( { tc: cliConfigTc, fileName } ) => mapErrors ( mapErrors (
+      await cliConfigTc.load ( fileOps ) ( fileName ), cliConfigTc.validate ), config =>
+      ({ cliConfigTc, config }) ) )
 }
 
 //clean up... separate maybe? Or just put up with the mess in find... Doesn't feel right to have it and the others in the same level in the  interface though

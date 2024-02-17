@@ -8,7 +8,7 @@ export function createCommander12Fn<Context extends HasNameAndVersion, CleanConf
     .version ( context.version )
     .usage ( '<command> [options]' );
 }
-export function addCommandDetails12<Context, CleanConfig> ( cc: ContextConfigAndCommander<Context, CleanConfig, Command>, cmd: CommandDetails ) {
+export function addCommandDetails12<Context, Config, CleanConfig> ( cc: ContextConfigAndCommander<Context, Config, CleanConfig, Command>, cmd: CommandDetails ) {
   let command = cc.commander.command ( cmd.cmd ).description ( cmd.description );
   for ( let [ k, v ] of Object.entries ( cmd.options ) ) {
     command = command.option ( k, v.description, v.default );
@@ -16,7 +16,7 @@ export function addCommandDetails12<Context, CleanConfig> ( cc: ContextConfigAnd
   command = command.action ( cmd.action );
   return { ...cc, command }
 }
-export function addCommands12<Context, CleanConfig> ( cc: ContextConfigAndCommander<Context, CleanConfig, Command>, cmds: ListOfCommandDetails<Context, CleanConfig> ) {
+export function addCommands12<Context, Config,  CleanConfig> ( cc: ContextConfigAndCommander<Context,  Config, CleanConfig, Command>, cmds: ListOfCommandDetails<Context, CleanConfig> ) {
   for ( let c of cmds ) {
     if ( typeof c === 'function' ) {
       cc = addCommandDetails12 ( cc, c ( cc.context, cc.config ) )
@@ -28,7 +28,7 @@ export function addCommands12<Context, CleanConfig> ( cc: ContextConfigAndComman
 }
 
 
-export function addSubCommand12<Context, CleanConfig> ( cc: ContextConfigAndCommander<Context, CleanConfig, Command>, cmd: SubCommandDetails<Context, CleanConfig> ) {
+export function addSubCommand12<Context,  Config, CleanConfig> ( cc: ContextConfigAndCommander<Context, Config,  CleanConfig, Command>, cmd: SubCommandDetails<Context, CleanConfig> ) {
   let commander = cc.commander.command ( cmd.cmd ).description ( cmd.description );
   return addCommands12 ( { ...cc, commander }, cmd.commands )
 }
@@ -41,10 +41,10 @@ export async function execute12 ( commander: Command, args: string[] ): Promise<
   return commander.parse ( args );
 
 }
-export function commander12Tc<Context extends HasNameAndVersion, CleanConfig> (): CliTc<Context, Command, CleanConfig> {
+export function commander12Tc<Context extends HasNameAndVersion, Config,  CleanConfig> (): CliTc<Context, Command, Config,  CleanConfig> {
   const createCommander: CreateCommanderFn<Context, Command, CleanConfig> = createCommander12Fn
-  const addCommand: AddSubCommandFn<Context, Command, CleanConfig> = addSubCommand12
-  const addCommandFn: AddCommandsFn<Context, Command, CleanConfig> = addCommands12
+  const addCommand: AddSubCommandFn<Context, Command,  Config, CleanConfig> = addSubCommand12
+  const addCommandFn: AddCommandsFn<Context, Command, Config,  CleanConfig> = addCommands12
   const execute: ExecuteFn<Command> = execute12
   return cliTc ( createCommander, addSubCommand12, addCommands12, execute )
 }
