@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { commander12Tc } from "@intellimaintain/commander12";
-import { cliContext, CliContext, CliTcFinder, defaultTo, fileConfig, fixedConfig, makeCli, notFoundError } from "@intellimaintain/cli";
+import { cliContext, CliContext, CliTc, CliTcFinder, defaultTo, fileConfig, fixedConfig, makeCli, notFoundError } from "@intellimaintain/cli";
 import { fileOpsNode } from "@laoban/filesops-node";
 import { Command } from "commander";
 import { CleanConfig, Config, configCommands } from "@intellimaintain/config";
@@ -17,7 +17,7 @@ export function findVersion () {
 }
 
 const context: CliContext = cliContext ( 'intellimaintain', findVersion (), fileOpsNode () )
-const cliTc = commander12Tc<CliContext, Config, CleanConfig> ()
+const cliTc: CliTc<CliContext, Command, Config, CleanConfig> = commander12Tc<CliContext, Config, CleanConfig> ()
 const configFinder: CliTcFinder<Config, CleanConfig> = fileConfig<CliContext, Config, CleanConfig> ( '.intellimaintain',
   ( c: any ) => c,
   defaultTo ( {}, 'NotFound' ) )
@@ -27,7 +27,7 @@ makeCli<CliContext, Command, Config, CleanConfig> ( context, configFinder, cliTc
     reportErrors ( commander )
     process.exit ( 1 )
   }
-  cliTc.addSubCommand ( commander, configCommands ( commander) )
+  cliTc.addSubCommand ( commander, configCommands ( commander ) )
   return await cliTc.execute ( commander.commander, context.args )
 } )
 

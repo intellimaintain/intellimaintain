@@ -1,0 +1,22 @@
+{
+  "template":    "react",
+  "name":        "@intellimaintain/react",
+  "description": "",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+      "@laoban/utils": "1.4.45",
+      "debug":         "^4.3.4"
+    },
+    "scripts":      {"start": "react-scripts start"}
+  },
+  "links":       [
+    "@intellimaintain/file-messaging"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

@@ -25,10 +25,9 @@
       "target": "jest.config.json"
     },
     {
-      "target":      "package.json",
-      "file":        "package.json",
-      "templated":   "${}",
-      "postProcess": "packageJson(@laoban@/templates/javascript/package.json)"
+      "target":    "package.json",
+      "file":      "package.json",
+      "templated": "${}"
     },
     {
       "file":   "tsconfig.json",
