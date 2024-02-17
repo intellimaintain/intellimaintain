@@ -1,12 +1,9 @@
 {
-  "name": "@intellimaintain/config",
-  "description": "The configuration for the Intellimaintain project",
+  "name": "@intellimaintain/commander12",
+  "description": "",
   "version": "0.0.3",
   "main": "dist/index",
   "types": "dist/index",
-  "browser": {
-    "child_process": false
-  },
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -20,8 +17,7 @@
     ]
   },
   "dependencies": {
-    "@laoban/utils": "1.4.45",
-    "@intellimaintain/utils": "0.0.3",
+    "commander": "^v12.0.0",
     "@intellimaintain/cli": "0.0.3",
     "debug": "^4.3.4"
   },

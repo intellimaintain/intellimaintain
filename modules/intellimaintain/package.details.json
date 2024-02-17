@@ -3,7 +3,11 @@
   "name":        "intellimaintain",
   "description": "",
   "packageJson": {
-    "dependencies":    {"node": "^v16.0.0"},
+    "dependencies":    {
+      "node":                  "^v16.0.0",
+      "@laoban/utils":         "1.4.45",
+      "@laoban/filesops-node": "1.4.45"
+    },
     "devDependencies": {},
     "bin":             {
       "intellimaintain": "dist/index.js"
@@ -12,7 +16,12 @@
       "child_process": false
     }
   },
-  "links":       ["@intellimaintain/utils", "@intellimaintain/file-messaging"],
+  "links":       [
+    "@intellimaintain/utils",
+    "@intellimaintain/file-messaging",
+    "@intellimaintain/config",
+    "@intellimaintain/commander12"
+  ],
   "guards":      {
     "compile": true,
     "publish": true,

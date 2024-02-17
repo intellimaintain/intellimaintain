@@ -1,0 +1,15 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/commander12",
+  "description": "",
+  "packageJson": {
+    "dependencies":    {"commander": "^v12.0.0"},
+    "devDependencies": {}
+  },
+  "links":       ["@intellimaintain/cli"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

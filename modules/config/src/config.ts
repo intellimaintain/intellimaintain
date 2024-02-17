@@ -1,3 +1,5 @@
-export interface Config{
+export interface Config {
 
 }
+
+export type CleanConfig = Required<Config>

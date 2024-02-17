@@ -9,7 +9,8 @@
   ],
   "properties":     {
     "license":    "MIT",
-    "repository": "git@github.com:run-book/runbook.git"
+    "repository": "git@github.com:run-book/runbook.git",
+    "laobanVersion": "1.4.40"
   },
   "templates":      {
     "javascript": "@laoban@/templates/javascript",
