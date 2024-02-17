@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { LensProps, setJsonForFlux } from "@focuson/state";
 import { TwoColumnLayout } from "./layouts/TwoColumnLayout";
 import { Typography } from "@mui/material";
-import { Conversation } from "./domain/messages";
-import { ChatInterface } from "./domain/message.component";
 import { WithTitle } from "./layouts/WithTitle";
+import { ChatInterface } from "./conversation/conversation.component";
+import { Conversation } from "./conversation/conversation";
+import { DI } from "./DI/DI";
 
 export type AppState = {
   conversation1: Conversation
@@ -29,11 +30,15 @@ if ( !rootElement ) throw new Error ( 'Failed to find the root element' );
 const root = ReactDOM.createRoot ( rootElement );
 
 const startAppState: AppState = {
-  conversation1: { chatter: 'Operator', responder: 'Wizard', chatResponses: [ { chat: 'q1', response: 'a1' },{ chat: 'q2', response: 'a2' } ] },
+  conversation1: { chatter: 'Operator', responder: 'Wizard', chatResponses: [ { chat: 'q1', response: 'a1' }, { chat: 'q2', response: 'a2' } ] },
   conversation2: { chatter: 'Wizard', responder: 'Operator', chatResponses: [ { chat: 'q3', response: 'a3' } ] },
 }
 
-let setJson = setJsonForFlux<AppState, void, any> ( 'counter', {}, s =>
+let context: DI = {
+  sendMessage: ( message: string ) => console.log ( 'send message', message ),
+  sendMail: ( message: string ) => console.log ( 'send mail', message )
+};
+let setJson = setJsonForFlux<AppState, void, DI> ( 'counter', context, s =>
   root.render ( <App state={s}/> ) );
 
 setJson ( startAppState )
