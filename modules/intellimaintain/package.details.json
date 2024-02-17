@@ -1,0 +1,21 @@
+{
+  "template":    "typescript",
+  "name":        "intellimaintain",
+  "description": "",
+  "packageJson": {
+    "dependencies":    {"node": "^v16.0.0"},
+    "devDependencies": {},
+    "bin":             {
+      "intellimaintain": "dist/index.js"
+    },
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       ["@intellimaintain/utils", "@intellimaintain/file-messaging"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

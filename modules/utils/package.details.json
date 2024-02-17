@@ -1,0 +1,18 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/utils",
+  "description": "The usual utility functions",
+  "packageJson": {
+    "dependencies":    {"node": "^v14.4.0"},
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       [],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

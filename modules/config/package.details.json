@@ -1,0 +1,18 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/config",
+  "description": "The configuration for the Intellimaintain project",
+  "packageJson": {
+    "dependencies":    {},
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       ["@intellimaintain/utils"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

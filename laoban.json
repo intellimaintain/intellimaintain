@@ -1,0 +1,78 @@
+{
+  "packageManager": "yarn",
+  "parents":        [
+    "@laoban@/laoban.json/core.laoban.json",
+    "@laoban@/laoban.json/javascript.laoban.json",
+    "@laoban@/laoban.json/typescript.laoban.json",
+    "@laoban@/laoban.json/typescript.publish.laoban.json",
+    "@laoban@/laoban.json/react.laoban.json"
+  ],
+  "properties":     {
+    "license":    "MIT",
+    "repository": "git@github.com:run-book/runbook.git"
+  },
+  "templates":      {
+    "javascript": "@laoban@/templates/javascript",
+    "typescript": "templates/typescript",
+    "react":      "templates/react"
+  },
+  "defaultEnv":     {
+    "NPM_TOKEN": ""
+  },
+  "scripts":        {
+    "ls-react":      {
+      "description": "Lists all the react projects",
+      "commands":    [
+        {
+          "guard":   "${packageDetails.guards.react}",
+          "command": "js:process.cwd()"
+        }
+      ]
+    },
+    "ls-playground": {
+      "description": "Lists all the playground projects",
+      "commands":    [
+        {
+          "guard":   "${packageDetails.guards.playground}",
+          "command": "js:process.cwd()+ '    '+ ${packageDetails.guards.playground}"
+        }
+      ]
+    },
+    "playground":    {
+      "description": "starts all the playground projects",
+      "commands":    [
+        {
+          "guard":   "${packageDetails.guards.playground}",
+          "command": "node dist/index.js ${packageDetails.guards.playground}"
+        }
+      ]
+    },
+    "build":         {
+      "description": "Packages the react projects",
+      "commands":    [
+        {
+          "guard":   "${packageDetails.guards.react}",
+          "command": "yarn run build"
+        }
+      ]
+    },
+    "ls-storybook":  {
+      "description": "Lists all the react projects",
+      "commands":    [
+        {
+          "guard":   "${packageDetails.guards.storybook}",
+          "command": "js:process.cwd() + ': ' + ${packageDetails.guards.storybook}"
+        }
+      ]
+    },
+    "storybook":     {
+      "description": "Starts storybook",
+      "commands":    [
+        {
+          "guard":   "${packageDetails.guards.storybook}",
+          "command": "yarn run storybook --port ${packageDetails.guards.storybook}"
+        }
+      ]
+    }
+  }
+}
