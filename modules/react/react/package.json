@@ -1,0 +1,73 @@
+{
+  "name": "@intellimaintain/react",
+  "description": "",
+  "version": "0.0.3",
+  "browserslist": {
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ]
+  },
+  "dependencies": {
+    "@laoban/utils": "1.4.45",
+    "@focuson/state": "1.44.1",
+    "debug": "^4.3.4",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.15.10",
+    "@intellimaintain/file-messaging": "0.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.23.3",
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "parcel": "^2.11.0",
+    "typescript": "^5.3.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
+  },
+  "files": [
+    "build/",
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/src/",
+    "build/"
+  ],
+  "keywords": [
+    "react",
+    "runbook"
+  ],
+  "license": "MIT",
+  "peerDependencies": {},
+  "repository": "git@github.com:run-book/runbook.git",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
+    "test": "jest --config jest.config.json",
+    "test:watch": "npm run test -- --watch",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  }
+}

@@ -9,6 +9,8 @@ build/
 .package.details.test.json
 .laoban.test.json
 
+.parcel-cache/
+
 node_modules/
 
 .idea/
