@@ -48,6 +48,7 @@ export function cliContext ( name: string, version: string, fileOps: FileOps ): 
 export type ContextConfigAndCommander<Context, Config, CleanConfig, Commander> = {
   context: Context
   config: CleanConfig
+  configFileName?: string
   cliConfigTc: CliConfigTC<Config, CleanConfig>
   commander: Commander
 }
@@ -79,6 +80,6 @@ export async function makeCli<Context extends CliContext, Commander, Config, Cle
                                                                                             configTc: CliTcFinder<Config, CleanConfig>,
                                                                                             cliTc: CliTc<Context, Commander, Config, CleanConfig> ): Promise<ErrorsAnd<ContextConfigAndCommander<Context,  Config,CleanConfig, Commander>>> {
   return mapErrors ( await loadConfig ( context.fileOps, configTc, context.currentDirectory ),
-    ( { config, cliConfigTc } ) =>
-      ({ context, config, cliConfigTc, commander: cliTc.createCommander ( context, config ) }) )
+    ( { config, cliConfigTc,configFileName } ) =>
+      ({ context, config, cliConfigTc, commander: cliTc.createCommander ( context, config ),configFileName }) )
 }

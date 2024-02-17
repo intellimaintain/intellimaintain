@@ -20,6 +20,7 @@
     "@intellimaintain/utils",
     "@intellimaintain/file-messaging",
     "@intellimaintain/config",
+    "@intellimaintain/cli",
     "@intellimaintain/commander12"
   ],
   "guards":      {

@@ -1,4 +1,4 @@
-import { AddCommandsFn, AddSubCommandFn, cliTc, CliTc, CommandDetails, ContextConfigAndCommander, CreateCommanderFn, ExecuteFn, HasNameAndVersion, ListOfCommandDetails, SubCommandDetails } from "@intellimaintain/cli";
+import { cliTc, CliTc, CommandDetails, ContextConfigAndCommander, ExecuteFn, HasNameAndVersion, ListOfCommandDetails, SubCommandDetails } from "@intellimaintain/cli";
 import { Command } from "commander";
 
 const { program } = require ( 'commander' );
@@ -16,7 +16,7 @@ export function addCommandDetails12<Context, Config, CleanConfig> ( cc: ContextC
   command = command.action ( cmd.action );
   return { ...cc, command }
 }
-export function addCommands12<Context, Config,  CleanConfig> ( cc: ContextConfigAndCommander<Context,  Config, CleanConfig, Command>, cmds: ListOfCommandDetails<Context, CleanConfig> ) {
+export function addCommands12<Context, Config, CleanConfig> ( cc: ContextConfigAndCommander<Context, Config, CleanConfig, Command>, cmds: ListOfCommandDetails<Context, CleanConfig> ) {
   for ( let c of cmds ) {
     if ( typeof c === 'function' ) {
       cc = addCommandDetails12 ( cc, c ( cc.context, cc.config ) )
@@ -28,7 +28,7 @@ export function addCommands12<Context, Config,  CleanConfig> ( cc: ContextConfig
 }
 
 
-export function addSubCommand12<Context,  Config, CleanConfig> ( cc: ContextConfigAndCommander<Context, Config,  CleanConfig, Command>, cmd: SubCommandDetails<Context, CleanConfig> ) {
+export function addSubCommand12<Context, Config, CleanConfig> ( cc: ContextConfigAndCommander<Context, Config, CleanConfig, Command>, cmd: SubCommandDetails<Context, CleanConfig> ) {
   let commander = cc.commander.command ( cmd.cmd ).description ( cmd.description );
   return addCommands12 ( { ...cc, commander }, cmd.commands )
 }
@@ -41,10 +41,6 @@ export async function execute12 ( commander: Command, args: string[] ): Promise<
   return commander.parse ( args );
 
 }
-export function commander12Tc<Context extends HasNameAndVersion, Config,  CleanConfig> (): CliTc<Context, Command, Config,  CleanConfig> {
-  const createCommander: CreateCommanderFn<Context, Command, CleanConfig> = createCommander12Fn
-  const addCommand: AddSubCommandFn<Context, Command,  Config, CleanConfig> = addSubCommand12
-  const addCommandFn: AddCommandsFn<Context, Command, Config,  CleanConfig> = addCommands12
-  const execute: ExecuteFn<Command> = execute12
-  return cliTc ( createCommander, addSubCommand12, addCommands12, execute )
+export function commander12Tc<Context extends HasNameAndVersion, Config, CleanConfig> (): CliTc<Context, Command, Config, CleanConfig> {
+  return cliTc ( createCommander12Fn, addSubCommand12, addCommands12, execute12 )
 }

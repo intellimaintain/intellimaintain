@@ -29,6 +29,7 @@
     "@intellimaintain/utils": "0.0.3",
     "@intellimaintain/file-messaging": "0.0.3",
     "@intellimaintain/config": "0.0.3",
+    "@intellimaintain/cli": "0.0.3",
     "@intellimaintain/commander12": "0.0.3",
     "debug": "^4.3.4"
   },
