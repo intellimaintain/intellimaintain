@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Chat, ChatState } from "./chat/chat";
-import { LensProps, lensState, setJsonForFlux } from "@focuson/state";
+import { LensProps, setJsonForFlux } from "@focuson/state";
 import { TwoColumnLayout } from "./layouts/TwoColumnLayout";
 import { Typography } from "@mui/material";
+import { Conversation } from "./domain/messages";
+import { ChatInterface } from "./domain/message.component";
+import { WithTitle } from "./layouts/WithTitle";
 
 export type AppState = {
-  chat1: ChatState
-  chat2: ChatState
+  conversation1: Conversation
+  conversation2: Conversation
 }
 export type AppProps<S> = LensProps<S, AppState, any>
 function App<S> ( { state }: AppProps<S> ) {
@@ -16,8 +18,8 @@ function App<S> ( { state }: AppProps<S> ) {
       Chat Bot Demo
     </Typography>
     <TwoColumnLayout>
-      <Chat title="Chat" state={state.focusOn ( 'chat1' )}/>
-      <Chat title="Chat" state={state.focusOn ( 'chat2' )}/>
+      <WithTitle title='Operator'><ChatInterface state={state.focusOn ( 'conversation1' )}/></WithTitle>
+      <WithTitle title='Wizard of Oz'><ChatInterface state={state.focusOn ( 'conversation2' )}/></WithTitle>
     </TwoColumnLayout>
   </div>
 }
@@ -27,8 +29,8 @@ if ( !rootElement ) throw new Error ( 'Failed to find the root element' );
 const root = ReactDOM.createRoot ( rootElement );
 
 const startAppState: AppState = {
-  chat1: { msg: [ 'msg1', 'msg2' ] },
-  chat2: { msg: [ 'msg3' ] }
+  conversation1: { chatter: 'Operator', responder: 'Wizard', chatResponses: [ { chat: 'q1', response: 'a1' },{ chat: 'q2', response: 'a2' } ] },
+  conversation2: { chatter: 'Wizard', responder: 'Operator', chatResponses: [ { chat: 'q3', response: 'a3' } ] },
 }
 
 let setJson = setJsonForFlux<AppState, void, any> ( 'counter', {}, s =>
