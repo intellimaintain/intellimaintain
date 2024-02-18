@@ -6,25 +6,20 @@ import { LensProps } from "@focuson/state";
 
 export function UserTypingBox<S, C extends HasSendMessage> ( { state }: LensProps<S, string, C> ) {
   const inputRef = useRef<HTMLTextAreaElement> ( null );
-  const sendMessage = () => {
+  function sendMessage () {
     if ( inputRef.current ) {
       const message = inputRef.current.value.trim ();
       state.context.sendMessage ( message )
       state.setJson ( '', 'sent message' )
       inputRef.current.value = '';
     }
-  };
-
-  const handleBlur = () => {
-    // When the textarea loses focus, update the state with its current value
-      console.log('message on blur')
-    if (inputRef.current) {
+  }
+  function handleBlur () {
+    if ( inputRef.current ) {
       const message = inputRef.current.value;
-      console.log('message on blur', message)
-      // state.setJson(message, 'chat changed'); // Update the application state with the new message
+      state.setJson ( message, 'chat changed' );
     }
-  };
-
+  }
   const handleKeyPress = ( event: React.KeyboardEvent<HTMLDivElement> ) => {
     if ( (event.ctrlKey || event.shiftKey) && event.key === 'Enter' ) {
       event.preventDefault (); // Prevent default to avoid adding a new line on Ctrl+Enter or Shift+Enter
@@ -32,7 +27,7 @@ export function UserTypingBox<S, C extends HasSendMessage> ( { state }: LensProp
     }
   };
 
-  console.log('render', state.optJson())
+  console.log ( 'render', state.optJson () )
   return (
     <div>
       <TextField
