@@ -25,5 +25,27 @@ our code doesn't know about the dependency. This makes it easier to swap out the
 We know nothing about where our code is going to be run. We want self service, so don't want any heavy weight solutions.
 The very simplest messaging just uses a shared file system. 
 
+# Why Material UI
+
+Why not... it's nice. It's easy and adequate for the task.
+
+# How to manage selection state
+
+In the react state. NOT via useState, but by the big json object that is the state which we pass down to the components.
+
+
+# How to do side effects like 'send message' 'do email'
+
+Modify the state and add the sideeffect to a list of side effects. Then in the main loop, process the side effects. Remove after side effects are processed.
+
+Why?
+
+* Separating 'what I want to do' from 'how I do it' is a good thing.
+* Easier to test. 
+* Easier to reason about. 
+* Easier to debug. 
+* Easier to understand.
+
+
 
 

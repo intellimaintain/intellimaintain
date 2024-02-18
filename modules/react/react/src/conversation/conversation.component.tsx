@@ -1,36 +1,31 @@
 import React from 'react';
-import { List, ListItem, Typography } from '@mui/material';
-import { LensProps } from "@focuson/state";
+import { Box, List, ListItem, Typography } from '@mui/material';
+import { LensProps2 } from "@focuson/state";
 import { Conversation } from "./conversation";
-import { HasSendMessage } from "../DI/DI";
+
 import { UserTypingBox } from "./userTypingBox";
+import { SideEffect } from "../sideeffects/sideeffects";
 
 
-export interface ChatProps<S, C extends HasSendMessage> extends LensProps<S, Conversation, C> {
+export interface ChatProps<S, C> extends LensProps2<S, Conversation, SideEffect[], C> {
 
 }
-export function DisplayConversation<S, C extends HasSendMessage> ( { state }: ChatProps<S, C> ) {
-  const conversation: Conversation = state.json ()
+export function DisplayConversation<S, C> ( { state }: ChatProps<S, C> ) {
+  const conversation: Conversation = state.json1 ()
   const { chatResponses, chatter, responder } = conversation
   return (
-    <>
+    <Box>
+      <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>
       <List>
-        {chatResponses.map ( ( pair, index ) => (
-          <React.Fragment key={index}>
-            <ListItem>
-              <Typography variant="subtitle1" color="textSecondary">
-                {chatter}: {pair.chat}
-              </Typography>
-            </ListItem>
-            <ListItem>
-              <Typography variant="subtitle1">
-                {responder}: {pair.response}
-              </Typography>
-            </ListItem>
-          </React.Fragment>
+        {chatResponses.map ( ( message, index ) => (
+          <ListItem key={index}>
+            <Typography variant="subtitle1" color="textSecondary">
+              {message.from}: {message.message}
+            </Typography>
+          </ListItem>
         ) )}
       </List>
-      <UserTypingBox state={state.focusOn ( 'message' )}/>
-    </>
+      <UserTypingBox state={state.focus1On ( 'message' )}/>
+    </Box>
   );
 };

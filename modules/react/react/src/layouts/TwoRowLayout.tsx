@@ -11,7 +11,7 @@ export function TwoRowLayout<S>({ state,children }: TwoRowLayoutProps<S>) {
   const [topChild, bottomChild] = children
   const topHeight=state.optJson()|| '30%'
   return (
-    <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxSizing: 'border-box' }}>
       <Box sx={{ height: topHeight, overflow: 'auto', boxSizing: 'border-box' }}>
         {topChild}
       </Box>

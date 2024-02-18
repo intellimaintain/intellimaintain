@@ -1,23 +1,26 @@
 import React, { useRef } from 'react';
-import { TextField, IconButton } from '@mui/material';
+import { Box, IconButton, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import { HasSendMessage } from "../DI/DI";
-import { LensProps } from "@focuson/state";
 
-export function UserTypingBox<S, C extends HasSendMessage> ( { state }: LensProps<S, string, C> ) {
+import { LensProps2 } from "@focuson/state";
+import { SideEffect } from "../sideeffects/sideeffects";
+
+export function UserTypingBox<S, C> ( { state }: LensProps2<S, string, SideEffect[], C> ) {
   const inputRef = useRef<HTMLTextAreaElement> ( null );
   function sendMessage () {
     if ( inputRef.current ) {
       const message = inputRef.current.value.trim ();
-      state.context.sendMessage ( message )
-      state.setJson ( '', 'sent message' )
+      state.transformJson (
+        msg => '',
+        old => [ ...(old || []), { command: 'sendMessage', message } ],
+        'sent message' );
       inputRef.current.value = '';
     }
   }
   function handleBlur () {
     if ( inputRef.current ) {
       const message = inputRef.current.value;
-      state.setJson ( message, 'chat changed' );
+      state.state1 ().setJson ( message, 'chat changed' );
     }
   }
   const handleKeyPress = ( event: React.KeyboardEvent<HTMLDivElement> ) => {
@@ -27,9 +30,12 @@ export function UserTypingBox<S, C extends HasSendMessage> ( { state }: LensProp
     }
   };
 
-  console.log ( 'render', state.optJson () )
   return (
-    <div>
+    <Box sx={{
+      display: 'flex', // Enables flex container
+      alignItems: 'center', // Vertically centers the items
+      gap: 1, // Adds a gap between items
+    }}>
       <TextField
         multiline
         variant="outlined"
@@ -37,12 +43,12 @@ export function UserTypingBox<S, C extends HasSendMessage> ( { state }: LensProp
         inputRef={inputRef} // Use ref to access the input for sending message
         onKeyDown={handleKeyPress}
         onBlur={handleBlur}
-        defaultValue={state.optJson () || ''}
+        defaultValue={state.optJson1 () || ''}
         fullWidth
       />
       <IconButton color="primary" onClick={sendMessage}>
         <SendIcon/>
       </IconButton>
-    </div>
+    </Box>
   );
 }

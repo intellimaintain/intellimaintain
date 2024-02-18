@@ -1,13 +1,12 @@
-export type BaseMessage = string
-
-
-export interface ChatResponsePair {
-  chat: BaseMessage;
-  response: BaseMessage;
+export type Message={
+  from: string
+  message: string
 }
 
+
+
 export type Conversation = {
-  chatResponses: ChatResponsePair[]
+  chatResponses: Message[]
   message?: string
   chatter: string
   responder: string

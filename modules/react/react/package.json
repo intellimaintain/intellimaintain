@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@laoban/utils": "1.4.45",
+    "@focuson/lens": "1.44.1",
     "@focuson/state": "1.44.1",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",
