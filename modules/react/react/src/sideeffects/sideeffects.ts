@@ -27,9 +27,9 @@ export const sendMessageSideeffectProcessor: ISideEffectProcessor<SendMessageSid
   }
 }
 
-export const processSideEffect = ( processors: ISideEffectProcessor<BaseSideeffect, any>[] ): ISideEffectProcessor<BaseSideeffect, any> => ({
+export const processSideEffect = ( processors: ISideEffectProcessor<SideEffect, any>[] ): ISideEffectProcessor<SideEffect, any> => ({
   accept: ( s: BaseSideeffect ): s is any => processors.find ( sp => sp.accept ( s ) ) !== undefined,
-  process: async ( sideeffect: BaseSideeffect ): Promise<ErrorsAnd<any>> => {
+  process: async ( sideeffect: SideEffect ): Promise<ErrorsAnd<any>> => {
     for ( const p of processors )
       if ( p.accept ( sideeffect ) )
         return await p.process ( sideeffect )

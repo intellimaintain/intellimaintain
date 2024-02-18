@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { LensProps, setJsonForFlux } from "@focuson/state";
+import { LensProps, lensState } from "@focuson/state";
 import { TwoColumnLayout } from "./layouts/TwoColumnLayout";
 import { Box, ThemeProvider } from "@mui/material";
 import { DI } from "./DI/DI";
@@ -8,6 +8,10 @@ import { blankChatState, DemoChatState } from "./state/FullState";
 import { theme } from "./Themes/theme";
 import { WithTitle } from './layouts/WithTitle';
 import { DisplayGui } from "./gui/gui";
+import { addStateContainerListener, addStateContainerModifier, setJsonForContainer, stateContainer } from "./state/state.container";
+import { processSideEffectsInState } from "./state/state2Sideeffects";
+import { Lenses } from "@focuson/lens";
+import { ISideEffectProcessor, processSideEffect, sendMessageSideeffectProcessor, SideEffect } from "./sideeffects/sideeffects";
 
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
@@ -27,7 +31,7 @@ const rootElement = document.getElementById ( 'root' );
 if ( !rootElement ) throw new Error ( 'Failed to find the root element' );
 const root = ReactDOM.createRoot ( rootElement );
 
-let ticket = { number: 'Ticket PA123', description: 'Delete project P-6666}' };
+let ticket = { number: 'Ticket PA123', description: 'Delete project P-6666' };
 let ka = {
   title: 'Delete Project', body: `1
   2
@@ -43,8 +47,7 @@ let ka = {
      12`
 };
 const startAppState: DemoChatState = {
-  chatState1: blankChatState ( 'Operator', 'Wizard', ka, ticket
-  ),
+  chatState1: blankChatState ( 'Operator', 'Wizard', ka, ticket ),
   chatState2: blankChatState ( 'Wizard', 'Operator', ka, ticket )
 }
 
@@ -52,7 +55,29 @@ let context: DI = {
   sendMessage: ( message: string ) => console.log ( 'send message', message ),
   sendMail: ( message: string ) => console.log ( 'send mail', message )
 };
-let setJson = setJsonForFlux<DemoChatState, void, DI> ( 'counter', context, s =>
-  root.render ( <App state={s}/> ) );
+
+const container = stateContainer<DemoChatState> (  )
+const setJson = setJsonForContainer ( container );
+
+addStateContainerListener ( container, (( s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
+
+const idL = Lenses.identity<DemoChatState> ()
+const chatState1L = idL.focusOn ( 'chatState1' )
+const sideEffects1L = chatState1L.focusOn ( 'sideeffects' )
+const logs1L = chatState1L.focusOn ( 'log' )
+const chatState2L = idL.focusOn ( 'chatState2' )
+const sideEffects2L = chatState2L.focusOn ( 'sideeffects' )
+const logs2L = chatState2L.focusOn ( 'log' )
+
+//
+// addStateContainerModifier(container, async s => {
+//   console.log('testing when returning same S', s)
+//   return s
+// })
+addStateContainerModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
+  [ sendMessageSideeffectProcessor ] ), sideEffects1L, logs1L ) )
+addStateContainerModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
+  [ sendMessageSideeffectProcessor ] ), sideEffects2L, logs2L ) )
+
 
 setJson ( startAppState )
