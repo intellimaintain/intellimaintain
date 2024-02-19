@@ -18,7 +18,8 @@
   },
   "links":       [
     "@intellimaintain/events",
-    "@intellimaintain/eventstore"
+    "@intellimaintain/eventstore",
+    "@intellimaintain/apiclienteventstore"
   ],
   "guards":      {
     "compile": true,

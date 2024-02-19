@@ -756,6 +756,13 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@koa/cors@^5.0.0":
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/@koa/cors/-/cors-5.0.0.tgz#0029b5f057fa0d0ae0e37dd2c89ece315a0daffd"
+  integrity sha512-x/iUDjcS90W69PryLDIMgFyV21YLTnG9zOpPXS7Bkt2b8AsY3zZsIpOLBkYr9fBcF3HbkKaER5hOBZLfpLgYNw==
+  dependencies:
+    vary "^1.1.2"
+
 "@laoban/debug@1.4.45":
   version "1.4.45"
   resolved "https://registry.yarnpkg.com/@laoban/debug/-/debug-1.4.45.tgz#59531e331150475748c550c9f717354e229d4375"
@@ -1654,12 +1661,13 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@runbook/koa@0.3.13":
-  version "0.3.13"
-  resolved "https://registry.yarnpkg.com/@runbook/koa/-/koa-0.3.13.tgz#ddf506739bc6cd3d840ea7de338ccc082155a299"
-  integrity sha512-BUKJJOQ0ROcWyhvmG3N0HejJZ5wwI+v4KrWRRRgIsorgpzbJEAyjhN7xLS8KbZYvj4irRT105WiYR+VgQBx3bw==
+"@runbook/koa@0.3.14":
+  version "0.3.14"
+  resolved "https://registry.yarnpkg.com/@runbook/koa/-/koa-0.3.14.tgz#ba0edc0ed4cffbb8b064d83ae5ef9097ec939672"
+  integrity sha512-VMzbeM0XcUt9vcYf/fFICcz684ICPTk062mrRuVXc6NeGhsnfiCITAKMnTwf+JpyeEnbjTwVrFKvEEjEIZEQog==
   dependencies:
-    "@runbook/utils" "0.3.13"
+    "@koa/cors" "^5.0.0"
+    "@runbook/utils" "0.3.14"
     debug "^4.3.4"
     koa "^2.14.2"
     koa-bodyparser "^4.4.0"
@@ -1672,10 +1680,10 @@
     node-fetch "^3.3.1"
     proxy-agent "^6.1.2"
 
-"@runbook/utils@0.3.13":
-  version "0.3.13"
-  resolved "https://registry.yarnpkg.com/@runbook/utils/-/utils-0.3.13.tgz#ba616d4487f2d1c667ae4df1e26e24a4cf33a91a"
-  integrity sha512-zt1979nTejqVMzAozWMGoROeu7tUyuEzsjBB5WGi22n5HvDrD6t5PRObDqNULIhxSUIGLlzJkoCojiauZt6ogg==
+"@runbook/utils@0.3.14":
+  version "0.3.14"
+  resolved "https://registry.yarnpkg.com/@runbook/utils/-/utils-0.3.14.tgz#b72a1d910851f5eccef1d718f1780fe622bc3e9f"
+  integrity sha512-ceP7wkSzojZWa4ahxnPPLt1wvAf+LWXTpLBFHFguOvuBMWGgZnhgrV5lbxNq3sN5YqBKnqF5R7z8oYBHG8h1cw==
   dependencies:
     debug "^4.3.4"
 

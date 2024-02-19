@@ -11,7 +11,8 @@ import { DisplayGui } from "./gui/gui";
 import { processSideEffectsInState } from "./state/state2Sideeffects";
 import { Lenses } from "@focuson/lens";
 import { processSideEffect, sendMessageSideeffectProcessor } from "./sideeffects/sideeffects";
-import { addEventStoreListener, addEventStoreModifier, eventStore, setEventStoreValue } from "@intellimaintain/eventstore";
+import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling } from "@intellimaintain/eventstore";
+import { apiLoading, ApiLoading, apiLoadingFromBrowser } from "@intellimaintain/apiclienteventstore";
 
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
@@ -56,10 +57,10 @@ let context: DI = {
   sendMail: ( message: string ) => console.log ( 'send mail', message )
 };
 
-const container = eventStore<DemoChatState> (  )
+const container = eventStore<DemoChatState> ()
 const setJson = setEventStoreValue ( container );
 
-addEventStoreListener( container, ((oldS,  s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
+addEventStoreListener ( container, (( oldS, s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
 
 const idL = Lenses.identity<DemoChatState> ()
 const chatState1L = idL.focusOn ( 'chatState1' )
@@ -69,11 +70,12 @@ const chatState2L = idL.focusOn ( 'chatState2' )
 const sideEffects2L = chatState2L.focusOn ( 'sideeffects' )
 const logs2L = chatState2L.focusOn ( 'log' )
 
-//
-// addStateContainerModifier(container, async s => {
-//   console.log('testing when returning same S', s)
-//   return s
-// })
+const pollingDetails = polling ( 1000, async s => {
+  console.log ( 'polling', s )
+} )
+const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
+startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
+
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
   [ sendMessageSideeffectProcessor ] ), sideEffects1L, logs1L ) )
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (

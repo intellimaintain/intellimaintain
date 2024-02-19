@@ -20,8 +20,8 @@
     ]
   },
   "dependencies": {
-    "@runbook/koa": "0.3.13",
-    "@runbook/utils": "0.3.13",
+    "@runbook/koa": "0.3.14",
+    "@runbook/utils": "0.3.14",
     "@intellimaintain/utils": "0.0.5",
     "@intellimaintain/cli": "0.0.5",
     "@intellimaintain/fileeventstore": "0.0.5",

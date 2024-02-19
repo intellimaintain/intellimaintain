@@ -9,3 +9,4 @@ Hi
 { "event": "append", "path": "p.q.r.s", "value": 5, "context": {}}
 { "event": "append", "path": "p.q.r.s", "value": 6, "context": {}}
 { "event": "d", "path": "p.q.r.s", "value": 7, "context": {}}
+{ "event": "append", "path": "p.q.r.s", "value": 7, "context": {}}

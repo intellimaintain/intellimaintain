@@ -4,8 +4,8 @@
   "description": "The api that supports the Wizard of Oz",
   "packageJson": {
     "dependencies":    {
-      "@runbook/koa":   "0.3.13",
-      "@runbook/utils": "0.3.13"
+      "@runbook/koa":   "0.3.14",
+      "@runbook/utils": "0.3.14"
     },
     "devDependencies": {},
     "browser":         {

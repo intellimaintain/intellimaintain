@@ -20,9 +20,14 @@ export function polling (
 async function poll ( details: PollingDetails, getString: ( start: number ) => Promise<ResultAndNewStart>, ) {
   if ( details.debug ) console.log ( 'polling', details )
   if ( !details.polling ) return; // Exit if polling has been stopped
-  const { newStart, result } = await getString ( details.start )
-  if ( result.length > 0 ) await details.pollingCallback ( result );
-  setTimeout ( () => poll ( { ...details, start: newStart }, getString ), details.pollingInterval );
+  try {
+    const { newStart, result } = await getString ( details.start )
+    if ( result.length > 0 ) await details.pollingCallback ( result );
+    setTimeout ( () => poll ( { ...details, start: newStart }, getString ), details.pollingInterval );
+  } catch ( e ) {
+    console.error ( e )
+    setTimeout ( () => poll ( details, getString ), details.pollingInterval );
+  }
 }
 
 export function startPolling ( details: PollingDetails, getString: ( start: number ) => Promise<ResultAndNewStart> ) {

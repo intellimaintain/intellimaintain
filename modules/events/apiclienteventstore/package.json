@@ -1,7 +1,12 @@
 {
-  "name": "@intellimaintain/react",
-  "description": "",
+  "name": "@intellimaintain/apiclienteventstore",
+  "description": "A event source library for a browser backed with a call to an api",
   "version": "0.0.5",
+  "main": "dist/index",
+  "types": "dist/index",
+  "browser": {
+    "child_process": false
+  },
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -17,24 +22,18 @@
   "dependencies": {
     "@laoban/utils": "1.4.45",
     "@focuson/lens": "1.44.1",
-    "@focuson/state": "1.44.1",
-    "debug": "^4.3.4",
-    "@emotion/react": "^11.11.3",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.15.10",
-    "@mui/icons-material": "^5.15.10",
+    "@intellimaintain/utils": "0.0.5",
     "@intellimaintain/events": "0.0.5",
     "@intellimaintain/eventstore": "0.0.5",
-    "@intellimaintain/apiclienteventstore": "0.0.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "debug": "^4.3.4"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.23.3",
-    "@types/react": "^18.2.56",
-    "@types/react-dom": "^18.2.19",
-    "parcel": "^2.11.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.2.2",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@types/jest": "^29.0.0",
+    "@types/node": "^14.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0"
   },
   "eslintConfig": {
     "extends": [
@@ -53,25 +52,17 @@
     ]
   },
   "files": [
-    "build/",
     "dist/index.js",
     "dist/index.d.ts",
-    "dist/src/",
-    "build/"
+    "dist/src/"
   ],
   "keywords": [
-    "react",
     "runbook"
   ],
   "license": "MIT",
-  "peerDependencies": {},
   "repository": "git@github.com:run-book/runbook.git",
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html",
-    "test": "jest --config jest.config.json",
-    "test:watch": "npm run test -- --watch",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "test": "jest --config jest.config.json --env node",
+    "test:watch": "npm run test -- --watch"
   }
 }
