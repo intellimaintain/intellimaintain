@@ -1,0 +1,22 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/events",
+  "description": "The events that will go in our event store",
+  "packageJson": {
+    "dependencies":    {
+      "node":          "^v14.4.0",
+      "@laoban/utils": "1.4.45",
+      "@focuson/lens": "1.44.1"
+    },
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       ["@intellimaintain/utils"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

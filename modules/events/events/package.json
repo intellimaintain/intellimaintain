@@ -1,6 +1,6 @@
 {
-  "name": "@intellimaintain/file-messaging",
-  "description": "Implements messaging using the file system",
+  "name": "@intellimaintain/events",
+  "description": "The events that will go in our event store",
   "version": "0.0.3",
   "main": "dist/index",
   "types": "dist/index",
@@ -20,9 +20,10 @@
     ]
   },
   "dependencies": {
-    "node": "^v16.0.0",
+    "node": "^v14.4.0",
     "@laoban/utils": "1.4.45",
-    "@intellimaintain/messaging": "0.0.3",
+    "@focuson/lens": "1.44.1",
+    "@intellimaintain/utils": "0.0.3",
     "debug": "^4.3.4"
   },
   "devDependencies": {
