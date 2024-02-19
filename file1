@@ -1,6 +1,11 @@
 Hi
 { "a": 1}
-{"event":"append","path":"chatState1.conversation.messages","value":{"message":"12","from":"Operator","to":"Wizard"},"context":{}}
-{"event":"append","path":"chatState2.conversation.messages","value":{"message":"123","from":"Wizard","to":"Operator"},"context":{}}
-{"event":"append","path":"chatState1.conversation.messages","value":{"message":"123","from":"Operator","to":"Wizard"},"context":{}}
-{"event":"append","path":"chatState2.conversation.messages","value":{"message":"df","from":"Wizard","to":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"one","from":"Operator","to":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"two","from":"Wizard","to":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"three","from":"Operator","to":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"four","from":"Wizard","to":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"five","from":"Operator","to":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"six","from":"Wizard","to":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Me","from":"Operator","to":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"I think we have a chat going","from":"Operator","to":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Send me a message","from":"Wizard","to":"Operator"},"context":{}}

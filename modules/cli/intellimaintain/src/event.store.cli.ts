@@ -38,7 +38,7 @@ export function eventStoreCommands<Commander, Context, Config> (): SubCommandDet
           console.log ( `Listening to ${file} ${JSON.stringify ( opts )}` )
           const store = eventStore<any> ( opts.debug === true )
           // addEventStoreListener( store, ( s, setJson ) => console.log ( s )  )
-          const sep = defaultEventProcessor ( {}, NoIdStore )
+          const sep = defaultEventProcessor ( 'start.', {}, NoIdStore )
           const fl = fileLoading ( file )
           const pollingDetails = polling ( parseInt ( opts.poll.toString () ), async s => {
             const events = await stringToEvents ( { file }, s )

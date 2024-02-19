@@ -22,7 +22,7 @@ describe ( "pathToLens", () => {
   } )
 } )
 
-const eventProcessor: EventProcessor<Data> = defaultEventProcessor<Data> ( {} as Data, async ( id: string ) => ({ id: id }) )
+const eventProcessor: EventProcessor<Data> = defaultEventProcessor<Data> ( '',{} as Data, async ( id: string ) => ({ id: id }) )
 let context: EventContext = { some: "metadata" };
 describe ( "eventProcessors", () => {
   describe ( "zeroEventProcessor", () => {

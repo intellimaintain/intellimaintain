@@ -60,7 +60,8 @@ let context: DI = {
 
 const container = eventStore<DemoChatState> ()
 const setJson = setEventStoreValue ( container );
-const sep = defaultEventProcessor<DemoChatState> ( startAppState, NoIdStore )
+const sep1 = defaultEventProcessor<DemoChatState> ( 'chatState1.', startAppState, NoIdStore )
+const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState, NoIdStore )
 
 addEventStoreListener ( container, (( oldS, s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
 
@@ -75,11 +76,14 @@ const logs2L = chatState2L.focusOn ( 'log' )
 const pollingDetails = polling ( 1000, async s => {
   console.log ( 'polling', typeof s, s )
   const events = stringToEvents ( {}, s );
-  console.log('events',events)
-  const { state, errors } = await processEvents ( sep, container.state, events )
-  console.log('errors',errors)
-  console.log('state',state)
-  if (state)
+  console.log ( 'events', events )
+  const { state: state1, errors: errors1 } = await processEvents ( sep1, container.state, events )
+  const { state: state2, errors: errors2 } = await processEvents ( sep2, state1 || container.state, events )
+  const errors = [ ...errors1, ...errors2 ]
+  console.log ( 'errors', errors )
+  const state = state2 || state1 || container.state
+  console.log ( 'state', state )
+  if ( state )
     setJson ( state )
 } )
 const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
@@ -87,9 +91,9 @@ const saveDetails: MessageSave = messageSaving ( "http://localhost:1235/file1" )
 startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
 
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
-  [ sendMessageSideeffectProcessor ( saveDetails, 'chatState1.conversation.messages' ) ] ), sideEffects1L, logs1L ) )
+  [ sendMessageSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects1L, logs1L ) )
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
-  [ sendMessageSideeffectProcessor ( saveDetails, 'chatState2.conversation.messages' ) ] ), sideEffects2L, logs2L ) )
+  [ sendMessageSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects2L, logs2L ) )
 
 
 setJson ( startAppState )
