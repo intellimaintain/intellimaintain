@@ -1,16 +1,17 @@
 import { SubCommandDetails } from "@intellimaintain/cli";
 
 
-export function fileMessagingCommands<Context, Config> (): SubCommandDetails<Context, Config> {
+export function fileMessagingCommands<Commander,Context, Config> (): SubCommandDetails<Commander,Context, Config> {
   return {
     cmd: 'messaging',
     description: 'File messaging commands',
     commands: [
       {
-        cmd: 'listen [file]', description: 'Listen for messages',
+        cmd: 'listen <file>', description: 'Listen for messages',
         options: { "-p,--poll": { name: "---poll <poll>", description: "Polling interval", default: "1000" } },
-        action: () => {
-          console.log ( `listen` )
+        action: ( commander, opts, args ) => {
+          console.log ( `listen - opts`, opts )
+          console.log ( `listen - args`, args )
         }
       },
     ]

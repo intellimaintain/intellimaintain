@@ -17,19 +17,18 @@ export function findVersion () {
 }
 
 const context: CliContext = cliContext ( 'intellimaintain', findVersion (), fileOpsNode () )
-const cliTc: CliTc<CliContext, Commander12, Config, CleanConfig> = commander12Tc<CliContext, Config, CleanConfig> ()
+const cliTc: CliTc<Commander12,CliContext,  Config, CleanConfig> = commander12Tc<CliContext, Config, CleanConfig> ()
 const configFinder: CliTcFinder<Config, CleanConfig> = fileConfig<CliContext, Config, CleanConfig> ( '.intellimaintain',
   ( c: any ) => c,
   defaultTo ( {}, 'NotFound' ) )
 
-makeCli<CliContext, Commander12, Config, CleanConfig> ( context, configFinder, cliTc ).then ( async ( commander ) => {
+makeCli<Commander12,CliContext,  Config, CleanConfig> ( context, configFinder, cliTc ).then ( async ( commander ) => {
   if ( hasErrors ( commander ) ) {
     reportErrors ( commander )
     process.exit ( 1 )
   }
   cliTc.addSubCommand ( commander, configCommands ( commander ) )
-  cliTc.addSubCommand ( commander, fileMessagingCommands<CliContext, CleanConfig> () )
-  cliTc.addSubCommand ( commander, fileMessagingCommands<CliContext, CleanConfig> () )
+  cliTc.addSubCommand ( commander, fileMessagingCommands<Commander12,CliContext, CleanConfig> () )
   return await cliTc.execute ( commander.commander, context.args )
 } )
 

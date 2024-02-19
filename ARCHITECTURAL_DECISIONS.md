@@ -16,9 +16,14 @@ is made much easier if we can work with multipe npm packages
 instead of just one. Many design decisions are made easier: such as dependency management.
 
 # Never use a dependency directly
+
 This can be broken when it makes sense. For example the commander cli. But where possible we 
 will wrap the dependency with an interface or typeclass that we control. Thus 90% of 
 our code doesn't know about the dependency. This makes it easier to swap out the dependency.
+
+Even the Commander CLI is wrapped in a typeclass. This allows us to upgrade version fairly easily. Note
+we are natively using the command cli 'language' for options and the command line (that is very  stable between version).
+It would be possible to remove ourselves from that if we wanted to... but it's not worth it.
 
 # Use the file system for messaging
 

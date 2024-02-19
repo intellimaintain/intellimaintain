@@ -1,7 +1,7 @@
-import { CliConfigTC, CommandDetails, CommandFn, ContextConfigAndCommander, SubCommandDetails } from "@intellimaintain/cli";
+import { CommandDetails, ContextConfigAndCommander, SubCommandDetails } from "@intellimaintain/cli";
 
 
-export function viewConfigCommand<Context, Config, CleanConfig, Commander> ( tc: ContextConfigAndCommander<Context, Config, CleanConfig, Commander> ): CommandDetails {
+export function viewConfigCommand<Commander,Context, Config, CleanConfig> ( tc: ContextConfigAndCommander<Commander,Context, Config, CleanConfig> ): CommandDetails<Commander> {
   return {
     cmd: 'view',
     description: 'View the current configuration',
@@ -12,10 +12,10 @@ export function viewConfigCommand<Context, Config, CleanConfig, Commander> ( tc:
     }
   }
 }
-export function configCommands<Config, Commander, CleanConfig, Context> ( tc: ContextConfigAndCommander<Context, Config, CleanConfig, Commander> ): SubCommandDetails<Config, Context> {
+export function configCommands<Commander,Config,  CleanConfig, Context> ( tc: ContextConfigAndCommander<Commander,Context, Config, CleanConfig> ): SubCommandDetails<Commander,Config, Context> {
   return {
     cmd: 'config',
     description: 'Config commands',
-    commands: [ viewConfigCommand<Context, Config, CleanConfig, Commander> ( tc ) ]
+    commands: [ viewConfigCommand<Commander,Context, Config, CleanConfig> ( tc ) ]
   }
 }

@@ -5,26 +5,26 @@ import { ErrorsAnd, mapErrors, NameAnd } from "@laoban/utils";
 import { FileOps } from "@laoban/fileops";
 import { CliConfigTC, CliTcFinder, loadConfig } from "./cliconfig";
 
-export type ActionFn = ( ...args: any[] ) => void | Promise<void>
+export type ActionFn<Commander> = ( commander: Commander, opts: NameAnd<string | boolean>, ...args: any[] ) => void | Promise<void>
 export interface Option {
   name: string
   description?: string
   default?: string
 }
-export interface CommandDetails {
+export interface CommandDetails<Commander> {
   cmd: string
   description: string
   options: NameAnd<Option>
-  action: ActionFn
+  action: ActionFn<Commander>
 }
-export type CommandFn<Context, Config> = ( context: Context, config: Config ) => CommandDetails
+export type CommandFn<Commander, Context, Config> = ( context: Context, config: Config ) => CommandDetails<Commander>
 
-export type ListOfCommandDetails<Context, Config> = (CommandDetails | CommandFn<Context, Config>)[]
+export type ListOfCommandDetails<Commander, Context, Config> = (CommandDetails<Commander> | CommandFn<Commander, Context, Config>)[]
 
-export interface SubCommandDetails<Context, Config> {
+export interface SubCommandDetails<Commander, Context, Config> {
   cmd: string
   description: string
-  commands: ListOfCommandDetails<Context, Config>
+  commands: ListOfCommandDetails<Commander, Context, Config>
 
 }
 
@@ -45,7 +45,7 @@ export function cliContext ( name: string, version: string, fileOps: FileOps ): 
   return { name, version, currentDirectory: process.cwd (), env: process.env, fileOps, args: process.argv }
 }
 
-export type ContextConfigAndCommander<Context, Config, CleanConfig, Commander> = {
+export type ContextConfigAndCommander<Commander, Context, Config, CleanConfig> = {
   context: Context
   config: CleanConfig
   configFileName?: string
@@ -53,33 +53,33 @@ export type ContextConfigAndCommander<Context, Config, CleanConfig, Commander> =
   commander: Commander
 }
 
-export type CreateCommanderFn<Context, Commander, CleanConfig> = ( context: Context, config: CleanConfig ) => Commander
-export type AddSubCommandFn<Context, Commander, Config,CleanConfig> = ( cc: ContextConfigAndCommander<Context,  Config,CleanConfig, Commander>, cmd: SubCommandDetails<Context, CleanConfig> ) => ContextConfigAndCommander<Context, Config, CleanConfig, Commander>
-export type AddCommandsFn<Context, Commander, Config, CleanConfig> = ( commander: ContextConfigAndCommander<Context, Config, CleanConfig, Commander>, cmd: ListOfCommandDetails<Context, CleanConfig> ) => ContextConfigAndCommander<Context, Config, CleanConfig, Commander>
+export type CreateCommanderFn<Commander, Context, CleanConfig> = ( context: Context, config: CleanConfig ) => Commander
+export type AddSubCommandFn<Commander, Context, Config, CleanConfig> = ( cc: ContextConfigAndCommander<Commander, Context, Config, CleanConfig>, cmd: SubCommandDetails<Commander, Context, CleanConfig> ) => ContextConfigAndCommander<Commander,Context, Config, CleanConfig>
+export type AddCommandsFn<Commander, Context, Config, CleanConfig> = ( commander: ContextConfigAndCommander<Commander, Context, Config, CleanConfig>, cmd: ListOfCommandDetails<Commander, Context, CleanConfig> ) => ContextConfigAndCommander<Commander,Context, Config, CleanConfig>
 export type ExecuteFn<Commander> = ( commander: Commander, args: string[] ) => Promise<Commander>
 
-export type CliTc<Context, Commander, Config, CleanConfig> = {
-  createCommander: CreateCommanderFn<Context, Commander, CleanConfig>
+export type CliTc<Commander, Context, Config, CleanConfig> = {
+  createCommander: CreateCommanderFn<Commander, Context, CleanConfig>
   /** This is used to add a subcommand to a commander. The sub command will have commands coming off it*/
-  addSubCommand: AddSubCommandFn<Context, Commander, Config, CleanConfig>
+  addSubCommand: AddSubCommandFn<Commander, Context, Config, CleanConfig>
   /** Adds an actual command that will do something */
-  addCommands: AddCommandsFn<Context, Commander, Config, CleanConfig>
+  addCommands: AddCommandsFn<Commander, Context, Config, CleanConfig>
   /** Adds an actual command that will do something. This is for when the command needs to be dynamically created based on context or config */
   execute: ExecuteFn<Commander>
 }
 
-export function cliTc<Context, Commander, Config, CleanConfig> ( createCommander: CreateCommanderFn<Context, Commander, CleanConfig>,
-                                                         addSubCommand: AddSubCommandFn<Context, Commander, Config, CleanConfig>,
-                                                         addCommands: AddCommandsFn<Context, Commander, Config, CleanConfig>,
-                                                         execute: ExecuteFn<Commander> ): CliTc<Context, Commander, Config, CleanConfig> {
+export function cliTc<Commander, Context, Config, CleanConfig> ( createCommander: CreateCommanderFn<Commander, Context, CleanConfig>,
+                                                                 addSubCommand: AddSubCommandFn<Commander, Context, Config, CleanConfig>,
+                                                                 addCommands: AddCommandsFn<Commander, Context, Config, CleanConfig>,
+                                                                 execute: ExecuteFn<Commander> ): CliTc<Commander, Context, Config, CleanConfig> {
 
   return { createCommander, addSubCommand, addCommands, execute }
 }
 
-export async function makeCli<Context extends CliContext, Commander, Config, CleanConfig> ( context: Context,
+export async function makeCli<Commander, Context extends CliContext, Config, CleanConfig> ( context: Context,
                                                                                             configTc: CliTcFinder<Config, CleanConfig>,
-                                                                                            cliTc: CliTc<Context, Commander, Config, CleanConfig> ): Promise<ErrorsAnd<ContextConfigAndCommander<Context,  Config,CleanConfig, Commander>>> {
+                                                                                            cliTc: CliTc<Commander, Context, Config, CleanConfig> ): Promise<ErrorsAnd<ContextConfigAndCommander<Commander, Context, Config, CleanConfig>>> {
   return mapErrors ( await loadConfig ( context.fileOps, configTc, context.currentDirectory ),
-    ( { config, cliConfigTc,configFileName } ) =>
-      ({ context, config, cliConfigTc, commander: cliTc.createCommander ( context, config ),configFileName }) )
+    ( { config, cliConfigTc, configFileName } ) =>
+      ({ context, config, cliConfigTc, commander: cliTc.createCommander ( context, config ), configFileName }) )
 }
