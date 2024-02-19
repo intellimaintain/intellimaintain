@@ -1,25 +1,37 @@
-import { fileLoading, FileLoading, loadStringIncrementally } from "./file.loading";
+import { fileLoading, FileLoading, loadStringIncrementally, ResultAndNewStart } from "./file.loading";
 
-export interface PollingDetails extends FileLoading {
+export interface PollingDetails {
+  debug?: boolean
   pollingInterval: number
   polling: boolean
+  start: number
+
   pollingCallback: ( s: string ) => void
 }
 
-export function polling ( filePath: string, pollingInterval: number, pollingCallback: ( s: string ) => Promise<void> ): PollingDetails {
-  return { ...fileLoading ( filePath ), pollingInterval, polling: false, pollingCallback }
+
+export function polling ( filePath: string,
+                          pollingInterval: number,
+                          pollingCallback: ( s: string ) => Promise<void>,
+                          start: number = 0 ): PollingDetails {
+  return { ...fileLoading ( filePath ), pollingInterval, polling: false, pollingCallback, start }
 }
-async function pollFileChanges ( details: PollingDetails ) {
-  if (details.debug)console.log('polling', details.filePath, details.polling, details.pollingInterval)
+async function poll ( details: PollingDetails, getString: ( start: number ) => Promise<ResultAndNewStart>, ) {
+  if ( details.debug ) console.log ( 'polling', details )
   if ( !details.polling ) return; // Exit if polling has been stopped
-  const { fileLoading, result } = await loadStringIncrementally ( details )
-  if ( result.length > 0 )  await details.pollingCallback ( result );
-  setTimeout ( () => pollFileChanges ( { ...details, ...fileLoading } ), details.pollingInterval );
+  const { newStart, result } = await getString ( details.start )
+  if ( result.length > 0 ) await details.pollingCallback ( result );
+  setTimeout ( () => poll ( { ...details, start: newStart }, getString ), details.pollingInterval );
 }
-export function startPolling ( details: PollingDetails ) {
+
+async function pollFile ( pollDetails: PollingDetails, fileLoading: FileLoading ) {
+  poll ( pollDetails, async start => loadStringIncrementally ( { ...fileLoading, lastFileSize: start } ) )
+}
+
+export function startPolling ( details: PollingDetails, getString: ( start: number ) => Promise<ResultAndNewStart> ) {
   if ( details.polling ) throw Error ( `Polling already active for ${JSON.stringify ( details )}` );
   details.polling = true;
-  pollFileChanges ( details );
+  poll ( details, getString );
 }
 export function stopPolling ( details: PollingDetails ) {
   details.polling = false;

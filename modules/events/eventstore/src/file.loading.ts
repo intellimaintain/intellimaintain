@@ -28,17 +28,13 @@ async function loadToEnd ( { filePath, lastFileSize }: FileLoading ): Promise<st
   return newContent;
 }
 
-export interface FileLoadingAnd<T> {
-  fileLoading: FileLoading
-  result: T
+export interface ResultAndNewStart {
+  result: string
+  newStart: number
 }
-export async function loadStringIncrementally<X extends FileLoading> ( fileLoading: FileLoading ): Promise<FileLoadingAnd<string>> {
+export async function loadStringIncrementally ( fileLoading: FileLoading ): Promise<ResultAndNewStart> {
   const fileSize = await getFileSize ( fileLoading.filePath );
-  if ( fileSize === fileLoading.lastFileSize ) return { fileLoading, result: '' };
-  return withFileLock ( fileLoading, async () => {
-    const fileSize = await getFileSize ( fileLoading.filePath );
-    const result = await loadToEnd ( fileLoading )
-    const newFileLoading = { ...fileLoading, lastFileSize: fileSize };
-    return { fileLoading: newFileLoading, result }
-  } )
+  if ( fileSize === fileLoading.lastFileSize ) return { newStart: fileLoading.lastFileSize, result: '' };
+  return withFileLock ( fileLoading, async () =>
+    ({ newStart: await getFileSize ( fileLoading.filePath ), result: await loadToEnd ( fileLoading ) }) )
 }
