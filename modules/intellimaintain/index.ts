@@ -5,6 +5,7 @@ import { cliContext, CliContext, CliTc, CliTcFinder, defaultTo, fileConfig, make
 import { fileOpsNode } from "@laoban/filesops-node";
 import { CleanConfig, Config, configCommands } from "@intellimaintain/config";
 import { hasErrors, reportErrors } from "@laoban/utils";
+import { fileMessagingCommands } from "./src/file.messaging";
 
 export function findVersion () {
   let packageJsonFileName = "../package.json";
@@ -27,6 +28,8 @@ makeCli<CliContext, Commander12, Config, CleanConfig> ( context, configFinder, c
     process.exit ( 1 )
   }
   cliTc.addSubCommand ( commander, configCommands ( commander ) )
+  cliTc.addSubCommand ( commander, fileMessagingCommands<CliContext, CleanConfig> () )
+  cliTc.addSubCommand ( commander, fileMessagingCommands<CliContext, CleanConfig> () )
   return await cliTc.execute ( commander.commander, context.args )
 } )
 

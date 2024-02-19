@@ -20,7 +20,9 @@
     ]
   },
   "dependencies": {
-    "node": "^v14.4.0",
+    "node": "^v16.0.0",
+    "@laoban/utils": "1.4.45",
+    "@laoban/fileops": "1.4.45",
     "@intellimaintain/messaging": "0.0.3",
     "debug": "^4.3.4"
   },

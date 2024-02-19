@@ -19,8 +19,8 @@ export function DisplayGui<S, C> ( { state, label }: DisplayGuiProps<S, C> ) {
       <TabPanel focuson='ka' state={parentState} title='KA'>{state => <KnowledgeArticle state={state}/>}</TabPanel>
       <TabPanel focuson='conversation' state={parentState} title='SQL'>{state => <pre>Some Sql</pre>}</TabPanel>
       <TabPanel focuson='log' state={parentState} title='Log'>{state => <LogDisplay state={state}/>}</TabPanel>
-      <SimpleTabPanel title='Debug'><DisplayDebug state={state}/></SimpleTabPanel>
-      <SimpleTabPanel title='State'><StateDisplay state={state}/></SimpleTabPanel>
+      <SimpleTabPanel title='State'><DisplayDebug state={state}/></SimpleTabPanel>
+      <SimpleTabPanel title='Debug'><StateDisplay state={state}/></SimpleTabPanel>
     </TabsContainer>
     <DisplayConversation state={state.doubleUp ().focus1On ( 'conversation' ).focus2On ( 'sideeffects' )}/>
   </TwoRowLayout>

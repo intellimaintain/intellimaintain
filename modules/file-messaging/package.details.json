@@ -3,7 +3,10 @@
   "name":        "@intellimaintain/file-messaging",
   "description": "Implements messaging using the file system",
   "packageJson": {
-    "dependencies":    {"node": "^v14.4.0"},
+    "dependencies":    {
+      "node":                  "^v16.0.0",
+      "@laoban/utils":         "1.4.45"
+    },
     "devDependencies": {},
     "browser":         {
       "child_process": false
