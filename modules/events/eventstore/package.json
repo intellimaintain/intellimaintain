@@ -1,6 +1,6 @@
 {
-  "name": "@intellimaintain/events",
-  "description": "The events that will go in our event store",
+  "name": "@intellimaintain/eventstore",
+  "description": "A event source library for node.js",
   "version": "0.0.4",
   "main": "dist/index",
   "types": "dist/index",
@@ -22,8 +22,10 @@
   "dependencies": {
     "node": "^v14.4.0",
     "@laoban/utils": "1.4.45",
+    "@laoban/fileops": "1.4.45",
     "@focuson/lens": "1.44.1",
     "@intellimaintain/utils": "0.0.4",
+    "@intellimaintain/events": "0.0.4",
     "debug": "^4.3.4"
   },
   "devDependencies": {

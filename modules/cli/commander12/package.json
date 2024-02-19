@@ -1,12 +1,9 @@
 {
-  "name": "@intellimaintain/events",
-  "description": "The events that will go in our event store",
+  "name": "@intellimaintain/commander12",
+  "description": "",
   "version": "0.0.4",
   "main": "dist/index",
   "types": "dist/index",
-  "browser": {
-    "child_process": false
-  },
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -20,10 +17,8 @@
     ]
   },
   "dependencies": {
-    "node": "^v14.4.0",
-    "@laoban/utils": "1.4.45",
-    "@focuson/lens": "1.44.1",
-    "@intellimaintain/utils": "0.0.4",
+    "commander": "^v12.0.0",
+    "@intellimaintain/cli": "0.0.4",
     "debug": "^4.3.4"
   },
   "devDependencies": {

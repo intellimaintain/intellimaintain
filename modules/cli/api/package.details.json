@@ -1,0 +1,21 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/api",
+  "description": "The api that supports the Wizard of Oz",
+  "packageJson": {
+    "dependencies":    {
+      "@runbook/koa":   "0.3.13",
+      "@runbook/utils": "0.3.13"
+    },
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       ["@intellimaintain/utils", "@intellimaintain/cli", "@intellimaintain/eventstore"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

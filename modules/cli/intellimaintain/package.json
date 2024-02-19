@@ -1,9 +1,12 @@
 {
-  "name": "@intellimaintain/events",
-  "description": "The events that will go in our event store",
+  "name": "intellimaintain",
+  "description": "",
   "version": "0.0.4",
   "main": "dist/index",
   "types": "dist/index",
+  "bin": {
+    "intellimaintain": "dist/index.js"
+  },
   "browser": {
     "child_process": false
   },
@@ -20,10 +23,15 @@
     ]
   },
   "dependencies": {
-    "node": "^v14.4.0",
+    "node": "^v16.0.0",
     "@laoban/utils": "1.4.45",
-    "@focuson/lens": "1.44.1",
+    "@laoban/filesops-node": "1.4.45",
     "@intellimaintain/utils": "0.0.4",
+    "@intellimaintain/events": "0.0.4",
+    "@intellimaintain/eventstore": "0.0.4",
+    "@intellimaintain/config": "0.0.4",
+    "@intellimaintain/cli": "0.0.4",
+    "@intellimaintain/commander12": "0.0.4",
     "debug": "^4.3.4"
   },
   "devDependencies": {

@@ -1,0 +1,11 @@
+Hi
+{ "a": 1}
+{ "event": "zero", "context": {}}
+{ "event": "append", "path": "a.a", "value": 1, "context": {"some": "metadata"}}
+{ "event": "append", "path": "a.b", "value": 2, "context": {}}
+{ "event": "append", "path": "a.a", "value": 3, "context": {}}
+{ "event": "append", "path": "a.b", "value": 4, "context": {}}
+{ "event": "append", "path": "a.a", "value": 5, "context": {}}
+{ "event": "append", "path": "p.q.r.s", "value": 5, "context": {}}
+{ "event": "append", "path": "p.q.r.s", "value": 6, "context": {}}
+{ "event": "d", "path": "p.q.r.s", "value": 7, "context": {}}

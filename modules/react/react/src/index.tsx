@@ -8,10 +8,10 @@ import { blankChatState, DemoChatState } from "./state/FullState";
 import { theme } from "./Themes/theme";
 import { WithTitle } from './layouts/WithTitle';
 import { DisplayGui } from "./gui/gui";
-import { addStateContainerListener, addStateContainerModifier, setJsonForContainer, stateContainer } from "./state/state.container";
 import { processSideEffectsInState } from "./state/state2Sideeffects";
 import { Lenses } from "@focuson/lens";
-import { ISideEffectProcessor, processSideEffect, sendMessageSideeffectProcessor, SideEffect } from "./sideeffects/sideeffects";
+import { processSideEffect, sendMessageSideeffectProcessor } from "./sideeffects/sideeffects";
+import { addEventStoreListener, addEventStoreModifier, eventStore, setEventStoreValue } from "@intellimaintain/eventstore";
 
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
@@ -56,10 +56,10 @@ let context: DI = {
   sendMail: ( message: string ) => console.log ( 'send mail', message )
 };
 
-const container = stateContainer<DemoChatState> (  )
-const setJson = setJsonForContainer ( container );
+const container = eventStore<DemoChatState> (  )
+const setJson = setEventStoreValue ( container );
 
-addStateContainerListener ( container, (( s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
+addEventStoreListener( container, ((oldS,  s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
 
 const idL = Lenses.identity<DemoChatState> ()
 const chatState1L = idL.focusOn ( 'chatState1' )
@@ -74,9 +74,9 @@ const logs2L = chatState2L.focusOn ( 'log' )
 //   console.log('testing when returning same S', s)
 //   return s
 // })
-addStateContainerModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
+addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
   [ sendMessageSideeffectProcessor ] ), sideEffects1L, logs1L ) )
-addStateContainerModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
+addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
   [ sendMessageSideeffectProcessor ] ), sideEffects2L, logs2L ) )
 
 

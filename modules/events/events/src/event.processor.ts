@@ -1,20 +1,20 @@
-import { AppendEvent, BaseEvent, Event, EventNameAnd, SetIdEvent, SetValueEvent, ZeroEvent } from "./events";
+import { AppendEvent, BaseEvent, ErrorEvent, Event, EventNameAnd, isErrorEvent, SetIdEvent, SetValueEvent, ZeroEvent } from "./events";
 import { defaultParserStore, ParserStore } from "./parserStore";
 import { IdStore } from "./IdStore";
-import { Lens, Lenses } from "@focuson/lens";
+import { Lens, Lenses, Optional } from "@focuson/lens";
 
 /** Why a promise? Because the IdEvent goes to the id store to get the data. The id store is async. */
 export type EventProcessorFn<S, E extends BaseEvent> = ( p: EventProcessor<S>, event: E, s: S ) => Promise<S>
 
 export type EventProcessorListener<S> = ( event: Event, startS: S, newS: S ) => void
-export type PathToLensFn<S> = ( path: string ) => Lens<S, any>
+export type PathToLensFn<S> = ( path: string ) => Optional<S, any>
 
 export function pathToLens<S> (): PathToLensFn<S> {
   return path => {
     const parts = path.split ( '.' ).map ( p => p.trim () ).filter ( p => p.length > 0 )
-    let lens: Lens<S, any> = Lenses.identity<S> ()
+    let lens: Optional<S, S> = Lenses.identity<S> ()
     for ( let part of parts ) {
-      lens = lens.focusOn ( part as any )
+      lens = lens.focusQuery ( part as any ) as any
     }
     return lens
   }
@@ -62,51 +62,59 @@ export function setValueEventProcessor<S> (): EventProcessorFn<S, SetValueEvent>
 export function appendEventProcessor<S> (): EventProcessorFn<S, AppendEvent> {
   return async ( p, e, s: S ) => {
     let lens = p.pathToLens ( e.path )
-    let value = lens.get ( s )
-    if ( !Array.isArray ( value ) && value !== undefined && value !== null ) throw new Error ( `Cannot append to non array at ${e.path}. Value at that location is ${JSON.stringify(value)}` )
+    let value = lens.getOption ( s )
+    if ( !Array.isArray ( value ) && value !== undefined && value !== null ) throw new Error ( `Cannot append to non array at ${e.path}. Value at that location is ${JSON.stringify ( value )}` )
     return lens.set ( s, [ ...(value || []), e.value ] )
   }
 }
 
+export function doNothingOnErrorProcessor<S> (): EventProcessorFn<S, any> {
+  return async ( p, e, s: S ) => s
+
+}
 export function defaultProcessors<S> (): EventNameAnd<EventProcessorFn<S, any>> {
   return {
     zero: zeroEventProcessor<S> (),
     setId: setIdEventProcessor<S> (),
     setValue: setValueEventProcessor<S> (),
-    append: appendEventProcessor<S> ()
+    append: appendEventProcessor<S> (),
+    error: doNothingOnErrorProcessor<S> ()
   }
 }
 
 export type EventProcessorResult<S> = {
   state?: S
-  error?: string
+  errors: ErrorEvent[]
 }
 
 export async function processEvent<S> ( processor: EventProcessor<S>, startState: S, e: Event ): Promise<EventProcessorResult<S>> {
   try {
     let processorFn: EventProcessorFn<S, any> = processor.processors[ e.event ]
-    if ( !processorFn ) return { error: `No processor for event ${e.event}` }
-    let result = await processorFn ( processor, e, startState );
-    processor.listeners.forEach ( l => l ( e, startState, result ) )
-    return result
+    if ( !processorFn ) return { errors: [ { event: 'error', error: `No processor for event ${e.event}`, context: {} } ] }
+    let state = await processorFn ( processor, e, startState );
+    for ( let listener of processor.listeners ) {
+      try {listener ( e, startState, state )} catch ( e ) {
+        return { errors: [ { event: 'error', error: `Error in listener ${e.message}`, context: { event: e } } ] }
+      }
+    }
+    return { state, errors: [] }
   } catch ( e ) {
-    return { error: e.message }
+    return { errors: [ { event: 'error', error: `Error in processEvent ${e.message}`, context: { event: e } } ] }
   }
 }
 
-export type EventProcessorError = {
-  error: string
-  event: Event
-}
-export type ErrorsAndS<S> = { errors: EventProcessorError[], state: S }
-export async function processEvents<S> ( processor: EventProcessor<S>, baseState: S, events: Event[] ): Promise<ErrorsAndS<S>> {
+export async function processEvents<S> ( processor: EventProcessor<S>, baseState: S, events: Event[] ): Promise<EventProcessorResult<S>> {
   let state = baseState
-  const errors: EventProcessorError[] = []
+  const errors: ErrorEvent[] = []
   for ( let e of events ) {
-    const result = await processEvent ( processor, state, e )
-    if ( result.error ) errors.push ( { error: result.error, event: e } )
-    else
-      state = result.state
+    if ( isErrorEvent ( e ) ) errors.push ( e ); else {
+      const result = await processEvent ( processor, state, e )
+      if ( result === undefined ) throw new Error ( `result is undefined. ${JSON.stringify ( e )}` )
+      if ( result.errors && result.errors.length > 0 )
+        errors.push ( ...result.errors )
+      else
+        state = result.state
+    }
   }
   return { errors, state }
 }

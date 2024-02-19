@@ -17,7 +17,8 @@
     "scripts":      {"start": "react-scripts start"}
   },
   "links":       [
-    "@intellimaintain/file-messaging"
+    "@intellimaintain/events",
+    "@intellimaintain/eventstore"
   ],
   "guards":      {
     "compile": true,

@@ -4,7 +4,7 @@ import { mapK } from "@laoban/utils";
 
 
 export const processSideEffectsInState = <S> ( sep: ISideEffectProcessor<SideEffect, any>, seLens: Lens<S, SideEffect[]>, logL: Lens<S, SideeffectResult<any>[]>, debug?: boolean ) =>
-  async ( state: S, ) => {
+  async (oldState: S,  state: S, ) => {
     const sideeffects = seLens.getOption ( state ) || []
     if ( sideeffects.length === 0 ) {
       if ( debug ) console.log ( 'processSideEffectsInState', 'no sideeffects' )

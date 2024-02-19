@@ -3,7 +3,7 @@ import { JSONPrimitive } from "@intellimaintain/utils";
 
 export type EventContext = NameAnd<JSONPrimitive> //meta data about the event. Like source/line number/ etc.
 
-export type EventType = 'zero' | 'setId' | 'setValue' | 'append'
+export type EventType = 'zero' | 'setId' | 'setValue' | 'append' | 'error'
 
 export interface BaseEvent {
   context: EventContext
@@ -21,6 +21,7 @@ export interface LensPathEvent extends BaseEvent {
 export function isLensPathEvent ( e: BaseEvent ): e is LensPathEvent {
   return 'path' in e
 }
+
 
 /** Given an id this will go get the data at the id (parsed by the parser) and set it as the value at the place given by the path
  * So the id is just a string which is passed to the id store. It can be anything. A url. Structured... anything
@@ -50,11 +51,24 @@ export interface AppendEvent extends LensPathEvent {
   event: 'append'
   value: any
 }
+export function isAppendEvent ( e: BaseEvent ): e is AppendEvent {
+  return e.event === 'append'
+}
 
-export type Event = SetIdEvent | SetValueEvent | ZeroEvent | AppendEvent
+
+export interface ErrorEvent extends BaseEvent {
+  event: 'error'
+  error: string
+  from?: any
+}
+export function isErrorEvent ( e: BaseEvent ): e is ErrorEvent {
+  return e.event === 'error'
+}
+export type Event = ZeroEvent | SetIdEvent | SetValueEvent | AppendEvent  |ErrorEvent
 export interface EventNameAnd<T> {
   zero: T
   setId: T
   setValue: T
   append: T
+  error: T
 }

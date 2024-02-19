@@ -1,0 +1,23 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/eventstore",
+  "description": "A event source library for node.js",
+  "packageJson": {
+    "dependencies":    {
+      "node":            "^v14.4.0",
+      "@laoban/utils":   "1.4.45",
+      "@laoban/fileops": "1.4.45",
+      "@focuson/lens":   "1.44.1"
+    },
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       ["@intellimaintain/utils", "@intellimaintain/events"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

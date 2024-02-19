@@ -1,0 +1,33 @@
+{
+  "template":    "typescript",
+  "name":        "intellimaintain",
+  "description": "",
+  "packageJson": {
+    "dependencies":    {
+      "node":                  "^v16.0.0",
+      "@laoban/utils":         "1.4.45",
+      "@laoban/filesops-node": "1.4.45"
+    },
+    "devDependencies": {},
+    "bin":             {
+      "intellimaintain": "dist/index.js"
+    },
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       [
+    "@intellimaintain/utils",
+    "@intellimaintain/events",
+    "@intellimaintain/eventstore",
+
+    "@intellimaintain/config",
+    "@intellimaintain/cli",
+    "@intellimaintain/commander12"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}
