@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/events",
   "description": "The events that will go in our event store",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index",
   "types": "dist/index",
   "browser": {
@@ -23,7 +23,7 @@
     "node": "^v14.4.0",
     "@laoban/utils": "1.4.45",
     "@focuson/lens": "1.44.1",
-    "@intellimaintain/utils": "0.0.4",
+    "@intellimaintain/utils": "0.0.5",
     "debug": "^4.3.4"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 import { ContextAndStats, defaultShowsError, KoaPartialFunction, notFoundIs404 } from "@runbook/koa";
 import { chainOfResponsibility } from "@runbook/utils";
-import { fileLoading, loadStringIncrementally } from "@intellimaintain/eventstore";
+import { fileLoading, loadStringIncrementally } from "@intellimaintain/fileeventstore";
+
 
 
 export const eventsPF: KoaPartialFunction = {
@@ -8,9 +9,8 @@ export const eventsPF: KoaPartialFunction = {
   apply: async ( ctx ) => {
     const query = ctx.context.request.query
     const start = Number.parseInt ( query.start || "0" )
-    const loadFileDetails = fileLoading ( ctx.reqPathNoTrailing, start )
-    const result = await loadStringIncrementally ( loadFileDetails )
-    ctx.context.body = `${result.fileLoading.lastFileSize}\n${result.result}`
+    const result = await loadStringIncrementally ( fileLoading ( ctx.reqPathNoTrailing ) )(start)
+    ctx.context.body = `${result.newStart}\n${result.result}`
   }
 }
 export const wizardOfOzApiHandlers = ( ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats, ) => Promise<void> =>

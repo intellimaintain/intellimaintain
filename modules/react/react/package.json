@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/react",
   "description": "",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -23,8 +23,8 @@
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.15.10",
     "@mui/icons-material": "^5.15.10",
-    "@intellimaintain/events": "0.0.4",
-    "@intellimaintain/eventstore": "0.0.4",
+    "@intellimaintain/events": "0.0.5",
+    "@intellimaintain/eventstore": "0.0.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

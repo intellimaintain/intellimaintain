@@ -20,7 +20,7 @@
     "@intellimaintain/utils",
     "@intellimaintain/events",
     "@intellimaintain/eventstore",
-
+    "@intellimaintain/fileeventstore",
     "@intellimaintain/config",
     "@intellimaintain/cli",
     "@intellimaintain/commander12"

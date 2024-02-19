@@ -12,7 +12,7 @@
       "child_process": false
     }
   },
-  "links":       ["@intellimaintain/utils", "@intellimaintain/cli", "@intellimaintain/eventstore"],
+  "links":       ["@intellimaintain/utils", "@intellimaintain/cli", "@intellimaintain/fileeventstore"],
   "guards":      {
     "compile": true,
     "publish": true,

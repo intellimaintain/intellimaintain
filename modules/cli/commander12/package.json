@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/commander12",
   "description": "",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index",
   "types": "dist/index",
   "browserslist": {
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "commander": "^v12.0.0",
-    "@intellimaintain/cli": "0.0.4",
+    "@intellimaintain/cli": "0.0.5",
     "debug": "^4.3.4"
   },
   "devDependencies": {
