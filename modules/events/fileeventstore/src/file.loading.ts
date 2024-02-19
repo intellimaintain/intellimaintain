@@ -1,4 +1,4 @@
-import { LockFileDetails, withFileLock } from "./with.lock";
+import { fileLocking, LockFileDetails, withFileLock } from "./with.lock";
 import fs from "fs";
 import { promisify } from "util";
 import { ResultAndNewStart } from "@intellimaintain/eventstore";
@@ -13,7 +13,7 @@ export interface FileLoading extends LockFileDetails {
   filePath: string;
 }
 export function fileLoading ( filePath: string ): FileLoading {
-  return { filePath, lockFilePath: filePath + '.lock', timeout: 5000 }
+  return { ...fileLocking ( filePath ), filePath }
 }
 
 async function loadToEnd ( { filePath }: FileLoading, start: number ): Promise<string> {

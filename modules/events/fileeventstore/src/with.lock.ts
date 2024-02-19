@@ -1,5 +1,4 @@
-import { promises as fs, constants } from 'fs';
-import { ErrorsAnd } from "@laoban/utils";
+import { constants, promises as fs } from 'fs';
 
 const wait = ( ms: number ) => new Promise ( resolve => setTimeout ( resolve, ms ) );
 
@@ -7,6 +6,9 @@ export interface LockFileDetails {
   debug?: boolean
   lockFilePath: string
   timeout: number
+}
+export function fileLocking ( filePath: string ): LockFileDetails {
+  return {  lockFilePath: filePath + '.lock', timeout: 5000 }
 }
 // Attempts to acquire a lock
 async function acquireLock ( { lockFilePath, timeout , debug}: LockFileDetails ): Promise<boolean> {
