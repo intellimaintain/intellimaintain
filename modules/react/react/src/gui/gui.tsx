@@ -10,8 +10,10 @@ import { DisplayTicket } from "../ticket/ticket";
 
 export interface DisplayGuiProps<S, C> extends LensProps<S, ChatState, C> {
   label: string
+  from: string
+  to: string
 }
-export function DisplayGui<S, C> ( { state, label }: DisplayGuiProps<S, C> ) {
+export function DisplayGui<S, C> ( { state, label, from, to }: DisplayGuiProps<S, C> ) {
   const parentState = state.doubleUp ().focus2On ( 'selectionState' ).focus2On ( 'mainTab' )
   return <TwoRowLayout state={state.focusOn ( 'selectionState' ).focusOn ( 'topBottomSlider' )}>
     <TabsContainer label={label} state={parentState}>
@@ -22,6 +24,6 @@ export function DisplayGui<S, C> ( { state, label }: DisplayGuiProps<S, C> ) {
       <SimpleTabPanel title='State'><DisplayDebug state={state}/></SimpleTabPanel>
       <SimpleTabPanel title='Debug'><StateDisplay state={state}/></SimpleTabPanel>
     </TabsContainer>
-    <DisplayConversation state={state.doubleUp ().focus1On ( 'conversation' ).focus2On ( 'sideeffects' )}/>
+    <DisplayConversation from={from} to={to} state={state.doubleUp ().focus1On ( 'conversation' ).focus2On ( 'sideeffects' )}/>
   </TwoRowLayout>
 }

@@ -5,14 +5,19 @@ import SendIcon from '@mui/icons-material/Send';
 import { LensProps2 } from "@focuson/state";
 import { SideEffect } from "../sideeffects/sideeffects";
 
-export function UserTypingBox<S, C> ( { state }: LensProps2<S, string, SideEffect[], C> ) {
+interface UserTypingBoxProps<S, C> extends LensProps2<S, string, SideEffect[], C> {
+  from: string
+  to: string
+}
+
+export function UserTypingBox<S, C> ( { state, from, to }: UserTypingBoxProps<S, C> ) {
   const inputRef = useRef<HTMLTextAreaElement> ( null );
   function sendMessage () {
     if ( inputRef.current ) {
       const message = inputRef.current.value.trim ();
       state.transformJson (
         msg => '',
-        old => [ ...(old || []), { command: 'sendMessage', message } ],
+        old => [ ...(old || []), { command: 'sendMessage', message: { message, from, to } } ],
         'sent message' );
       inputRef.current.value = '';
     }

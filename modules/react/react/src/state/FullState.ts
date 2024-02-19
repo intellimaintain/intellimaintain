@@ -1,6 +1,6 @@
-import { Conversation } from "../conversation/conversation";
 import { SideEffect, SideeffectResult } from "../sideeffects/sideeffects";
 import { Ticket } from "../ticket/ticket";
+import { Conversation } from "@intellimaintain/apiclienteventstore";
 
 
 export interface SelectionState {
@@ -26,7 +26,7 @@ export function blankChatState ( chatter: string, responder: string, ka: Knowled
     selectionState: {},
     sideeffects: [],
     log: [],
-    conversation: { chatResponses: [], chatter, responder },
+    conversation: { messages: [], chatter, responder },
     sql: [],
     ka,
     ticket

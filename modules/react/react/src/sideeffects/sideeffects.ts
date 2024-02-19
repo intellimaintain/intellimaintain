@@ -1,4 +1,5 @@
 import { ErrorsAnd } from "@laoban/utils";
+import { Message, MessageSave, sendMessage } from "@intellimaintain/apiclienteventstore";
 
 export interface BaseSideeffect {
   command: string
@@ -6,7 +7,7 @@ export interface BaseSideeffect {
 
 export interface SendMessageSideeffect extends BaseSideeffect {
   command: 'sendMessage'
-  message: string
+  message: Message
 }
 export type SideEffect = SendMessageSideeffect
 export interface SideeffectResult<R> {
@@ -19,11 +20,14 @@ export interface ISideEffectProcessor<S extends BaseSideeffect, R> {
   process: ( s: S ) => Promise<ErrorsAnd<R>>
 }
 
-export const sendMessageSideeffectProcessor: ISideEffectProcessor<SendMessageSideeffect, boolean> = {
-  accept: ( s: BaseSideeffect ): s is SendMessageSideeffect => s.command === 'sendMessage',
-  process: async ( s ) => {
-    console.log ( 'sending message', s.message )
-    return true
+export function sendMessageSideeffectProcessor ( ms: MessageSave, path: string ): ISideEffectProcessor<SendMessageSideeffect, boolean> {
+  return {
+    accept: ( s: BaseSideeffect ): s is SendMessageSideeffect => s.command === 'sendMessage',
+    process: async ( s ) => {
+      sendMessage ( ms, s.message, path )
+      console.log ( 'sending message', s.message )
+      return true
+    }
   }
 }
 

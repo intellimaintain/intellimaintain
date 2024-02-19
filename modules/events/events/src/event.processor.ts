@@ -23,7 +23,6 @@ export interface EventProcessor<S> {
   zero: S
   processors: EventNameAnd<EventProcessorFn<S, any>> // too hard to properly express the type of the processors in Typescript
   listeners: EventProcessorListener<S>[]
-
   pathToLens: PathToLensFn<S>
   idStore: IdStore
 }

@@ -1,12 +1,12 @@
+
 export type Message={
   from: string
+  to: string
   message: string
 }
 
-
-
 export type Conversation = {
-  chatResponses: Message[]
+  messages: Message[]
   message?: string
   chatter: string
   responder: string

@@ -11,8 +11,9 @@ import { DisplayGui } from "./gui/gui";
 import { processSideEffectsInState } from "./state/state2Sideeffects";
 import { Lenses } from "@focuson/lens";
 import { processSideEffect, sendMessageSideeffectProcessor } from "./sideeffects/sideeffects";
-import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling } from "@intellimaintain/eventstore";
-import { apiLoading, ApiLoading, apiLoadingFromBrowser } from "@intellimaintain/apiclienteventstore";
+import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
+import { apiLoading, ApiLoading, apiLoadingFromBrowser, MessageSave, messageSaving } from "@intellimaintain/apiclienteventstore";
+import { defaultEventProcessor, defaultProcessors, NoIdStore, processEvents } from "@intellimaintain/events";
 
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
@@ -21,8 +22,8 @@ function App<S> ( { state }: AppProps<S> ) {
 
     <Box sx={{ height: '100%', maxHeight: '100vh', overflow: 'hidden' }}>
       <TwoColumnLayout>
-        <WithTitle title='Operator'><DisplayGui label='display Operator' state={state.focusOn ( 'chatState1' )}/></WithTitle>
-        <WithTitle title='Wizard of Oz'><DisplayGui label='display Wizard' state={state.focusOn ( 'chatState2' )}/></WithTitle>
+        <WithTitle title='Operator'><DisplayGui from='Operator' to='Wizard' label='display Operator' state={state.focusOn ( 'chatState1' )}/></WithTitle>
+        <WithTitle title='Wizard of Oz'><DisplayGui from='Wizard' to='Operator' label='display Wizard' state={state.focusOn ( 'chatState2' )}/></WithTitle>
       </TwoColumnLayout>
     </Box>
   </ThemeProvider>
@@ -59,6 +60,7 @@ let context: DI = {
 
 const container = eventStore<DemoChatState> ()
 const setJson = setEventStoreValue ( container );
+const sep = defaultEventProcessor<DemoChatState> ( startAppState, NoIdStore )
 
 addEventStoreListener ( container, (( oldS, s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
 
@@ -71,15 +73,23 @@ const sideEffects2L = chatState2L.focusOn ( 'sideeffects' )
 const logs2L = chatState2L.focusOn ( 'log' )
 
 const pollingDetails = polling ( 1000, async s => {
-  console.log ( 'polling', s )
+  console.log ( 'polling', typeof s, s )
+  const events = stringToEvents ( {}, s );
+  console.log('events',events)
+  const { state, errors } = await processEvents ( sep, container.state, events )
+  console.log('errors',errors)
+  console.log('state',state)
+  if (state)
+    setJson ( state )
 } )
 const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
+const saveDetails: MessageSave = messageSaving ( "http://localhost:1235/file1" )
 startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
 
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
-  [ sendMessageSideeffectProcessor ] ), sideEffects1L, logs1L ) )
+  [ sendMessageSideeffectProcessor ( saveDetails, 'chatState1.conversation.messages' ) ] ), sideEffects1L, logs1L ) )
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
-  [ sendMessageSideeffectProcessor ] ), sideEffects2L, logs2L ) )
+  [ sendMessageSideeffectProcessor ( saveDetails, 'chatState2.conversation.messages' ) ] ), sideEffects2L, logs2L ) )
 
 
 setJson ( startAppState )
