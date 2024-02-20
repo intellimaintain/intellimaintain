@@ -1,15 +1,22 @@
 import { ErrorsAnd } from "@laoban/utils";
-import { Message, MessageSave, sendMessage } from "@intellimaintain/apiclienteventstore";
+import { sendEvent, SendEvents } from "@intellimaintain/apiclienteventstore";
+import { Event } from "@intellimaintain/events";
 
+export type SideEffectType = 'event'
 export interface BaseSideeffect {
-  command: string
+  command: SideEffectType
 }
 
-export interface SendMessageSideeffect extends BaseSideeffect {
-  command: 'sendMessage'
-  message: Message
+
+export interface EventSideEffect extends BaseSideeffect {
+  command: 'event'
+  event: Event
 }
-export type SideEffect = SendMessageSideeffect
+export function isEventSideEffect ( x: BaseSideeffect ): x is EventSideEffect {
+  return x.command === 'event'
+}
+
+export type SideEffect = EventSideEffect
 
 export interface HasSideeffects {
   sideeffects: SideEffect[]
@@ -25,12 +32,12 @@ export interface ISideEffectProcessor<S extends BaseSideeffect, R> {
   process: ( s: S ) => Promise<ErrorsAnd<R>>
 }
 
-export function sendMessageSideeffectProcessor ( ms: MessageSave, path: string ): ISideEffectProcessor<SendMessageSideeffect, boolean> {
+export function eventSideeffectProcessor ( es: SendEvents, path: string ): ISideEffectProcessor<EventSideEffect, boolean> {
   return {
-    accept: ( s: BaseSideeffect ): s is SendMessageSideeffect => s.command === 'sendMessage',
+    accept: isEventSideEffect,
     process: async ( s ) => {
-      sendMessage ( ms, s.message, path )
-      console.log ( 'sending message', s.message )
+      console.log ( 'sending event', s.event )
+      await sendEvent ( es, s.event )
       return true
     }
   }

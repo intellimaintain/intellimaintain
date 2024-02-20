@@ -8,9 +8,9 @@ import { WithTitle } from './layouts/WithTitle';
 import { DisplayGui } from "./gui/gui";
 import { processSideEffectsInState } from "./state/state2Sideeffects";
 import { Lenses } from "@focuson/lens";
-import { processSideEffect, sendMessageSideeffectProcessor } from "./sideeffects/sideeffects";
+import { processSideEffect, eventSideeffectProcessor } from "./sideeffects/sideeffects";
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
-import { apiLoading, ApiLoading, apiLoadingFromBrowser, MessageSave, messageSaving } from "@intellimaintain/apiclienteventstore";
+import { apiLoading, ApiLoading, apiLoadingFromBrowser, sendEvent, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
 import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
 import { DemoChatState } from "./domain/domain";
 import { startAppState } from "./domain/sample";
@@ -64,12 +64,13 @@ const pollingDetails = polling ( 1000, async s => {
     setJson ( state )
 } )
 const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
-const saveDetails: MessageSave = messageSaving ( "http://localhost:1235/file1" )
+const saveDetails: SendEvents = sendEvents ( "http://localhost:1235/file1" )
+
 startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
 
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
-  [ sendMessageSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects1L, logs1L ) )
+  [ eventSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects1L, logs1L ) )
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
-  [ sendMessageSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects2L, logs2L ) )
+  [ eventSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects2L, logs2L ) )
 
 setJson ( startAppState )

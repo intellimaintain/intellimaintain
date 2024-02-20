@@ -4,6 +4,7 @@ import SendIcon from '@mui/icons-material/Send';
 
 import { LensProps2 } from "@focuson/state";
 import { SideEffect } from "../../sideeffects/sideeffects";
+import { AppendEvent } from "@intellimaintain/events";
 
 
 interface UserTypingBoxProps<S, C> extends LensProps2<S, string, SideEffect[], C> {
@@ -15,9 +16,10 @@ export function UserTypingBox<S, C> ( { state, from }: UserTypingBoxProps<S, C> 
   function sendMessage () {
     if ( inputRef.current ) {
       const message = inputRef.current.value.trim ();
+      const event: AppendEvent = { event: 'append', path: 'conversation.messages', value: { message, who: from }, context: {} };
       state.transformJson (
         msg => '',
-        old => [ ...(old || []), { command: 'sendMessage', message: { message, who: from } } ],
+        old => [ ...(old || []), { command: 'event', event } ],
         'sent message' );
       inputRef.current.value = '';
     }
