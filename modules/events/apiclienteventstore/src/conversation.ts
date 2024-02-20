@@ -1,7 +1,6 @@
 
 export type Message={
-  from: string
-  to: string
+  who: string
   message: string
 }
 

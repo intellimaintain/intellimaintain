@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { LensProps, lensState } from "@focuson/state";
 import { TwoColumnLayout } from "./layouts/TwoColumnLayout";
 import { Box, ThemeProvider } from "@mui/material";
-import { DI } from "./DI/DI";
-import { blankChatState, DemoChatState } from "./state/FullState";
 import { theme } from "./Themes/theme";
 import { WithTitle } from './layouts/WithTitle';
 import { DisplayGui } from "./gui/gui";
@@ -13,7 +11,9 @@ import { Lenses } from "@focuson/lens";
 import { processSideEffect, sendMessageSideeffectProcessor } from "./sideeffects/sideeffects";
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { apiLoading, ApiLoading, apiLoadingFromBrowser, MessageSave, messageSaving } from "@intellimaintain/apiclienteventstore";
-import { defaultEventProcessor, defaultProcessors, NoIdStore, processEvents } from "@intellimaintain/events";
+import { defaultEventProcessor, NoIdStore, processEvents } from "@intellimaintain/events";
+import { DemoChatState } from "./domain/domain";
+import { startAppState } from "./domain/sample";
 
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
@@ -22,8 +22,8 @@ function App<S> ( { state }: AppProps<S> ) {
 
     <Box sx={{ height: '100%', maxHeight: '100vh', overflow: 'hidden' }}>
       <TwoColumnLayout>
-        <WithTitle title='Operator'><DisplayGui from='Operator' to='Wizard' label='display Operator' state={state.focusOn ( 'chatState1' )}/></WithTitle>
-        <WithTitle title='Wizard of Oz'><DisplayGui from='Wizard' to='Operator' label='display Wizard' state={state.focusOn ( 'chatState2' )}/></WithTitle>
+        <WithTitle title='Operator'><DisplayGui from='Operator' label='display Operator' state={state.focusOn ( 'chatState1' )}/></WithTitle>
+        <WithTitle title='Wizard of Oz'><DisplayGui from='Wizard' label='display Wizard' state={state.focusOn ( 'chatState2' )}/></WithTitle>
       </TwoColumnLayout>
     </Box>
   </ThemeProvider>
@@ -33,30 +33,6 @@ const rootElement = document.getElementById ( 'root' );
 if ( !rootElement ) throw new Error ( 'Failed to find the root element' );
 const root = ReactDOM.createRoot ( rootElement );
 
-let ticket = { number: 'Ticket PA123', description: 'Delete project P-6666' };
-let ka = {
-  title: 'Delete Project', body: `1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
-  10
-  11
-     12`
-};
-const startAppState: DemoChatState = {
-  chatState1: blankChatState ( 'Operator', 'Wizard', ka, ticket ),
-  chatState2: blankChatState ( 'Wizard', 'Operator', ka, ticket )
-}
-
-let context: DI = {
-  sendMessage: ( message: string ) => console.log ( 'send message', message ),
-  sendMail: ( message: string ) => console.log ( 'send mail', message )
-};
 
 const container = eventStore<DemoChatState> ()
 const setJson = setEventStoreValue ( container );
@@ -94,6 +70,5 @@ addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( pr
   [ sendMessageSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects1L, logs1L ) )
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
   [ sendMessageSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects2L, logs2L ) )
-
 
 setJson ( startAppState )

@@ -10,6 +10,11 @@ export interface SendMessageSideeffect extends BaseSideeffect {
   message: Message
 }
 export type SideEffect = SendMessageSideeffect
+
+export interface HasSideeffects {
+  sideeffects: SideEffect[]
+
+}
 export interface SideeffectResult<R> {
   sideeffect: BaseSideeffect
   result: ErrorsAnd<R>

@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { toArray } from "@laoban/utils";
-import { LensProps, LensProps2, LensState } from "@focuson/state";
+import { LensProps, LensProps2, LensState, LensState2 } from "@focuson/state";
+import { HasSideeffects, SideEffect } from "../sideeffects/sideeffects";
 
 export interface TabPanelDetails {
   title: string
@@ -27,7 +28,16 @@ export function SimpleTabPanel<S, M, C> ( { title, children }: SimpleTabPanelPro
     {children}
   </Box>
 }
-
+export interface TabPanelWithSideEffectsProps<S, M extends HasSideeffects, K extends keyof M, C> extends LensProps<S, M, C>, TabPanelDetails {
+  children: ( state: LensState2<S, M[K], SideEffect[], C> ) => ReactElement;
+  focuson: K
+}
+export function TabWithSideEffects<S, M extends HasSideeffects, K extends keyof M, C> ( { state, focuson, children }: TabPanelWithSideEffectsProps<S, M, K, C> ) {
+  const childState = state.doubleUp ().focus1On ( focuson ).focus2On ( 'sideeffects' )
+  return <Box sx={{ overflow: 'auto' }}>
+    {children ( childState )}
+  </Box>
+}
 export interface TabsContainerProps<S, M, C> extends LensProps2<S, M, number, C> {
   label: string
   children: React.ReactElement<TabPanelDetails>[] | React.ReactElement<TabPanelDetails>;

@@ -1,11 +1,11 @@
-Hi
-{ "a": 1}
-{"event":"append","path":"conversation.messages","value":{"message":"one","from":"Operator","to":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"two","from":"Wizard","to":"Operator"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"three","from":"Operator","to":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"four","from":"Wizard","to":"Operator"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"five","from":"Operator","to":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"six","from":"Wizard","to":"Operator"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Me","from":"Operator","to":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"I think we have a chat going","from":"Operator","to":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Send me a message","from":"Wizard","to":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"jkh","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Is it occuring now","who":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"I checked and there is a project P-6666 in the acceptance environment","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Should I request approval from XXX","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"yes","who":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Sending email to Mr X  (contents)","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"OK he approved it","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"The issue still occurs in acceptance environment (I checked)","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Resolve the ticket","who":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"I removed the project, and checked. It's not there now. Sendiing emails and closing ticket","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"asd","who":"Operator"},"context":{}}

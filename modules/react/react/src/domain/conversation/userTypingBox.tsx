@@ -3,21 +3,21 @@ import { Box, IconButton, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
 import { LensProps2 } from "@focuson/state";
-import { SideEffect } from "../sideeffects/sideeffects";
+import { SideEffect } from "../../sideeffects/sideeffects";
+
 
 interface UserTypingBoxProps<S, C> extends LensProps2<S, string, SideEffect[], C> {
   from: string
-  to: string
 }
 
-export function UserTypingBox<S, C> ( { state, from, to }: UserTypingBoxProps<S, C> ) {
+export function UserTypingBox<S, C> ( { state, from }: UserTypingBoxProps<S, C> ) {
   const inputRef = useRef<HTMLTextAreaElement> ( null );
   function sendMessage () {
     if ( inputRef.current ) {
       const message = inputRef.current.value.trim ();
       state.transformJson (
         msg => '',
-        old => [ ...(old || []), { command: 'sendMessage', message: { message, from, to } } ],
+        old => [ ...(old || []), { command: 'sendMessage', message: { message, who: from } } ],
         'sent message' );
       inputRef.current.value = '';
     }
