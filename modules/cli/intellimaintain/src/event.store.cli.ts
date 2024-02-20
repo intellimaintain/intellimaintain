@@ -2,7 +2,7 @@ import { SubCommandDetails } from "@intellimaintain/cli";
 import { eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { processEvents } from "@intellimaintain/events";
 import { fileLoading, loadStringIncrementally } from "@intellimaintain/fileeventstore";
-import { sep } from "./cli.id.store";
+import { sep } from "./id.store.cli";
 
 export function eventStoreCommands<Commander, Context, Config> (): SubCommandDetails<Commander, Context, Config> {
   return {

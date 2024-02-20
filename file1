@@ -1,4 +1,3 @@
-{"event":"append","path":"conversation.messages","value":{"message":"jkh","who":"Wizard"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Is it occuring now","who":"Operator"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"I checked and there is a project P-6666 in the acceptance environment","who":"Wizard"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Should I request approval from XXX","who":"Wizard"},"context":{}}
@@ -8,4 +7,3 @@
 {"event":"append","path":"conversation.messages","value":{"message":"The issue still occurs in acceptance environment (I checked)","who":"Wizard"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Resolve the ticket","who":"Operator"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"I removed the project, and checked. It's not there now. Sendiing emails and closing ticket","who":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"asd","who":"Operator"},"context":{}}
