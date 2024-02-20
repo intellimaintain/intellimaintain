@@ -1,11 +1,16 @@
-{"event":"append","path":"conversation.messages","value":{"message":"Is it occuring now","who":"Operator"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"I checked and there is a project P-6666 in the acceptance environment","who":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Should I request approval from XXX","who":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"yes","who":"Operator"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Sending email to Mr X  (contents)","who":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"OK he approved it","who":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"The issue still occurs in acceptance environment (I checked)","who":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Resolve the ticket","who":"Operator"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"I removed the project, and checked. It's not there now. Sendiing emails and closing ticket","who":"Wizard"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Is the ticket still valid","who":"Operator"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"three","who":"Operator"},"context":{}}
+{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setValue","path":"kas.selected","value":"ka:deleteProject","context":{}}
+{"event":"setId","id":"ka:deleteProject","path":"kas.item","parser":"ka","context":{}}
+{"event":"setId","id":"sc:EPX","path":"scs.item","parser":"sc","context":{}}
+{"event":"setValue","path":"scs.selected","value":"sc:EPX","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa124","context":{}}
+{"event":"setId","id":"ticket:pa124","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa124","context":{}}
+{"event":"setId","id":"ticket:pa124","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}

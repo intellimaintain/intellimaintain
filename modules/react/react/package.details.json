@@ -20,6 +20,7 @@
     "scripts":      {"start": "react-scripts start"}
   },
   "links":       [
+    "@intellimaintain/domain",
     "@intellimaintain/events",
     "@intellimaintain/eventstore",
     "@intellimaintain/apiclienteventstore"

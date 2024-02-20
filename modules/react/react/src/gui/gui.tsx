@@ -21,10 +21,14 @@ export function DisplayGui<S, C> ( { state, label, from }: DisplayGuiProps<S, C>
 
   return <TwoRowLayout state={state.focusOn ( 'selectionState' ).focusOn ( 'topBottomSlider' )}>
     <TabsContainer label={label} state={parentState}>
-      <TabWithSideEffects title='Ticket' state={state} focuson='tickets'>{state => <DisplayTickets state={state}/>}</TabWithSideEffects>
-      <TabWithSideEffects title='KSa' state={state} focuson='kas'>{state => <DisplayKnowledgeArticles state={state}/>}</TabWithSideEffects>
-      <TabWithSideEffects title='Variables' state={state} focuson='variables'>{state => <DisplayVariables state={state}/>}</TabWithSideEffects>
-      <TabWithSideEffects title='Catalog' state={state} focuson='scs'>{state => <DisplaySoftwareCatalogs state={state}/>}</TabWithSideEffects>
+      <TabWithSideEffects title='Ticket' state={state} focuson='tickets'>{state =>
+        <DisplayTickets path='tickets' state={state}/>}</TabWithSideEffects>
+      <TabWithSideEffects title='KSa' state={state} focuson='kas'>{state =>
+        <DisplayKnowledgeArticles path='kas' state={state}/>}</TabWithSideEffects>
+      <TabWithSideEffects title='Variables' state={state} focuson='variables'>{state =>
+        <DisplayVariables state={state}/>}</TabWithSideEffects>
+      <TabWithSideEffects title='Catalog' state={state} focuson='scs'>{state =>
+        <DisplaySoftwareCatalogs path='scs' state={state}/>}</TabWithSideEffects>
       <TabPanel focuson='log' state={parentState} title='Log'>{state => <LogDisplay state={state}/>}</TabPanel>
       <SimpleTabPanel title='State'><DisplayDebug state={state}/></SimpleTabPanel>
       <SimpleTabPanel title='Debug'><StateDisplay state={state}/></SimpleTabPanel>

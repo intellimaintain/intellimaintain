@@ -1,4 +1,4 @@
-import { IdStore } from "@intellimaintain/idstore";
+import { IdStore, isBadIdStoreResult } from "@intellimaintain/idstore";
 import { AppendEvent, BaseEvent, ErrorEvent, Event, EventNameAnd, isErrorEvent, isLensPathEvent, SetIdEvent, SetValueEvent, ZeroEvent } from "./events";
 import { Lenses, Optional } from "@focuson/lens";
 
@@ -47,9 +47,10 @@ export function zeroEventProcessor<S> (): EventProcessorFn<S, ZeroEvent> {
 }
 export function setIdEventProcessor<S> (): EventProcessorFn<S, SetIdEvent> {
   return async ( p, e, s: S ) => {
-    let value = await p.idStore ( e.id )
+    let value = await p.idStore ( e.id, e.parser )
+    if (isBadIdStoreResult(value)) throw new Error(`Error in setIdEventProcessor. ${value.error}`)
     let lens = p.pathToLens ( e.path )
-    return lens.set ( s, value )
+    return lens.set ( s, value.result )
   }
 }
 

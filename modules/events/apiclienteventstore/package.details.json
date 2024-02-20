@@ -13,8 +13,12 @@
     }
   },
   "links":       [
-    "@intellimaintain/utils", "@intellimaintain/idstore",
-    "@intellimaintain/events", "@intellimaintain/eventstore"
+    "@intellimaintain/domain",
+    "@intellimaintain/events",
+    "@intellimaintain/eventstore",
+    "@intellimaintain/idstore",
+    "@intellimaintain/parser",
+    "@intellimaintain/utils"
   ],
   "guards":      {
     "compile": true,

@@ -1,3 +1,4 @@
+Delete Project
 # Enrich:
 * Locate environment where project exists
 * Project: EPX

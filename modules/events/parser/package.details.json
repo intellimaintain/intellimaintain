@@ -1,0 +1,17 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/parser",
+  "description": "A simple id => value store",
+  "packageJson": {
+    "dependencies":    {
+      "@laoban/utils": "1.4.45"
+    },
+    "devDependencies": {}
+  },
+  "links":       ["@intellimaintain/utils"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

@@ -1,7 +1,7 @@
 {
   "template":    "typescript",
-  "name":        "@intellimaintain/events",
-  "description": "The events that will go in our event store",
+  "name":        "@intellimaintain/domain",
+  "description": "A event source library for node.js backed with a file",
   "packageJson": {
     "dependencies":    {
       "node":          "^v14.4.0",
@@ -13,7 +13,7 @@
       "child_process": false
     }
   },
-  "links":       ["@intellimaintain/utils","@intellimaintain/idstore",  "@intellimaintain/parser"],
+  "links":       ["@intellimaintain/utils", "@intellimaintain/events","@intellimaintain/eventstore","@intellimaintain/parser"],
   "guards":      {
     "compile": true,
     "publish": true,

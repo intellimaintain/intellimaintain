@@ -1,19 +1,13 @@
 import { SideEffect, SideeffectResult } from "../sideeffects/sideeffects";
-import { Conversation } from "@intellimaintain/apiclienteventstore";
-import { KnowledgeArticles } from "./ka/ka";
-import { Tickets } from "./ticket/ticket";
 import { SelectionState } from "../state/selection.state";
 import { SoftwareCatalogs } from "./softwarecatalog/sc";
 import { Variables } from "./variables/variables";
-
-
-export type IdAndName = {
-  id: string
-  name: string
-}
+import { Conversation, IdAndName } from "@intellimaintain/domain";
+import { KnowledgeArticles } from "./ka/ka";
+import { Tickets } from "./ticket/ticket";
 export interface SelectedAndList<T extends IdAndName> {
   options: IdAndName[]
-  selected: string
+  selected: string | undefined
   item: T | undefined //might not be loaded
 }
 

@@ -1,0 +1,7 @@
+Ticket PA123
+P4
+Issue:
+  * I created a project (P-66a6)
+  * It is in the EPX production by mistake.
+
+Please remove this project from the EPX production.

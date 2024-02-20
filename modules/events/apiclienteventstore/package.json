@@ -22,10 +22,12 @@
   "dependencies": {
     "@laoban/utils": "1.4.45",
     "@focuson/lens": "1.44.1",
-    "@intellimaintain/utils": "0.0.5",
-    "@intellimaintain/idstore": "0.0.5",
+    "@intellimaintain/domain": "0.0.5",
     "@intellimaintain/events": "0.0.5",
     "@intellimaintain/eventstore": "0.0.5",
+    "@intellimaintain/idstore": "0.0.5",
+    "@intellimaintain/parser": "0.0.5",
+    "@intellimaintain/utils": "0.0.5",
     "debug": "^4.3.4"
   },
   "devDependencies": {

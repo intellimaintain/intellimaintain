@@ -2,6 +2,7 @@ import { CommandFn, HasCurrentDirectory } from "@intellimaintain/cli";
 import { startKoa } from "@runbook/koa";
 import { wizardOfOzApiHandlers } from "./api";
 import { defaultIdStoreDetails, loadFromIdStore } from "@intellimaintain/idstore";
+import { defaultParserStore } from "@intellimaintain/domain";
 
 
 export function apiCommand<Commander, Context extends HasCurrentDirectory, Config> (): CommandFn<Commander, Context, Config> {
@@ -16,8 +17,8 @@ export function apiCommand<Commander, Context extends HasCurrentDirectory, Confi
     },
     action: async ( commander, opts ) => {
       const { port, debug, directory } = opts
-      const idStore = loadFromIdStore ( defaultIdStoreDetails ( opts.id.toString () ) )
-      startKoa ( directory.toString (), Number.parseInt ( port.toString () ), debug === true, wizardOfOzApiHandlers ( idStore ) )
+      const idStore = loadFromIdStore ( defaultIdStoreDetails ( opts.id.toString (), defaultParserStore ) )
+      startKoa ( directory.toString (), Number.parseInt ( port.toString () ), debug === true, wizardOfOzApiHandlers ( idStore, opts.debug === true ) )
     }
   })
 

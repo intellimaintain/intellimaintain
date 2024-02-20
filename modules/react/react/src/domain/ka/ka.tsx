@@ -1,14 +1,13 @@
 import { LensProps, LensProps2 } from "@focuson/state";
-import { Box, Typography } from "@mui/material";
-import { IdAndName, SelectedAndList } from "../domain";
+import { Box } from "@mui/material";
+import { SelectedAndList } from "../domain";
 import { SideEffect } from "../../sideeffects/sideeffects";
 import { DropdownAsTitle } from "../../layouts/DropdownAsTitle";
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import { KnowledgeArticle } from "@intellimaintain/domain";
 
-export interface KnowledgeArticle extends IdAndName {
-  body: string
-}
+
 export type KnowledgeArticles = SelectedAndList<KnowledgeArticle>
 
 export function DisplayKnowledgeArticle<S, C> ( { state }: LensProps<S, KnowledgeArticle, C> ) {
@@ -18,8 +17,8 @@ export function DisplayKnowledgeArticle<S, C> ( { state }: LensProps<S, Knowledg
   </Box>
 }
 
-export function DisplayKnowledgeArticles<S> ( { state }: LensProps2<S, KnowledgeArticles, SideEffect[], any> ) {
-  return <DropdownAsTitle state={state} purpose='Knowledge Article'>{
+export function DisplayKnowledgeArticles<S> ( { path,state }: LensProps2<S, KnowledgeArticles, SideEffect[], any>&{path: string}) {
+  return <DropdownAsTitle path={path} state={state} purpose='Knowledge Article' parser='ka'>{
     state => <DisplayKnowledgeArticle state={state}/>
   }</DropdownAsTitle>
 }

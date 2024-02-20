@@ -1,16 +1,13 @@
-
 import { LensProps, LensProps2 } from "@focuson/state";
 import { Box } from "@mui/material";
 import ReactMarkdown from "react-markdown";
 import { SideEffect } from "../../sideeffects/sideeffects";
 import { DropdownAsTitle } from "../../layouts/DropdownAsTitle";
 import React from "react";
-import { KnowledgeArticle, KnowledgeArticles } from "../ka/ka";
-import { IdAndName, SelectedAndList } from "../domain";
+import { SoftwareCatalog } from "@intellimaintain/domain";
+import { SelectedAndList } from "../domain";
 
-export interface SoftwareCatalog extends IdAndName{
-  body: string
-}
+
 export type SoftwareCatalogs = SelectedAndList<SoftwareCatalog>
 
 export function DisplaySoftwareCatalog<S, C> ( { state }: LensProps<S, SoftwareCatalog, C> ) {
@@ -20,8 +17,8 @@ export function DisplaySoftwareCatalog<S, C> ( { state }: LensProps<S, SoftwareC
     </Box>
 }
 
-export function DisplaySoftwareCatalogs<S> ( { state }: LensProps2<S, SoftwareCatalogs, SideEffect[], any> ) {
-  return <DropdownAsTitle state={state} purpose='Software Catalog'>{
+export function DisplaySoftwareCatalogs<S> ( { state, path }: LensProps2<S, SoftwareCatalogs, SideEffect[], any> &{path:string}) {
+  return <DropdownAsTitle state={state} path={path} purpose='Software Catalog' parser='sc'>{
     state => <DisplaySoftwareCatalog state={state}/>
 }</DropdownAsTitle>
 }

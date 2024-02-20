@@ -6,18 +6,16 @@ import { promises as fs } from 'fs';
 import { IdStore, IdStoreResult, isBadIdStoreResult } from "@intellimaintain/idstore";
 
 
-
-export const ids = ( idstore: IdStore ): KoaPartialFunction => ({
+export const ids = ( idstore: IdStore, debug: boolean ): KoaPartialFunction => ({
   isDefinedAt: ( ctx ) => ctx.context.request.path.startsWith ( '/id/' ) && ctx.context.request.method === 'GET',
   apply: async ( ctx ) => {
-    console.log ( 'found ids', ctx.context.path )
     const id = ctx.context.path.slice ( 4 )
-    const result: IdStoreResult = await idstore ( id )
-    if ( isBadIdStoreResult(result) ) {
+    if ( debug ) console.log ( 'found ids', ctx.context.path, id )
+    const result: IdStoreResult = await idstore ( id, 'string' )
+    if ( isBadIdStoreResult ( result ) ) {
       ctx.context.status = 500
       ctx.context.body = result.error
-    }
-    else{
+    } else {
       ctx.context.status = 200
       ctx.context.body = result.result
       ctx.context.type = result.mimeType
@@ -57,9 +55,9 @@ export const appendPostPF: KoaPartialFunction = {
   }
 }
 
-export const wizardOfOzApiHandlers = (idStore: IdStore, ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats ) => Promise<void> =>
+export const wizardOfOzApiHandlers = ( idStore: IdStore, debug: boolean, ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats ) => Promise<void> =>
   chainOfResponsibility ( defaultShowsError, //called if no matches
-    ids(idStore),
+    ids ( idStore, debug ),
     eventsPF,
     appendPostPF,
     ...handlers,

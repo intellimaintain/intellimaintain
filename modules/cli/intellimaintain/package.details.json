@@ -17,14 +17,15 @@
     }
   },
   "links":       [
-    "@intellimaintain/utils",
+    "@intellimaintain/cli",
+    "@intellimaintain/commander12",
+    "@intellimaintain/config",
+    "@intellimaintain/domain",
     "@intellimaintain/events",
-    "@intellimaintain/idstore",
     "@intellimaintain/eventstore",
     "@intellimaintain/fileeventstore",
-    "@intellimaintain/config",
-    "@intellimaintain/cli",
-    "@intellimaintain/commander12"
+    "@intellimaintain/idstore",
+    "@intellimaintain/utils"
   ],
   "guards":      {
     "compile": true,

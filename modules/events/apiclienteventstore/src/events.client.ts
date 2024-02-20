@@ -1,4 +1,4 @@
-import { Message } from "./conversation";
+import { Message } from "@intellimaintain/domain";
 import { Event } from "@intellimaintain/events";
 
 export interface SendEvents {

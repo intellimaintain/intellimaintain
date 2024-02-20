@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Box, List, ListItem, Typography } from '@mui/material';
 import { LensProps2 } from "@focuson/state";
 import { UserTypingBox } from "./userTypingBox";
-import { Conversation } from "@intellimaintain/apiclienteventstore";
+import { Conversation } from "@intellimaintain/domain";
 import { SideEffect } from "../../sideeffects/sideeffects";
 
 

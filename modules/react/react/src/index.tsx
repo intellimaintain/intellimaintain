@@ -10,7 +10,7 @@ import { processSideEffectsInState } from "./state/state2Sideeffects";
 import { Lenses } from "@focuson/lens";
 import { processSideEffect, eventSideeffectProcessor } from "./sideeffects/sideeffects";
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
-import { apiLoading, ApiLoading, apiLoadingFromBrowser, sendEvent, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
+import { apiIdStore, apiLoading, ApiLoading, apiLoadingFromBrowser, idStoreFromApi, sendEvent, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
 import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
 import { DemoChatState } from "./domain/domain";
 import { startAppState } from "./domain/sample";
@@ -34,11 +34,15 @@ const rootElement = document.getElementById ( 'root' );
 if ( !rootElement ) throw new Error ( 'Failed to find the root element' );
 const root = ReactDOM.createRoot ( rootElement );
 
+const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
+const saveDetails: SendEvents = sendEvents ( "http://localhost:1235/file1" )
+const idStoreDetails = apiIdStore ( "http://localhost:1235" )
+const idStore = idStoreFromApi ( idStoreDetails )
 
 const container = eventStore<DemoChatState> ()
 const setJson = setEventStoreValue ( container );
-const sep1 = defaultEventProcessor<DemoChatState> ( 'chatState1.', startAppState, NoIdStore )
-const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState, NoIdStore )
+const sep1 = defaultEventProcessor<DemoChatState> ( 'chatState1.', startAppState, idStore )
+const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState, idStore )
 
 addEventStoreListener ( container, (( oldS, s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
 
@@ -63,8 +67,7 @@ const pollingDetails = polling ( 1000, async s => {
   if ( state )
     setJson ( state )
 } )
-const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
-const saveDetails: SendEvents = sendEvents ( "http://localhost:1235/file1" )
+
 
 startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
 
