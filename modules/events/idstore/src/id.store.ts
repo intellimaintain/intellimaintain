@@ -1,9 +1,8 @@
 import { JSONValue } from "@intellimaintain/utils";
 
+export type  IdStore = ( id: string ) => Promise<IdStoreResult>
 
-export type  IdStore = ( id: string ) => Promise<JSONValue>
-
-export const NoIdStore: IdStore = () => Promise.reject ( 'No Id Store' )
+export const NoIdStore: IdStore = async id => ({ id, error: 'No Id Store' })
 
 export type  IdStoreResult = {
   id: string

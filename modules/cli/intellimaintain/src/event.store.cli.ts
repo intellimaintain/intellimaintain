@@ -1,10 +1,10 @@
 import { SubCommandDetails } from "@intellimaintain/cli";
 import { eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
-import { defaultEventProcessor, NoIdStore, processEvents } from "@intellimaintain/events";
+import { processEvents } from "@intellimaintain/events";
 import { fileLoading, loadStringIncrementally } from "@intellimaintain/fileeventstore";
+import { sep } from "./cli.id.store";
 
 export function eventStoreCommands<Commander, Context, Config> (): SubCommandDetails<Commander, Context, Config> {
-
   return {
     cmd: 'polling',
     description: 'File messaging commands',
@@ -32,18 +32,18 @@ export function eventStoreCommands<Commander, Context, Config> (): SubCommandDet
         cmd: 'store <file>', description: 'Polls for changes in the files. processes events against a store',
         options: {
           "-p,--poll": { description: "Polling interval", default: "1000" },
-          "-d,--debug": { description: "Adds debugging information" }
+          "-d,--debug": { description: "Adds debugging information" },
+          "-i,--id-store <idstore>": { description: "Root of the id store", default: '.' },
         },
         action: async ( commander, opts, file ) => {
           console.log ( `Listening to ${file} ${JSON.stringify ( opts )}` )
           const store = eventStore<any> ( opts.debug === true )
           // addEventStoreListener( store, ( s, setJson ) => console.log ( s )  )
-          const sep = defaultEventProcessor ( 'start.', {}, NoIdStore )
           const fl = fileLoading ( file )
           const pollingDetails = polling ( parseInt ( opts.poll.toString () ), async s => {
             const events = await stringToEvents ( { file }, s )
             if ( store.debug ) console.log ( 'events', JSON.stringify ( events ) )
-            const { state, errors } = await processEvents ( sep, store.state, events )
+            const { state, errors } = await processEvents ( sep ( opts.idstore.toString () ), store.state, events )
             errors.forEach ( e => console.log ( e ) )
             setEventStoreValue ( store ) ( state )
             console.log ( JSON.stringify ( store.state ) )

@@ -1,7 +1,6 @@
+import { IdStore } from "@intellimaintain/idstore";
 import { AppendEvent, BaseEvent, ErrorEvent, Event, EventNameAnd, isErrorEvent, isLensPathEvent, SetIdEvent, SetValueEvent, ZeroEvent } from "./events";
-import { defaultParserStore, ParserStore } from "./parserStore";
-import { IdStore } from "./IdStore";
-import { Lens, Lenses, Optional } from "@focuson/lens";
+import { Lenses, Optional } from "@focuson/lens";
 
 /** Why a promise? Because the IdEvent goes to the id store to get the data. The id store is async. */
 export type EventProcessorFn<S, E extends BaseEvent> = ( p: EventProcessor<S>, event: E, s: S ) => Promise<S>

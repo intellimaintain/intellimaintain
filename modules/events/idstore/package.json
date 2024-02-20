@@ -1,12 +1,9 @@
 {
-  "name": "@intellimaintain/events",
-  "description": "The events that will go in our event store",
+  "name": "@intellimaintain/idstore",
+  "description": "A simple id => value store",
   "version": "0.0.5",
   "main": "dist/index",
   "types": "dist/index",
-  "browser": {
-    "child_process": false
-  },
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -20,11 +17,8 @@
     ]
   },
   "dependencies": {
-    "node": "^v14.4.0",
     "@laoban/utils": "1.4.45",
-    "@focuson/lens": "1.44.1",
     "@intellimaintain/utils": "0.0.5",
-    "@intellimaintain/idstore": "0.0.5",
     "debug": "^4.3.4"
   },
   "devDependencies": {

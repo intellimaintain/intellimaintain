@@ -19,6 +19,7 @@
   "links":       [
     "@intellimaintain/utils",
     "@intellimaintain/events",
+    "@intellimaintain/idstore",
     "@intellimaintain/eventstore",
     "@intellimaintain/fileeventstore",
     "@intellimaintain/config",

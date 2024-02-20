@@ -28,6 +28,7 @@
     "@laoban/filesops-node": "1.4.45",
     "@intellimaintain/utils": "0.0.5",
     "@intellimaintain/events": "0.0.5",
+    "@intellimaintain/idstore": "0.0.5",
     "@intellimaintain/eventstore": "0.0.5",
     "@intellimaintain/fileeventstore": "0.0.5",
     "@intellimaintain/config": "0.0.5",

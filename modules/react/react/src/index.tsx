@@ -11,9 +11,10 @@ import { Lenses } from "@focuson/lens";
 import { processSideEffect, sendMessageSideeffectProcessor } from "./sideeffects/sideeffects";
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { apiLoading, ApiLoading, apiLoadingFromBrowser, MessageSave, messageSaving } from "@intellimaintain/apiclienteventstore";
-import { defaultEventProcessor, NoIdStore, processEvents } from "@intellimaintain/events";
+import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
 import { DemoChatState } from "./domain/domain";
 import { startAppState } from "./domain/sample";
+import { NoIdStore } from "@intellimaintain/idstore";
 
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
