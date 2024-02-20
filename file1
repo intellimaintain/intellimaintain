@@ -7,3 +7,4 @@
 {"event":"append","path":"conversation.messages","value":{"message":"The issue still occurs in acceptance environment (I checked)","who":"Wizard"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Resolve the ticket","who":"Operator"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"I removed the project, and checked. It's not there now. Sendiing emails and closing ticket","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Is the ticket still valid","who":"Operator"},"context":{}}

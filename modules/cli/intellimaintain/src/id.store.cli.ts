@@ -1,5 +1,5 @@
 import { defaultEventProcessor } from "@intellimaintain/events";
-import { defaultIdStoreDetails, loadFromIdStore } from "@intellimaintain/idstore";
+import { defaultIdStoreDetails, isBadIdStoreResult, loadFromIdStore } from "@intellimaintain/idstore";
 import { SubCommandDetails } from "@intellimaintain/cli";
 
 export const idStore = ( root: string ) => loadFromIdStore ( defaultIdStoreDetails ( root ) );
@@ -17,7 +17,7 @@ export function idStoreCommands<Commander, Context, Config> (): SubCommandDetail
         console.log ( `getting id  ${id} ${JSON.stringify ( opts )}` )
         const store = idStore ( opts.id.toString () )
         const result = await store ( id )
-        if ( result.error )
+        if ( isBadIdStoreResult((result)))
           console.log ( `Error ${result.error}` )
         else
           console.log ( result.result )

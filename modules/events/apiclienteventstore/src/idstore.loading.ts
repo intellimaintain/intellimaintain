@@ -8,7 +8,7 @@ export function idStoreFromApi ( apiIdStore: ApiIdStore ): IdStore {
     let response = await fetch ( apiIdStore.url + "?id=" + id );
     const result = await response.text ();
     return response.status < 400 ?
-      { id, result: result } :
+      { id, result: result , mimeType: response.headers.get ( 'content-type' ) || 'text/plain; charset=UTF-8' } :
       { id, error: `Error loading ${apiIdStore.url} ${response.status}\n${result}` };
   }
 

@@ -1,10 +1,29 @@
 import { ContextAndStats, defaultShowsError, KoaPartialFunction, notFoundIs404 } from "@runbook/koa";
 import { chainOfResponsibility } from "@runbook/utils";
-import { fileLoading, loadStringIncrementally } from "@intellimaintain/fileeventstore";
+import { fileLoading, fileLocking, loadStringIncrementally, withFileLock } from "@intellimaintain/fileeventstore";
 
 import { promises as fs } from 'fs';
-import { fileLocking, withFileLock } from "@intellimaintain/fileeventstore";
+import { IdStore, IdStoreResult, isBadIdStoreResult } from "@intellimaintain/idstore";
 
+
+
+export const ids = ( idstore: IdStore ): KoaPartialFunction => ({
+  isDefinedAt: ( ctx ) => ctx.context.request.path.startsWith ( '/id/' ) && ctx.context.request.method === 'GET',
+  apply: async ( ctx ) => {
+    console.log ( 'found ids', ctx.context.path )
+    const id = ctx.context.path.slice ( 4 )
+    const result: IdStoreResult = await idstore ( id )
+    if ( isBadIdStoreResult(result) ) {
+      ctx.context.status = 500
+      ctx.context.body = result.error
+    }
+    else{
+      ctx.context.status = 200
+      ctx.context.body = result.result
+      ctx.context.type = result.mimeType
+    }
+  }
+})
 
 export const eventsPF: KoaPartialFunction = {
   isDefinedAt: ( ctx ) => ctx.stats?.isFile () && ctx.context.request.method === 'GET',
@@ -38,8 +57,9 @@ export const appendPostPF: KoaPartialFunction = {
   }
 }
 
-export const wizardOfOzApiHandlers = ( ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats, ) => Promise<void> =>
+export const wizardOfOzApiHandlers = (idStore: IdStore, ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats ) => Promise<void> =>
   chainOfResponsibility ( defaultShowsError, //called if no matches
+    ids(idStore),
     eventsPF,
     appendPostPF,
     ...handlers,
