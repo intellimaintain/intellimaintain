@@ -22,8 +22,8 @@ export function idPathToFilePath ( details: AllIdStoreDetails, s: string ): stri
 
 export function defaultIdStoreDetails ( root: string ): AllIdStoreDetails {
   return {
-    ks: { extension: 'md', rootPath: `${root}/ka}` },
-    sca: { extension: 'md', rootPath: `${root}/scas` },
+    ka: { extension: 'md', rootPath: `${root}/kas` },
+    sc: { extension: 'md', rootPath: `${root}/scs` },
     ticket: { extension: 'events.txt', rootPath: `${root}/tickets` }
   }
 }
