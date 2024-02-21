@@ -20,10 +20,11 @@
     "scripts":      {"start": "react-scripts start"}
   },
   "links":       [
+    "@intellimaintain/apiclienteventstore",
     "@intellimaintain/domain",
     "@intellimaintain/events",
     "@intellimaintain/eventstore",
-    "@intellimaintain/apiclienteventstore"
+    "@intellimaintain/variables"
   ],
   "guards":      {
     "compile": true,

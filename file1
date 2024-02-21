@@ -1,16 +1,26 @@
-{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
-{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Ticket PA123","who":"Operator"},"context":{}}
 {"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
 {"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
 {"event":"setValue","path":"kas.selected","value":"ka:deleteProject","context":{}}
 {"event":"setId","id":"ka:deleteProject","path":"kas.item","parser":"ka","context":{}}
-{"event":"setId","id":"sc:EPX","path":"scs.item","parser":"sc","context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"I think that´s Knowledge Article ´Delete Project´. Please check","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Looks Good","who":"Operator"},"context":{}}
 {"event":"setValue","path":"scs.selected","value":"sc:EPX","context":{}}
-{"event":"setValue","path":"tickets.selected","value":"ticket:pa124","context":{}}
-{"event":"setId","id":"ticket:pa124","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setId","id":"sc:EPX","path":"scs.item","parser":"sc","context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Check issue exists\n[Execute Sql in Oracle DB() for user (phil) secret(env.EPX_DB_SECRET_ACC) \nselect * from projects where projectid=:projectID(P-6666)]\nThere should be one and only one line","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"(operator presses 'check' button)","who":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"The issue exists","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"The issue exists \n[Send email(pleaseapprove)]","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"(reviews email, presses send)","who":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"mr.approver@example.com has responded and approved [Summarise approval email]","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":": Check issue exists [Execute Sql in Oracle DB() for user (phil) secret(env.EPX_DB_SECRET_ACC) select * from projects where projectid=:projectID(P-6666)] There should be one","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"(operator presses 'check' button)","who":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Resolve Issue [Execute Sql in Oracle DB() for user (phil) secret(env.EPX_DB_SECRET_ACC) delete from projects where projectid=:projectid(P-6666)]","who":"Wizard"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"(presses resolve)","who":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"The issue is resolved. Press <here> to notify the ticket owner and mr.approver and close the ticket","who":"Wizard"},"context":{}}
 {"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
 {"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
-{"event":"setValue","path":"tickets.selected","value":"ticket:pa124","context":{}}
-{"event":"setId","id":"ticket:pa124","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
 {"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
 {"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}

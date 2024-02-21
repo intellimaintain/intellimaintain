@@ -29,7 +29,12 @@ export function DisplayConversation<S, C> ( { state, from }: ChatProps<S, C> ) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '45vh' }}>
       <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>
-      <List sx={{ maxHeight: '40vh', overflowY: 'auto' }}>
+      <List sx={{ maxHeight: '30vh', overflowY: 'auto' ,
+        border: '1px solid #ccc',
+        padding: '8px',
+        marginRight: '48px',
+        fontFamily: 'monospace',
+      }}>
         {messages.map ( ( message, index ) => (
           <ListItem key={index}>
             <Typography variant="subtitle1" color="textSecondary">

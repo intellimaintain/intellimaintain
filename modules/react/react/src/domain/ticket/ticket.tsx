@@ -3,9 +3,9 @@ import { LensProps, LensProps2 } from "@focuson/state";
 import { Box, Typography } from "@mui/material";
 import ReactMarkdown from 'react-markdown';
 import { SelectedAndList } from "../domain";
-import { DropdownAsTitle } from "../../layouts/DropdownAsTitle";
 import { SideEffect } from "../../sideeffects/sideeffects";
 import { Ticket } from '@intellimaintain/domain';
+import { DropdownAsTitle } from '../../components/DropdownAsTitle';
 
 export type Tickets = SelectedAndList<Ticket>
 
@@ -16,7 +16,7 @@ export function DisplayTicket<S> ( { state }: LensProps<S, Ticket, any> ) {
     <ReactMarkdown>{ticket?.description || ''}</ReactMarkdown>
   </Box>
 }
-export function DisplayTickets<S> ( { state , path}: LensProps2<S, Tickets, SideEffect[], any> & {path: string} ) {
+export function DisplayTickets<S> ( { state, path }: LensProps2<S, Tickets, SideEffect[], any> & { path: string } ) {
   return <DropdownAsTitle state={state} purpose='Ticket' path={path} parser='ticket'>{
     state => <DisplayTicket state={state}/>
   }</DropdownAsTitle>

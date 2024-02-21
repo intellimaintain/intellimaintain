@@ -1,10 +1,12 @@
 import { SideEffect, SideeffectResult } from "../sideeffects/sideeffects";
 import { SelectionState } from "../state/selection.state";
 import { SoftwareCatalogs } from "./softwarecatalog/sc";
-import { Variables } from "./variables/variables";
 import { Conversation, IdAndName } from "@intellimaintain/domain";
 import { KnowledgeArticles } from "./ka/ka";
 import { Tickets } from "./ticket/ticket";
+import { Variables } from "@intellimaintain/variables";
+import { NameAnd } from "@laoban/utils";
+
 export interface SelectedAndList<T extends IdAndName> {
   options: IdAndName[]
   selected: string | undefined
@@ -19,10 +21,10 @@ export interface ChatState {
   sql: string[]
   kas: KnowledgeArticles
   scs: SoftwareCatalogs
-  variables: Variables
+  variables: NameAnd<Variables>
   tickets: Tickets
 }
-export function blankChatState ( chatter: string, responder: string, kas: KnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets, variables: Variables ): ChatState {
+export function blankChatState ( chatter: string, responder: string, kas: KnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
   return {
     selectionState: {},
     sideeffects: [],
@@ -32,7 +34,7 @@ export function blankChatState ( chatter: string, responder: string, kas: Knowle
     kas,
     scs,
     tickets,
-    variables
+    variables: {  }
   }
 }
 

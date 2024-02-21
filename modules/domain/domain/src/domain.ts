@@ -26,3 +26,5 @@ export interface Ticket extends IdAndName {
   priority: string
   description: string
 }
+
+export type IdPrefixes = 'ticket' | 'sc' | 'ka'

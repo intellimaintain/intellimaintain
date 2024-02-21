@@ -8,6 +8,7 @@ import { hasErrors, reportErrors } from "@laoban/utils";
 import { eventStoreCommands } from "./src/event.store.cli";
 import { apiCommand } from "@intellimaintain/api";
 import { idStoreCommands } from "./src/id.store.cli";
+import { addVariableCommands } from "./src/variables.cli";
 
 
 export function findVersion () {
@@ -33,6 +34,7 @@ makeCli<Commander12, CliContext, Config, CleanConfig> ( context, configFinder, c
   cliTc.addSubCommand ( commander, configCommands ( commander ) )
   cliTc.addSubCommand ( commander, eventStoreCommands<Commander12, CliContext, CleanConfig> () )
   cliTc.addSubCommand ( commander, idStoreCommands<Commander12, CliContext, CleanConfig> () )
+  cliTc.addSubCommand ( commander, addVariableCommands<Commander12, CliContext, CleanConfig> () )
   cliTc.addCommands ( commander, [ apiCommand () ] )
   return await cliTc.execute ( commander.commander, context.args )
 } )

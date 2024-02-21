@@ -31,10 +31,11 @@ export function UserTypingBox<S, C> ( { state, from }: UserTypingBoxProps<S, C> 
     }
   }
   const handleKeyPress = ( event: React.KeyboardEvent<HTMLDivElement> ) => {
-    if ( (event.ctrlKey || event.shiftKey) && event.key === 'Enter' ) {
-      event.preventDefault (); // Prevent default to avoid adding a new line on Ctrl+Enter or Shift+Enter
-      sendMessage ();
-    }
+    if ( event.key === 'Enter' )
+      if ( !event.shiftKey && !event.ctrlKey && !event.altKey && !event.metaKey ) {
+        event.preventDefault (); // Prevent default to avoid adding a new line on Ctrl+Enter or Shift+Enter
+        sendMessage ();
+      }
   };
 
   return (

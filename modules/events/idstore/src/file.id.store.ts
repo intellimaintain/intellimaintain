@@ -18,19 +18,28 @@ export interface AllIdStoreDetails {
 
 
 export type PathAndMimeType = {
+  key: string
   path: string
   mimeType: string
 
 }
-export function idPathToFilePathAndMimeType ( details: NameAnd<IdStoreDetails>, s: string ): PathAndMimeType {
+export type KeyAndPath = {
+  key: string
+  path: string
+}
+export function findIdKeyAndPath ( s: string ):KeyAndPath {
   const index = s.indexOf ( ':' )
   if ( index === -1 ) throw Error ( `Invalid id no ':' in ${s}]` )
   const key = s.slice ( 0, index )
   const path = s.slice ( index + 1 ).replace ( /:/g, '/' )
+  return { key, path };
+}
+export function idPathToFilePathAndMimeType ( details: NameAnd<IdStoreDetails>, s: string ): PathAndMimeType {
+  const { key, path } = findIdKeyAndPath ( s );
   const d = details[ key ]
   if ( !d ) throw Error ( `No details for ${key}. Legal values are ${Object.keys ( details )}` )
 
-  return { path: `${d.rootPath}/${path}.${d.extension}`, mimeType: d.mimeType }
+  return { key, path: `${d.rootPath}/${path}.${d.extension}`, mimeType: d.mimeType }
 }
 
 export function defaultIdStoreDetails ( root: string, parserStore: ParserStore ): AllIdStoreDetails {

@@ -3,6 +3,7 @@ import { Lens } from "@focuson/lens";
 import { mapK } from "@laoban/utils";
 
 
+
 export const processSideEffectsInState = <S> ( sep: ISideEffectProcessor<SideEffect, any>, seLens: Lens<S, SideEffect[]>, logL: Lens<S, SideeffectResult<any>[]>, debug?: boolean ) =>
   async (oldState: S,  state: S, ) => {
     const sideeffects = seLens.getOption ( state ) || []

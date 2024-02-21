@@ -36,7 +36,42 @@ Why not... it's nice. It's easy and adequate for the task.
 
 # How to manage selection state
 
-In the react state. NOT via useState, but by the big json object that is the state which we pass down to the components.
+By this I mean 'are we editing the component or viewing it'. What is the active tab. Things that don't impact the business logic. 
+So for example 'which ticket are we working on' is not covered by this section but 'which is the active tab I am looking at' is.
+
+We store this in the react state. NOT via useState, but by the big json object that is the state which we pass down to the components.
+
+# Why are we minimising the use of React Hooks
+
+For example NO UseState. The reason is that we want stateless sideeffect free pure functions whereever possible. Hooks have many
+downsides: hard to test, hard to reason about, hard to debug. They also break if you violate the rules which are not always clear. 
+They bind the component to every other component on the display. This makes it even harder to reason about the code.
+
+We do use useEffect and useRef where we absolutely have to. Like using machine code it should be used sparingly.
+
+# How do we manage non selection state
+
+We are using the focus on library. This is extremely similar to redux in many ways: there is a single state and we can
+focus on part of the state. However there are almost no actions. We can change the state of the bit we are focused on and
+that is it
+
+This forces us to use the command pattern (which is a good thing). Components are checked by the type system to ensure
+that we know what they do. Compare this to redux where we can change any aspect of the state from anywhere. 
+
+If we want to do a 'major change' that impacts decision making logic like 'what ticket are we working on' or 'edit one of the variables that
+the AI would have calculated for us' then we store the 'event' in the state under the section 'sideeffects'. This will be processed
+in the main loop and send the event to the file system. 
+
+A separate polling loop will pick up the event from the file system and process it. 
+
+Reasons
+* Separating 'what I want to do' from 'how I do it' is a good thing.
+  * Easier to test.
+  * Easier to reason about.
+  * Easier to debug / trace
+  * Easier to understand.
+* 
+
 
 
 # How to do side effects like 'send message' 'do email'
@@ -44,12 +79,6 @@ In the react state. NOT via useState, but by the big json object that is the sta
 Modify the state and add the sideeffect to a list of side effects. Then in the main loop, process the side effects. Remove after side effects are processed.
 
 Why?
-
-* Separating 'what I want to do' from 'how I do it' is a good thing.
-* Easier to test. 
-* Easier to reason about. 
-* Easier to debug. 
-* Easier to understand.
 
 
 

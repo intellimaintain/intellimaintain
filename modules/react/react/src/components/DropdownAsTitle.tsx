@@ -1,11 +1,12 @@
 import { Card, CardContent, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import React, { ReactNode } from "react";
-import { LensProps2, LensState } from "@focuson/state";
+import { LensProps, LensProps2, LensState } from "@focuson/state";
 import { SideEffect } from "../sideeffects/sideeffects";
-import { LoadingOr } from "./LoadingOr";
+
 import { SelectedAndList } from "../domain/domain";
 import { SetIdEvent, SetValueEvent } from "@intellimaintain/events";
 import { IdAndName } from "@intellimaintain/domain";
+import { Loading } from "./loading";
 
 
 //observations... it will take time to load the selected item
@@ -21,7 +22,7 @@ export interface DropdownAsTitleProps<S, T extends IdAndName> extends LensProps2
   parser?: string
   children: ( state: LensState<S, T, any> ) => React.ReactElement
 }
-export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, path, purpose , parser}: DropdownAsTitleProps<S, T> ) {
+export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, path, purpose, parser }: DropdownAsTitleProps<S, T> ) {
   const { selected, options } = state.optJson1 () || { options: [], item: undefined, selected: undefined }
 
   //export interface SelectedAndList<T extends IdAndName> {
@@ -35,7 +36,7 @@ export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, pat
     if ( id ) {
       console.log ( 'handleChange', id, event.target.value, event.target.name, event.target )
       const setSelectedEvent: SetValueEvent = { event: 'setValue', path: path + '.selected', value: id, context: {} };
-      const loadItemEvent: SetIdEvent = { event: 'setId', id, path: path + '.item', parser: parser ||'string', context: {} };
+      const loadItemEvent: SetIdEvent = { event: 'setId', id, path: path + '.item', parser: parser || 'string', context: {} };
       state.transformJson (
         ( { options, selected, item } ) => ({ options, selected: id, item: undefined }),
         old => [ ...(old || []), { command: 'event', event: setSelectedEvent }, { command: 'event', event: loadItemEvent } ],
@@ -48,12 +49,24 @@ export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, pat
         value={selected || ''}
         onChange={handleChange}
         aria-label={`Select${purpose ? ' ' + purpose : ''}`}
+        displayEmpty
         fullWidth
       > <MenuItem disabled value=""> <em>Please select a {purpose}</em> </MenuItem>
         {options.map ( ( option ) => (
           <MenuItem key={option.name} value={option.id}>{option.name}</MenuItem>
         ) )}
       </Select>
-      <LoadingOr state={state.state1 ().focusOn ( 'item' )} children={children}/>
+      <LoadingOr state={state.state1 ()} children={children}/>
     </CardContent></Card>
+}
+
+export interface LoadingOrProps<S, T extends IdAndName> extends LensProps<S, SelectedAndList<T>, any> {
+  children: ( state: LensState<S, T, any> ) => React.ReactElement
+}
+export function LoadingOr<S, T extends IdAndName> ( { state, children }: LoadingOrProps<S, T> ) {
+  const item = state.optJson ();
+  if ( item === undefined || item.selected === undefined ) return <></>
+  const newState: LensState<S, T | undefined, any> = state.focusOn ( 'item' )
+  const castState = newState as LensState<S, T, any>;
+  return item.item === undefined ? <Loading/> : children ( castState );
 }

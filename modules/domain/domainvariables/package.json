@@ -1,6 +1,6 @@
 {
-  "name": "@intellimaintain/api",
-  "description": "The api that supports the Wizard of Oz",
+  "name": "@intellimaintain/domainvariables",
+  "description": "Code that extras variables from the domain objects",
   "version": "0.0.5",
   "main": "dist/index",
   "types": "dist/index",
@@ -20,12 +20,10 @@
     ]
   },
   "dependencies": {
-    "@runbook/koa": "0.3.14",
-    "@runbook/utils": "0.3.14",
+    "node": "^v14.4.0",
+    "@laoban/utils": "1.4.45",
     "@intellimaintain/utils": "0.0.5",
-    "@intellimaintain/cli": "0.0.5",
     "@intellimaintain/domain": "0.0.5",
-    "@intellimaintain/fileeventstore": "0.0.5",
     "debug": "^4.3.4"
   },
   "devDependencies": {
