@@ -1,1 +1,1 @@
-export * from './src/ticket';
+export * from './src/display.ticket';

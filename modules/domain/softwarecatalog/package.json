@@ -1,12 +1,9 @@
 {
-  "name": "intellimaintain",
-  "description": "",
+  "name": "@intellimaintain/softwarecatalog",
+  "description": "The softwarecatalog plugin. Everything except react",
   "version": "0.0.5",
   "main": "dist/index",
   "types": "dist/index",
-  "bin": {
-    "intellimaintain": "dist/index.js"
-  },
   "browser": {
     "child_process": false
   },
@@ -23,19 +20,7 @@
     ]
   },
   "dependencies": {
-    "node": "^v16.0.0",
-    "@laoban/utils": "1.4.45",
-    "@laoban/filesops-node": "1.4.45",
-    "@intellimaintain/cli": "0.0.5",
-    "@intellimaintain/commander12": "0.0.5",
-    "@intellimaintain/config": "0.0.5",
     "@intellimaintain/domain": "0.0.5",
-    "@intellimaintain/defaultdomains": "0.0.5",
-    "@intellimaintain/events": "0.0.5",
-    "@intellimaintain/eventstore": "0.0.5",
-    "@intellimaintain/fileeventstore": "0.0.5",
-    "@intellimaintain/idstore": "0.0.5",
-    "@intellimaintain/utils": "0.0.5",
     "debug": "^4.3.4"
   },
   "devDependencies": {

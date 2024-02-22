@@ -1,6 +1,6 @@
 {
   "template":    "typescript",
-  "name":        "@intellimaintain/domainvariables",
+  "name":        "@intellimaintain/defaultdomains",
   "description": "Code that extras variables from the domain objects",
   "packageJson": {
     "dependencies":    {
@@ -14,8 +14,9 @@
   },
   "links":       [
     "@intellimaintain/domain",
-    "@intellimaintain/tickets",
     "@intellimaintain/knowledge_articles",
+    "@intellimaintain/tickets",
+    "@intellimaintain/softwarecatalog",
     "@intellimaintain/utils"
   ],
   "guards":      {

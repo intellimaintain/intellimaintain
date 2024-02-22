@@ -1,5 +1,5 @@
 {
-  "name": "@intellimaintain/domainvariables",
+  "name": "@intellimaintain/defaultdomains",
   "description": "Code that extras variables from the domain objects",
   "version": "0.0.5",
   "main": "dist/index",
@@ -23,8 +23,9 @@
     "node": "^v14.4.0",
     "@laoban/utils": "1.4.45",
     "@intellimaintain/domain": "0.0.5",
-    "@intellimaintain/tickets": "0.0.5",
     "@intellimaintain/knowledge_articles": "0.0.5",
+    "@intellimaintain/tickets": "0.0.5",
+    "@intellimaintain/softwarecatalog": "0.0.5",
     "@intellimaintain/utils": "0.0.5",
     "debug": "^4.3.4"
   },

@@ -1,3 +1,4 @@
+parent: 'katype:adjustDatabaseSql'
 name: Delete Project
 required:
   - projectId

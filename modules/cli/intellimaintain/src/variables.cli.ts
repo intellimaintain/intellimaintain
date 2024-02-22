@@ -1,7 +1,7 @@
 import { isBadIdStoreResult } from "@intellimaintain/idstore";
 import { SubCommandDetails } from "@intellimaintain/cli";
 import { idStore } from "./id.store.cli";
-import { defaultVariablesExtractor } from "@intellimaintain/domainvariables";
+import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
 import { extractVariablesFrom } from "@intellimaintain/variables";
 
 

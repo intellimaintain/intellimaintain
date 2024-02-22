@@ -25,7 +25,7 @@
     "@intellimaintain/utils": "0.0.5",
     "@intellimaintain/cli": "0.0.5",
     "@intellimaintain/domain": "0.0.5",
-    "@intellimaintain/domainvariables": "0.0.5",
+    "@intellimaintain/defaultdomains": "0.0.5",
     "@intellimaintain/fileeventstore": "0.0.5",
     "debug": "^4.3.4"
   },

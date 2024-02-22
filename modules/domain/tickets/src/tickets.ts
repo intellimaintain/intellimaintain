@@ -1,7 +1,7 @@
 import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
 import { ErrorsAnd } from "@laoban/utils";
 import { extractVariablesFromMarkdown, Variables } from "@intellimaintain/variables";
-import { addVariables } from "@intellimaintain/domainvariables";
+import { addVariables } from "@intellimaintain/defaultdomains";
 import { ParserStoreParser } from "@intellimaintain/parser";
 
 export interface Ticket extends IdAndName {
@@ -29,6 +29,6 @@ export function ticketsPlugin ( rootPath: string ): DomainPlugin<Ticket> {
     prefix: 'ticket',
     parser: ticketParser,
     variablesExtractor: variablesFromTicket,
-    idStoreDetails: { extension: 'ticket', rootPath, mimeType: 'text/markdown; charset=UTF-8' }
+    idStoreDetails: { extension: 'md', rootPath, mimeType: 'text/markdown; charset=UTF-8' }
   }
 }

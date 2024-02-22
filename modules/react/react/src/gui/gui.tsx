@@ -1,12 +1,10 @@
 import { LensProps } from "@focuson/state";
-
-
 import { ChatState } from "../domain/domain";
-import { DisplaySoftwareCatalogs } from "../domain/softwarecatalog/sc";
+import { DisplaySoftwareCatalogs } from "@intellimaintain/react_softwarecatalog";
 import { DisplayConversation } from "../domain/conversation/conversation.component";
 import { DisplayVariables } from "../domain/variables/variables";
 import { DisplayDebug, SimpleTabPanel, StateDisplay, TabPanel, TabsContainer, TabWithSideEffects, TwoRowLayout } from "@intellimaintain/components";
-import { DisplayEKnowledgeArticles, DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
+import { DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 import { DisplayTickets } from "@intellimaintain/react_ticket";
 
 export interface DisplayGuiProps<S, C> extends LensProps<S, ChatState, C> {
@@ -22,8 +20,6 @@ export function DisplayGui<S, C> ( { state, label, from }: DisplayGuiProps<S, C>
         <DisplayTickets path='tickets' state={state}/>}</TabWithSideEffects>
       <TabWithSideEffects title='KSa' state={state} focuson='kas'>{state =>
         <DisplayKnowledgeArticles path='kas' state={state}/>}</TabWithSideEffects>
-      <TabWithSideEffects title='EKSa' state={state} focuson='ekas'>{state =>
-        <DisplayEKnowledgeArticles path='ekas' state={state}/>}</TabWithSideEffects>
       <TabWithSideEffects title='Catalog' state={state} focuson='scs'>{state =>
         <DisplaySoftwareCatalogs path='scs' state={state}/>}</TabWithSideEffects>
       <TabWithSideEffects title='Variables' state={state} focuson='variables'>{state =>

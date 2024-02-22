@@ -15,7 +15,7 @@ import { ChatState, DemoChatState } from "./domain/domain";
 import { startAppState } from "./domain/sample";
 import { Variables } from "@intellimaintain/variables";
 import { extractVariablesFromSelectedAndList } from "./domain/variables/variables";
-import { defaultVariablesExtractor } from "@intellimaintain/domainvariables";
+import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
 import { NameAnd } from "@laoban/utils";
 import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
 import { TwoColumnLayout, WithTitle } from '@intellimaintain/components';

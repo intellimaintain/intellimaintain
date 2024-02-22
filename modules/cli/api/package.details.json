@@ -16,7 +16,7 @@
     "@intellimaintain/utils",
     "@intellimaintain/cli",
     "@intellimaintain/domain",
-    "@intellimaintain/domainvariables",
+    "@intellimaintain/defaultdomains",
     "@intellimaintain/fileeventstore"
   ],
   "guards":      {

@@ -15,9 +15,3 @@ export type IdAndName = {
   id: string
   name: string
 }
-
-export interface SoftwareCatalog extends IdAndName{
-  body: string
-}
-
-
