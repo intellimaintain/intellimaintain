@@ -11,7 +11,7 @@ export function DisplayKnowledgeArticle<S> ( { state }: LensProps<S, KnowledgeAr
   return <DisplayDebug state={state}/>
 }
 export function DisplayKnowledgeArticles<S> ( { path, state }: LensProps2<S, KnowledgeArticles, SideEffect[], any> & { path: string } ) {
-  return <DropdownAsTitle path={path} state={state} purpose='Knowledge Article' parser='eka'>{
+  return <DropdownAsTitle path={path} state={state} purpose='Knowledge Article' parser='ka'>{
     state => <DisplayKnowledgeArticle state={state}/>
   }</DropdownAsTitle>
 }

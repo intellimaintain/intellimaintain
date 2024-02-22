@@ -6,6 +6,8 @@ import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
 import { IdAndName } from "@intellimaintain/domain";
 import { Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import ErrorIcon from '@mui/icons-material/Error';
+import { ChatState } from "../domain";
+import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
 
 export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, se: SelectedAndList<T> ): Variables {
   function error ( msg: string ) {return { variables: {}, errors: [ msg ] } }
@@ -13,6 +15,16 @@ export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: V
   if ( se.item === undefined ) return error ( `No ${context} loaded (id is ${se.selected})` )
   console.log ( 'extractVariablesFromSelectedAndList', 'selected', se.selected, 'item', se.item )
   return extractVariablesFrom ( ve, se.selected, se.item )
+}
+
+export function extractVariablesAndAddToState ( chat: ChatState ) {
+  const ve = defaultVariablesExtractor
+  const variables: NameAnd<Variables> = {
+    Ticket: extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.tickets ),
+    'Knowledge Article': extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.kas ),
+    'Software Catalog': extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.scs )
+  }
+  return { ...chat, variables}
 }
 
 export type DisplayVariablesProps = {

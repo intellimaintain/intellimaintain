@@ -6,20 +6,18 @@ import { theme } from "./Themes/theme";
 
 import { DisplayGui } from "./gui/gui";
 
-import { Lenses } from "@focuson/lens";
-
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { apiIdStore, apiLoading, ApiLoading, apiLoadingFromBrowser, idStoreFromApi, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
 import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
-import { ChatState, DemoChatState } from "./domain/domain";
+import { ChatState, DemoChatState, logs1L, logs2L, sideEffects1L, sideEffects2L } from "./domain/domain";
 import { startAppState } from "./domain/sample";
 import { Variables } from "@intellimaintain/variables";
-import { extractVariablesFromSelectedAndList } from "./domain/variables/variables";
+import { extractVariablesAndAddToState, extractVariablesFromSelectedAndList } from "./domain/variables/variables";
 import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
 import { NameAnd } from "@laoban/utils";
 import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
 import { TwoColumnLayout, WithTitle } from '@intellimaintain/components';
-
+import { IdStore } from "@intellimaintain/idstore";
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
 function App<S> ( { state }: AppProps<S> ) {
@@ -41,7 +39,7 @@ const root = ReactDOM.createRoot ( rootElement );
 const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
 const saveDetails: SendEvents = sendEvents ( "http://localhost:1235/file1" )
 const idStoreDetails = apiIdStore ( "http://localhost:1235" )
-const idStore = idStoreFromApi ( idStoreDetails )
+const idStore: IdStore = idStoreFromApi ( idStoreDetails )
 
 const container = eventStore<DemoChatState> ()
 const setJson = setEventStoreValue ( container );
@@ -50,24 +48,9 @@ const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState
 
 addEventStoreListener ( container, (( oldS, s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
 
-const idL = Lenses.identity<DemoChatState> ()
-const chatState1L = idL.focusOn ( 'chatState1' )
-const sideEffects1L = chatState1L.focusOn ( 'sideeffects' )
-const logs1L = chatState1L.focusOn ( 'log' )
 
-const chatState2L = idL.focusOn ( 'chatState2' )
-const sideEffects2L = chatState2L.focusOn ( 'sideeffects' )
-const logs2L = chatState2L.focusOn ( 'log' )
 
-export function extractVariablesAndAddToState ( chat: ChatState ) {
-  const ve = defaultVariablesExtractor
-  const variables: NameAnd<Variables> = {
-    Ticket: extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.tickets ),
-    'Knowledge Article': extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.kas ),
-    'Software Catalog': extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.scs )
-  }
-  return { ...chat, variables}
-}
+
 const pollingDetails = polling ( 1000, async s => {
   console.log ( 'polling', typeof s, s )
   const events = stringToEvents ( {}, s );

@@ -6,6 +6,7 @@ import { SideEffect, SideeffectResult } from "@intellimaintain/react_core";
 import { KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 import { SoftwareCatalogs } from "@intellimaintain/react_softwarecatalog"
 import { Tickets } from "@intellimaintain/react_ticket";
+import { Lenses } from "@focuson/lens";
 
 
 export interface ChatState {
@@ -19,7 +20,16 @@ export interface ChatState {
   variables: NameAnd<Variables>
   tickets: Tickets
 }
-export function blankChatState ( chatter: string, responder: string, kas: KnowledgeArticles ,scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
+export const idL = Lenses.identity<DemoChatState> ()
+export const chatState1L = idL.focusOn ( 'chatState1' )
+export const sideEffects1L = chatState1L.focusOn ( 'sideeffects' )
+export const logs1L = chatState1L.focusOn ( 'log' )
+
+export const chatState2L = idL.focusOn ( 'chatState2' )
+export const sideEffects2L = chatState2L.focusOn ( 'sideeffects' )
+export const logs2L = chatState2L.focusOn ( 'log' )
+
+export function blankChatState ( chatter: string, responder: string, kas: KnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
   return {
     selectionState: {},
     sideeffects: [],
