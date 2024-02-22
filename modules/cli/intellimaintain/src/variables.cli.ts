@@ -1,9 +1,8 @@
-import { defaultIdStoreDetails, findIdKeyAndPath, idPathToFilePathAndMimeType, isBadIdStoreResult } from "@intellimaintain/idstore";
+import { isBadIdStoreResult } from "@intellimaintain/idstore";
 import { SubCommandDetails } from "@intellimaintain/cli";
 import { idStore } from "./id.store.cli";
 import { defaultVariablesExtractor } from "@intellimaintain/domainvariables";
 import { extractVariablesFrom } from "@intellimaintain/variables";
-import { defaultParserStore } from "@intellimaintain/domain";
 
 
 export function addVariableCommands<Commander, Context, Config> (): SubCommandDetails<Commander, Context, Config> {

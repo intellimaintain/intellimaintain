@@ -1,0 +1,18 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/knowledge_articles",
+  "description": "The knowledge articles plugin. Everything except react",
+  "packageJson": {
+    "dependencies":    {},
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       ["@intellimaintain/domain"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

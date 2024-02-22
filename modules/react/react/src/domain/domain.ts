@@ -1,12 +1,11 @@
 import { SelectionState } from "../state/selection.state";
 import { SoftwareCatalogs } from "./softwarecatalog/sc";
 import { Conversation } from "@intellimaintain/domain";
-import { KnowledgeArticles } from "./ka/ka";
 import { Tickets } from "./ticket/ticket";
 import { Variables } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
-import { EKnowledgeArticles } from "./experimentka/experimental.ka";
 import { SideEffect, SideeffectResult } from "@intellimaintain/react_core";
+import { EKnowledgeArticles, KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 
 
 export interface ChatState {

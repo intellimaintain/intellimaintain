@@ -1,7 +1,7 @@
 import { defaultEventProcessor } from "@intellimaintain/events";
 import { defaultIdStoreDetails, isBadIdStoreResult, loadFromIdStore } from "@intellimaintain/idstore";
 import { SubCommandDetails } from "@intellimaintain/cli";
-import { defaultParserStore } from "@intellimaintain/domain";
+import { defaultParserStore } from "@intellimaintain/domainvariables";
 
 export const idStore = ( root: string ) => loadFromIdStore ( defaultIdStoreDetails ( root, defaultParserStore ) );
 export const sep = ( root: string ) => defaultEventProcessor ( 'start.', {}, idStore ( root ) )

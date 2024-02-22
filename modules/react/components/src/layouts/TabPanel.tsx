@@ -5,6 +5,7 @@ import { LensProps, LensProps2, LensState, LensState2 } from "@focuson/state";
 import { HasSideeffects, SideEffect } from '@intellimaintain/react_core';
 
 
+
 export interface TabPanelDetails {
   title: string
 }

@@ -1,6 +1,6 @@
 {
-  "name": "@intellimaintain/react",
-  "description": "",
+  "name": "@intellimaintain/react_knowledge_articles",
+  "description": "The react plugin for knowledge articles",
   "version": "0.0.5",
   "browserslist": {
     "development": [
@@ -15,14 +15,8 @@
     ]
   },
   "dependencies": {
-    "@intellimaintain/apiclienteventstore": "0.0.5",
     "@intellimaintain/components": "0.0.5",
-    "@intellimaintain/domain": "0.0.5",
-    "@intellimaintain/events": "0.0.5",
-    "@intellimaintain/react_knowledge_articles": "0.0.5",
-    "@intellimaintain/eventstore": "0.0.5",
-    "@intellimaintain/react_core": "0.0.5",
-    "@intellimaintain/variables": "0.0.5",
+    "@intellimaintain/knowledge_articles": "0.0.5",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -30,9 +24,7 @@
     "@focuson/state": "1.44.1",
     "@laoban/utils": "1.4.45",
     "@mui/material": "^5.15.10",
-    "@mui/icons-material": "^5.15.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@mui/icons-material": "^5.15.10"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
@@ -69,7 +61,10 @@
     "runbook"
   ],
   "license": "MIT",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "repository": "git@github.com:intellimaintain/intellimaintain.git",
   "scripts": {
     "start": "parcel src/index.html",

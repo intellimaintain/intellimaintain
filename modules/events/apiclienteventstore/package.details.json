@@ -14,6 +14,7 @@
   },
   "links":       [
     "@intellimaintain/domain",
+    "@intellimaintain/domainvariables",
     "@intellimaintain/events",
     "@intellimaintain/eventstore",
     "@intellimaintain/idstore",

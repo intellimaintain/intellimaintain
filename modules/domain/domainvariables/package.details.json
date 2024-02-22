@@ -12,7 +12,11 @@
       "child_process": false
     }
   },
-  "links":       ["@intellimaintain/utils", "@intellimaintain/domain"],
+  "links":       [
+    "@intellimaintain/domain",
+    "@intellimaintain/knowledge_articles",
+    "@intellimaintain/utils"
+  ],
   "guards":      {
     "compile": true,
     "publish": true,

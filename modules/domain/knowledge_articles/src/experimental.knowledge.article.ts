@@ -1,9 +1,9 @@
-import { IdAndName } from "./domain";
-import { NameAnd } from "@laoban/utils";
+import { ErrorsAnd, NameAnd } from "@laoban/utils";
+import { ParserStoreParser } from "@intellimaintain/parser";
+import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
+import { Variables } from "@intellimaintain/variables";
 
-export interface KnowledgeArticle extends IdAndName {
-  body: string
-}
+const yaml = require ( 'js-yaml' );
 
 export interface BaseExperimentalKnowledgeArticle extends IdAndName {
   required: string[]
@@ -12,7 +12,7 @@ export interface BaseExperimentalKnowledgeArticle extends IdAndName {
   variables?: NameAnd<string>
 }
 
-export type SqlDetailsType= 'atLeastOne' | 'none' | 'exactlyOne' | 'manual'
+export type SqlDetailsType = 'atLeastOne' | 'none' | 'exactlyOne' | 'manual'
 export interface JustCorrectSqlDetails {
   correctWhen: string
 }
@@ -20,7 +20,7 @@ export interface SqlDetails {
   sql: string
   correctWhen?: string
 }
-export interface AdjustDatabaseSqlForKA  {
+export interface AdjustDatabaseSqlForKA {
   check: SqlDetails
   validate: SqlDetails
   resolve: SqlDetails | JustCorrectSqlDetails
@@ -41,4 +41,30 @@ export function isInService1NotInService2KS ( x: any ): x is InService1NotInServ
 }
 export type ExperimentalKnowledgeArticle = AdjustDatabaseSqlKS | InService1NotInService2KS
 
-//This is screaming for a plugin story...
+
+export const ekaArticleParser: ParserStoreParser = ( id, s ): ErrorsAnd<ExperimentalKnowledgeArticle> => {
+  console.log ( 'yaml - string', s )
+  console.log ( 'yaml', yaml )
+  const doc = yaml.load ( s )
+  doc[ 'id' ] = id
+  return doc
+}
+
+export function variablesFromEKnowledgeArticle ( eka: ExperimentalKnowledgeArticle ): ErrorsAnd<Variables> {
+  return {
+    variables: {
+      'id': eka.id,
+      'name': eka.name,
+      'approver': eka.approver,
+      ...(eka.variables)
+    }, errors: []
+  }
+}
+
+export function ekaPlugin ( rootPath: string ): DomainPlugin<ExperimentalKnowledgeArticle> {
+  return {
+    parser: ekaArticleParser,
+    variablesExtractor: variablesFromEKnowledgeArticle,
+    idStoreDetails: { extension: 'md', rootPath, mimeType: 'text/markdown; charset=UTF-8' }
+  }
+}

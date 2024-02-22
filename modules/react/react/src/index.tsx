@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { LensProps, lensState } from "@focuson/state";
-import { TwoColumnLayout } from "./layouts/TwoColumnLayout";
 import { Box, ThemeProvider } from "@mui/material";
 import { theme } from "./Themes/theme";
-import { WithTitle } from './layouts/WithTitle';
+
 import { DisplayGui } from "./gui/gui";
 
 import { Lenses } from "@focuson/lens";
@@ -19,6 +18,7 @@ import { extractVariablesFromSelectedAndList } from "./domain/variables/variable
 import { defaultVariablesExtractor } from "@intellimaintain/domainvariables";
 import { NameAnd } from "@laoban/utils";
 import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
+import { TwoColumnLayout, WithTitle } from '@intellimaintain/components';
 
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
@@ -85,13 +85,11 @@ const pollingDetails = polling ( 1000, async s => {
   }
 } )
 
-
 startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
 
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
   [ eventSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects1L, logs1L ) )
 addEventStoreModifier ( container, processSideEffectsInState<DemoChatState> ( processSideEffect (
   [ eventSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffects2L, logs2L ) )
-
 
 setJson ( startAppState )

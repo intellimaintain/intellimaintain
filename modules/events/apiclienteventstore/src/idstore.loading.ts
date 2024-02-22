@@ -1,6 +1,6 @@
 import { IdStore } from "@intellimaintain/idstore";
 import { ParserStore, parseUsingStore } from "@intellimaintain/parser";
-import { defaultParserStore } from "@intellimaintain/domain";
+import { defaultParserStore } from "@intellimaintain/domainvariables";
 
 export interface ApiIdStore {
   url: string;
