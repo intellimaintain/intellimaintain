@@ -23,6 +23,7 @@
     "node": "^v14.4.0",
     "@laoban/utils": "1.4.45",
     "@focuson/lens": "1.44.1",
+    "js-yaml": "^4.1.0",
     "@intellimaintain/utils": "0.0.5",
     "@intellimaintain/events": "0.0.5",
     "@intellimaintain/eventstore": "0.0.5",

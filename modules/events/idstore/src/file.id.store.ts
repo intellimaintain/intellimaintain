@@ -45,9 +45,10 @@ export function idPathToFilePathAndMimeType ( details: NameAnd<IdStoreDetails>, 
 export function defaultIdStoreDetails ( root: string, parserStore: ParserStore ): AllIdStoreDetails {
   return {
     parserStore, details: {
+      eka: { extension: 'yaml', rootPath: `${root}/ekas`, mimeType: 'text/yaml; charset=UTF-8' },
       ka: { extension: 'md', rootPath: `${root}/kas`, mimeType: 'text/markdown; charset=UTF-8' },
       sc: { extension: 'md', rootPath: `${root}/scs`, mimeType: 'text/markdown; charset=UTF-8' },
-      ticket: { extension: 'events.txt', rootPath: `${root}/tickets`, mimeType: 'text/plain; charset=UTF-8' }
+      ticket: { extension: 'md', rootPath: `${root}/tickets`, mimeType: 'text/plain; charset=UTF-8' }
     }
   }
 }

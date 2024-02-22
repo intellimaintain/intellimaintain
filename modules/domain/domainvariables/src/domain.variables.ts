@@ -1,12 +1,12 @@
 import { Variables, VariablesExtractor } from "@intellimaintain/variables";
-import { ErrorsAnd, hasErrors, NameAnd } from "@laoban/utils";
-import { KnowledgeArticle, SoftwareCatalog, Ticket } from "@intellimaintain/domain";
+import { ErrorsAnd, hasErrors, mapErrors, NameAnd } from "@laoban/utils";
+import { ExperimentalKnowledgeArticle, KnowledgeArticle, SoftwareCatalog, Ticket } from "@intellimaintain/domain";
 
 function extractVariablesSection ( markdown: string ): ErrorsAnd<string> {
   const variablesStart = markdown.indexOf ( '# Variables' );
   if ( variablesStart === -1 ) {
     // Variables section not found, throw an error or return empty string
-    return [ `Variables section not found in markdown.` ]
+    return []
   }
   const sectionStartRegex = /^#/m; // Matches any line that starts with #
   const restOfMarkdown = markdown.slice ( variablesStart + '# Variables'.length );
@@ -49,17 +49,33 @@ export function extractVariablesFromMarkdown ( markdown: string ): ErrorsAnd<Var
   }
 }
 
+export function addVariables ( v: ErrorsAnd<Variables>, toAdd: NameAnd<string> ) {
+  return mapErrors ( v, v => ({ variables: { ...v.variables, ...toAdd }, errors: v.errors }) )
+}
 export function variablesFromTicket ( t: Ticket ): ErrorsAnd<Variables> {
-  return extractVariablesFromMarkdown ( t.description )
+  return addVariables ( extractVariablesFromMarkdown ( t.description ), { ticketId: t.id, severity: t.severity } )
 }
 export function variablesFromKnowledgeArticle ( ka: KnowledgeArticle ): ErrorsAnd<Variables> {
-  return extractVariablesFromMarkdown ( ka.body )
+  return addVariables ( extractVariablesFromMarkdown ( ka.body ), { 'kaId': ka.id, 'kaName': ka.name } )
+}
+
+export function variablesFromEKnowledgeArticle ( eka: ExperimentalKnowledgeArticle ): ErrorsAnd<Variables> {
+  return {
+    variables: {
+      'id': eka.id,
+      'name': eka.name,
+      'approver': eka.approver,
+      ...(eka.variables)
+    }, errors: []
+
+  }
 }
 export function variablesFromSoftwareCatalog ( sc: SoftwareCatalog ): ErrorsAnd<Variables> {
   return extractVariablesFromMarkdown ( sc.body )
 }
 export const defaultVariablesExtractor: VariablesExtractor = {
   ka: variablesFromKnowledgeArticle,
+  eka: variablesFromEKnowledgeArticle,
   ticket: variablesFromTicket,
   sc: variablesFromSoftwareCatalog
 }

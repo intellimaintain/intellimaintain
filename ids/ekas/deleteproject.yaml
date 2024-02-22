@@ -1,0 +1,15 @@
+name: Delete Project
+required:
+  - projectId
+  - environment
+approver: mr.approver@example.com
+variables:
+   system: EPX
+sql:
+   check:
+     sql: 'select * from projects where project_id = :projectId'
+     correctWhen: atLeastOne
+   resolve:
+        sql: 'delete from projects where project_id = :projectId'
+   validate:
+     correctWhen: none

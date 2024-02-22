@@ -10,6 +10,7 @@ import { ChatState } from "../domain/domain";
 import { DisplaySoftwareCatalogs } from "../domain/softwarecatalog/sc";
 import { DisplayConversation } from "../domain/conversation/conversation.component";
 import { DisplayVariables } from "../domain/variables/variables";
+import { DisplayEKnowledgeArticles } from "../domain/experimentka/experimental.ka";
 
 
 export interface DisplayGuiProps<S, C> extends LensProps<S, ChatState, C> {
@@ -25,6 +26,8 @@ export function DisplayGui<S, C> ( { state, label, from }: DisplayGuiProps<S, C>
         <DisplayTickets path='tickets' state={state}/>}</TabWithSideEffects>
       <TabWithSideEffects title='KSa' state={state} focuson='kas'>{state =>
         <DisplayKnowledgeArticles path='kas' state={state}/>}</TabWithSideEffects>
+      <TabWithSideEffects title='EKSa' state={state} focuson='ekas'>{state =>
+        <DisplayEKnowledgeArticles path='ekas' state={state}/>}</TabWithSideEffects>
       <TabWithSideEffects title='Catalog' state={state} focuson='scs'>{state =>
         <DisplaySoftwareCatalogs path='scs' state={state}/>}</TabWithSideEffects>
       <TabWithSideEffects title='Variables' state={state} focuson='variables'>{state =>

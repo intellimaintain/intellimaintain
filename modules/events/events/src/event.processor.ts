@@ -48,7 +48,7 @@ export function zeroEventProcessor<S> (): EventProcessorFn<S, ZeroEvent> {
 export function setIdEventProcessor<S> (): EventProcessorFn<S, SetIdEvent> {
   return async ( p, e, s: S ) => {
     let value = await p.idStore ( e.id, e.parser )
-    if (isBadIdStoreResult(value)) throw new Error(`Error in setIdEventProcessor. ${value.error}`)
+    if (isBadIdStoreResult(value)) throw new Error(`Error in setIdEventProcessor. ${value.error}. Event was ${JSON.stringify(e)}\n${JSON.stringify(s)}`)
     let lens = p.pathToLens ( e.path )
     return lens.set ( s, value.result )
   }

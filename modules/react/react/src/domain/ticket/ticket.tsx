@@ -12,7 +12,7 @@ export type Tickets = SelectedAndList<Ticket>
 export function DisplayTicket<S> ( { state }: LensProps<S, Ticket, any> ) {
   let ticket: Ticket | undefined = state.optJson ()
   return <Box mt={2}>
-    <Typography variant="subtitle1" color="textSecondary">Priority: {ticket?.priority}</Typography>
+    <Typography variant="subtitle1" color="textSecondary">Severity: {ticket?.severity}</Typography>
     <ReactMarkdown>{ticket?.description || ''}</ReactMarkdown>
   </Box>
 }

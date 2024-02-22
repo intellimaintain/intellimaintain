@@ -16,14 +16,12 @@ export type IdAndName = {
   id: string
   name: string
 }
-export interface KnowledgeArticle extends IdAndName {
-  body: string
-}
+
 export interface SoftwareCatalog extends IdAndName{
   body: string
 }
 export interface Ticket extends IdAndName {
-  priority: string
+  severity: string
   description: string
 }
 

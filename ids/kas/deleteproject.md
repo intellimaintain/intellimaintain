@@ -1,6 +1,4 @@
 Delete Project
-# Variables
-* Project: EPX
 
 # Enrich:
 * Locate environment where project exists
@@ -15,6 +13,9 @@ Delete Project
 * Approval by email from #aprover# required before resolution.
 
 # Sql
-* Check:   [sql select * from projects where projectid=#projectid# | atleaseonerecord]
+* Check:   [sql select * from projects where projectid=#projectid# | atleastonerecord]
 * Validate: [sql select * from projects where projectid=#projectid# | norecords]
 * Resolve: [sql delete from projects where projectid=#projectid]
+
+# Variables
+* Service: EPX

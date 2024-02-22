@@ -6,6 +6,7 @@ import { KnowledgeArticles } from "./ka/ka";
 import { Tickets } from "./ticket/ticket";
 import { Variables } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
+import { EKnowledgeArticles } from "./experimentka/experimental.ka";
 
 export interface SelectedAndList<T extends IdAndName> {
   options: IdAndName[]
@@ -20,11 +21,12 @@ export interface ChatState {
   conversation: Conversation
   sql: string[]
   kas: KnowledgeArticles
+  ekas: EKnowledgeArticles
   scs: SoftwareCatalogs
   variables: NameAnd<Variables>
   tickets: Tickets
 }
-export function blankChatState ( chatter: string, responder: string, kas: KnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
+export function blankChatState ( chatter: string, responder: string, kas: KnowledgeArticles, ekas: EKnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
   return {
     selectionState: {},
     sideeffects: [],
@@ -32,6 +34,7 @@ export function blankChatState ( chatter: string, responder: string, kas: Knowle
     conversation: { messages: [], chatter, responder },
     sql: [],
     kas,
+    ekas,
     scs,
     tickets,
     variables: {  }
