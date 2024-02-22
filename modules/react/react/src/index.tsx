@@ -6,9 +6,9 @@ import { Box, ThemeProvider } from "@mui/material";
 import { theme } from "./Themes/theme";
 import { WithTitle } from './layouts/WithTitle';
 import { DisplayGui } from "./gui/gui";
-import { processSideEffectsInState } from "./state/state2Sideeffects";
+
 import { Lenses } from "@focuson/lens";
-import { eventSideeffectProcessor, processSideEffect } from "./sideeffects/sideeffects";
+
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { apiIdStore, apiLoading, ApiLoading, apiLoadingFromBrowser, idStoreFromApi, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
 import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
@@ -18,6 +18,7 @@ import { Variables } from "@intellimaintain/variables";
 import { extractVariablesFromSelectedAndList } from "./domain/variables/variables";
 import { defaultVariablesExtractor } from "@intellimaintain/domainvariables";
 import { NameAnd } from "@laoban/utils";
+import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
 
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>

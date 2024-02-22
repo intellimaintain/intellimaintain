@@ -1,6 +1,7 @@
 import React from "react";
 import { LensProps } from "@focuson/state";
-import { DisplayJson } from "./display.json";
+import { DisplayJson } from "../displayRaw/display.json";
+
 
 
 export function DisplayDebug<S> ( { state }: LensProps<S, any, any> ) {

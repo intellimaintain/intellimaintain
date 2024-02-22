@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { toArray } from "@laoban/utils";
 import { LensProps, LensProps2, LensState, LensState2 } from "@focuson/state";
-import { HasSideeffects, SideEffect } from "../sideeffects/sideeffects";
+import { HasSideeffects, SideEffect } from '@intellimaintain/react_core';
+
 
 export interface TabPanelDetails {
   title: string

@@ -3,7 +3,8 @@ import { Box, List, ListItem, Typography } from '@mui/material';
 import { LensProps2 } from "@focuson/state";
 import { UserTypingBox } from "./userTypingBox";
 import { Conversation } from "@intellimaintain/domain";
-import { SideEffect } from "../../sideeffects/sideeffects";
+import { SideEffect } from '@intellimaintain/react_core';
+
 
 
 export interface ChatProps<S, C> extends LensProps2<S, Conversation, SideEffect[], C> {

@@ -2,10 +2,9 @@ import React from 'react';
 import { LensProps, LensProps2 } from "@focuson/state";
 import { Box, Typography } from "@mui/material";
 import ReactMarkdown from 'react-markdown';
-import { SelectedAndList } from "../domain";
-import { SideEffect } from "../../sideeffects/sideeffects";
 import { Ticket } from '@intellimaintain/domain';
-import { DropdownAsTitle } from '../../components/DropdownAsTitle';
+import { DropdownAsTitle } from "@intellimaintain/components";
+import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
 
 export type Tickets = SelectedAndList<Ticket>
 

@@ -1,12 +1,11 @@
-import { Card, CardContent, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import React, { ReactNode } from "react";
+import { Card, CardContent, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { LensProps, LensProps2, LensState } from "@focuson/state";
-import { SideEffect } from "../sideeffects/sideeffects";
 
-import { SelectedAndList } from "../domain/domain";
 import { SetIdEvent, SetValueEvent } from "@intellimaintain/events";
 import { IdAndName } from "@intellimaintain/domain";
 import { Loading } from "@intellimaintain/components";
+import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
 
 
 
@@ -26,11 +25,6 @@ export interface DropdownAsTitleProps<S, T extends IdAndName> extends LensProps2
 export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, path, purpose, parser }: DropdownAsTitleProps<S, T> ) {
   const { selected, options } = state.optJson1 () || { options: [], item: undefined, selected: undefined }
 
-  //export interface SelectedAndList<T extends IdAndName> {
-  //   options: IdAndName[]
-  //   selected: string
-  //   item: T | undefined //might not be loaded
-  // }
 
   function handleChange ( event: SelectChangeEvent<string>, child: ReactNode ): void {
     let id = event.target.value;

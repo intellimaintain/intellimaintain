@@ -1,18 +1,13 @@
-import { SideEffect, SideeffectResult } from "../sideeffects/sideeffects";
 import { SelectionState } from "../state/selection.state";
 import { SoftwareCatalogs } from "./softwarecatalog/sc";
-import { Conversation, IdAndName } from "@intellimaintain/domain";
+import { Conversation } from "@intellimaintain/domain";
 import { KnowledgeArticles } from "./ka/ka";
 import { Tickets } from "./ticket/ticket";
 import { Variables } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
 import { EKnowledgeArticles } from "./experimentka/experimental.ka";
+import { SideEffect, SideeffectResult } from "@intellimaintain/react_core";
 
-export interface SelectedAndList<T extends IdAndName> {
-  options: IdAndName[]
-  selected: string | undefined
-  item: T | undefined //might not be loaded
-}
 
 export interface ChatState {
   selectionState: SelectionState
@@ -37,7 +32,7 @@ export function blankChatState ( chatter: string, responder: string, kas: Knowle
     ekas,
     scs,
     tickets,
-    variables: {  }
+    variables: {}
   }
 }
 

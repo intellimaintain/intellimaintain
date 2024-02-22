@@ -1,12 +1,10 @@
 import { LensProps2 } from "@focuson/state";
 import React from "react";
-import { SideEffect } from "../../sideeffects/sideeffects";
 import { extractVariablesFrom, Variables, VariablesExtractor } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
-import { SelectedAndList } from "../domain";
+import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
 import { IdAndName } from "@intellimaintain/domain";
-import { Accordion, AccordionDetails, AccordionSummary, Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import ErrorIcon from '@mui/icons-material/Error';
 
 export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, se: SelectedAndList<T> ): Variables {

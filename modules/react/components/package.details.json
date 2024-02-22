@@ -15,6 +15,7 @@
     "@intellimaintain/apiclienteventstore",
     "@intellimaintain/events",
     "@intellimaintain/eventstore",
+    "@intellimaintain/react_core",
     "@intellimaintain/variables"
   ],
   "guards":      {

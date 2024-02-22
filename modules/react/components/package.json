@@ -21,6 +21,7 @@
     "@intellimaintain/apiclienteventstore": "0.0.5",
     "@intellimaintain/events": "0.0.5",
     "@intellimaintain/eventstore": "0.0.5",
+    "@intellimaintain/react_core": "0.0.5",
     "@intellimaintain/variables": "0.0.5",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",

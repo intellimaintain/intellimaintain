@@ -1,11 +1,9 @@
 import { LensProps2 } from "@focuson/state";
-import { SideEffect } from "../../sideeffects/sideeffects";
+
 import React from "react";
 import { SoftwareCatalog } from "@intellimaintain/domain";
-import { SelectedAndList } from "../domain";
-import { DisplayMarkdown } from "@intellimaintain/components";
-import { DropdownAsTitle } from "../../components/DropdownAsTitle";
-
+import { DisplayMarkdown, DropdownAsTitle } from "@intellimaintain/components";
+import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
 
 export type SoftwareCatalogs = SelectedAndList<SoftwareCatalog>
 

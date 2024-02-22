@@ -1,9 +1,8 @@
 import { LensProps, LensProps2 } from "@focuson/state";
-import { SelectedAndList } from "../domain";
-import { SideEffect } from "../../sideeffects/sideeffects";
+
+import { SelectedAndList, SideEffect } from '@intellimaintain/react_core';
 import { ExperimentalKnowledgeArticle } from "@intellimaintain/domain";
-import { DropdownAsTitle } from "../../components/DropdownAsTitle";
-import { DisplayDebug } from "@intellimaintain/components";
+import { DisplayDebug, DropdownAsTitle } from "@intellimaintain/components";
 
 
 export type EKnowledgeArticles = SelectedAndList<ExperimentalKnowledgeArticle>

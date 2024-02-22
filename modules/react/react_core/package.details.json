@@ -1,21 +1,16 @@
 {
-  "template":    "react",
-  "name":        "@intellimaintain/react",
+  "template":    "typescript",
+  "name":        "@intellimaintain/react_core",
   "description": "",
   "packageJson": {
     "files":        ["build/"],
     "dependencies": {
-    },
-    "scripts":      {"start": "react-scripts start"}
+    }
   },
   "links":       [
     "@intellimaintain/apiclienteventstore",
-    "@intellimaintain/components",
-    "@intellimaintain/domain",
     "@intellimaintain/events",
-    "@intellimaintain/eventstore",
-    "@intellimaintain/react_core",
-    "@intellimaintain/variables"
+    "@intellimaintain/eventstore"
   ],
   "guards":      {
     "compile": true,
