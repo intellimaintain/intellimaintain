@@ -16,6 +16,7 @@
     "@intellimaintain/react_knowledge_articles",
     "@intellimaintain/eventstore",
     "@intellimaintain/react_core",
+    "@intellimaintain/react_conversation",
     "@intellimaintain/react_softwarecatalog",
     "@intellimaintain/react_ticket",
     "@intellimaintain/variables"

@@ -14,7 +14,7 @@ export const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ( { children } ) 
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column' }}>
       <Grid container spacing={2}>
         {React.Children.map ( children, ( child, index ) => (
           <Grid item xs={12} md={6} key={index}>

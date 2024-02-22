@@ -1,6 +1,6 @@
 {
-  "name": "@intellimaintain/react_ticket",
-  "description": "The react plugin for tickets",
+  "name": "@intellimaintain/react_conversation",
+  "description": "The react code for the conversation",
   "version": "0.0.6",
   "browserslist": {
     "development": [
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@intellimaintain/components": "0.0.6",
-    "@intellimaintain/tickets": "0.0.6",
+    "@intellimaintain/react_core": "0.0.6",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

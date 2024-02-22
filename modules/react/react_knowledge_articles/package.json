@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/react_knowledge_articles",
   "description": "The react plugin for knowledge articles",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -15,8 +15,8 @@
     ]
   },
   "dependencies": {
-    "@intellimaintain/components": "0.0.5",
-    "@intellimaintain/knowledge_articles": "0.0.5",
+    "@intellimaintain/components": "0.0.6",
+    "@intellimaintain/knowledge_articles": "0.0.6",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

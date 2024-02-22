@@ -46,8 +46,8 @@ export const kaArticleParser: ParserStoreParser = ( id, s ): ErrorsAnd<Knowledge
   console.log ( 'yaml - string', s )
   console.log ( 'yaml', yaml )
   const doc = yaml.load ( s )
-  doc[ 'id' ] = id
-  return doc
+
+  return {id, ...doc}
 }
 
 export function variablesFromKnowledgeArticle ( ka: KnowledgeArticle ): ErrorsAnd<Variables> {

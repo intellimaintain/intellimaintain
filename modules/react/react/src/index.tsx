@@ -1,34 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { LensProps, lensState } from "@focuson/state";
-import { Box, ThemeProvider } from "@mui/material";
-import { theme } from "./Themes/theme";
-
-import { DisplayGui } from "./gui/gui";
+import { ThemeProvider } from "@mui/material";
 
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { apiIdStore, apiLoading, ApiLoading, apiLoadingFromBrowser, idStoreFromApi, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
 import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
-import { ChatState, DemoChatState, logs1L, logs2L, sideEffects1L, sideEffects2L } from "./domain/domain";
+import { DemoChatState, logs1L, logs2L, sideEffects1L, sideEffects2L } from "./domain/domain";
 import { startAppState } from "./domain/sample";
-import { Variables } from "@intellimaintain/variables";
-import { extractVariablesAndAddToState, extractVariablesFromSelectedAndList } from "./domain/variables/variables";
-import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
-import { NameAnd } from "@laoban/utils";
 import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
-import { TwoColumnLayout, WithTitle } from '@intellimaintain/components';
+import { theme, TwoColumnLayout } from '@intellimaintain/components';
 import { IdStore } from "@intellimaintain/idstore";
+import { DisplayGui2 } from './gui/newgui';
+import { extractVariablesAndAddToState } from "./variables/variables";
 
 export type AppProps<S> = LensProps<S, DemoChatState, any>
 function App<S> ( { state }: AppProps<S> ) {
   return <ThemeProvider theme={theme}>
-
-    <Box sx={{ height: '100%', maxHeight: '100vh', overflow: 'hidden' }}>
-      <TwoColumnLayout>
-        <WithTitle title='Operator'><DisplayGui from='Operator' label='display Operator' state={state.focusOn ( 'chatState1' )}/></WithTitle>
-        <WithTitle title='Wizard of Oz'><DisplayGui from='Wizard' label='display Wizard' state={state.focusOn ( 'chatState2' )}/></WithTitle>
-      </TwoColumnLayout>
-    </Box>
+    <TwoColumnLayout>
+      <DisplayGui2 from='Operator' label='display Operator' state={state.focusOn ( 'chatState1' )}/>
+      <DisplayGui2 from='Wizard' label='display Wizard' state={state.focusOn ( 'chatState2' )}/>
+    </TwoColumnLayout>
   </ThemeProvider>
 }
 
@@ -47,8 +39,6 @@ const sep1 = defaultEventProcessor<DemoChatState> ( 'chatState1.', startAppState
 const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState, idStore )
 
 addEventStoreListener ( container, (( oldS, s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
-
-
 
 
 const pollingDetails = polling ( 1000, async s => {

@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/utils",
   "description": "The usual utility functions",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "dist/index",
   "types": "dist/index",
   "browser": {

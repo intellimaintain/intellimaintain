@@ -6,8 +6,9 @@ import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
 import { IdAndName } from "@intellimaintain/domain";
 import { Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
 import ErrorIcon from '@mui/icons-material/Error';
-import { ChatState } from "../domain";
+
 import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
+import { ChatState } from "../domain/domain";
 
 export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, se: SelectedAndList<T> ): Variables {
   function error ( msg: string ) {return { variables: {}, errors: [ msg ] } }
@@ -24,7 +25,7 @@ export function extractVariablesAndAddToState ( chat: ChatState ) {
     'Knowledge Article': extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.kas ),
     'Software Catalog': extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.scs )
   }
-  return { ...chat, variables}
+  return { ...chat, variables }
 }
 
 export type DisplayVariablesProps = {
@@ -47,8 +48,8 @@ function SectionCard ( { title, variables }: VariablesCardProps ) {
           {title}
         </Typography>
         <List disablePadding>
-          {Object.entries(variables.variables).length > 0 ? (
-            Object.entries(variables.variables).map(([key, value], index) => (
+          {Object.entries ( variables.variables ).length > 0 ? (
+            Object.entries ( variables.variables ).map ( ( [ key, value ], index ) => (
               <ListItem key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography variant="body1" component="span" style={{ flexBasis: '20%', textAlign: 'left', marginRight: '16px' }}>
                   {`${key}:`}
@@ -57,20 +58,20 @@ function SectionCard ( { title, variables }: VariablesCardProps ) {
                   {value}
                 </Typography>
               </ListItem>
-            ))
+            ) )
           ) : (
             <ListItem>
-              <ListItemText primary="No variables" />
+              <ListItemText primary="No variables"/>
             </ListItem>
           )}
-          {variables.errors.map((error, index) => (
-              <ListItem key={`error-${index}`} style={{ paddingTop: '4px', paddingBottom: '4px' }}>
-                <ListItemIcon>
-                  <ErrorIcon color="error" />
-                </ListItemIcon>
-                <ListItemText primary={error} primaryTypographyProps={{ variant: 'body2' }} />
-              </ListItem>
-            ))}
+          {variables.errors.map ( ( error, index ) => (
+            <ListItem key={`error-${index}`} style={{ paddingTop: '4px', paddingBottom: '4px' }}>
+              <ListItemIcon>
+                <ErrorIcon color="error"/>
+              </ListItemIcon>
+              <ListItemText primary={error} primaryTypographyProps={{ variant: 'body2' }}/>
+            </ListItem>
+          ) )}
         </List>
       </CardContent>
     </Card>
@@ -81,14 +82,16 @@ function SectionCard ( { title, variables }: VariablesCardProps ) {
 export function DisplayVariables<S> ( { state }: LensProps2<S, NameAnd<Variables>, SideEffect[], any> ) {
   const variables = state.state1 ().optJson () || {}
 
-  return <div>
-    {Object.entries ( variables ).map ( ( [ title, variables ], index ) => (
-      <SectionCard
-        key={index}
-        title={title}
-        variables={variables}
-      />
-    ) )}
+  return <div style={{ display: 'flex', flexDirection: 'column', height: '35vh' }}>
+    <div style={{ flexGrow: 1, overflowY: 'scroll' }}>
+      {Object.entries ( variables ).map ( ( [ title, variables ], index ) => (
+        <SectionCard
+          key={index}
+          title={title}
+          variables={variables}
+        />
+      ) )}
+    </div>
   </div>
 
 }

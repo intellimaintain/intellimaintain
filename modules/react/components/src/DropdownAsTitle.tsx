@@ -1,12 +1,11 @@
 import React, { ReactNode } from "react";
-import { Card, CardContent, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { Box, Card, CardContent, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { LensProps, LensProps2, LensState } from "@focuson/state";
 
 import { SetIdEvent, SetValueEvent } from "@intellimaintain/events";
 import { IdAndName } from "@intellimaintain/domain";
 import { Loading } from "@intellimaintain/components";
 import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
-
 
 
 //observations... it will take time to load the selected item
@@ -24,8 +23,6 @@ export interface DropdownAsTitleProps<S, T extends IdAndName> extends LensProps2
 }
 export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, path, purpose, parser }: DropdownAsTitleProps<S, T> ) {
   const { selected, options } = state.optJson1 () || { options: [], item: undefined, selected: undefined }
-
-
   function handleChange ( event: SelectChangeEvent<string>, child: ReactNode ): void {
     let id = event.target.value;
     if ( id ) {
@@ -39,7 +36,7 @@ export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, pat
     }
   }
   return <Card variant="outlined">
-    <CardContent>
+    <CardContent  sx={{ display: 'flex', flexDirection: 'column' , height: '35vh'}}>
       <Select
         value={selected || ''}
         onChange={handleChange}
@@ -51,7 +48,9 @@ export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, pat
           <MenuItem key={option.name} value={option.id}>{option.name}</MenuItem>
         ) )}
       </Select>
-      <LoadingOr state={state.state1 ()} children={children}/>
+      <Box sx={{ flexGrow: 1, overflowY: 'scroll', border:'1px solid #ccc' }}>
+        <LoadingOr state={state.state1 ()} children={children}/>
+      </Box>
     </CardContent></Card>
 }
 

@@ -18,7 +18,7 @@ export function TwoRowLayout<S>({ state,children }: TwoRowLayoutProps<S>) {
       <Box
         sx={{  height: '4px', backgroundColor: 'lightgray', boxSizing: 'border-box' }}
       />
-      <Box sx={{ flexGrow: 1, overflow: 'auto', boxSizing: 'border-box' }}>
+      <Box sx={{  }}>
         {bottomChild}
       </Box>
     </Box>
