@@ -42,16 +42,7 @@ export function idPathToFilePathAndMimeType ( details: NameAnd<IdStoreDetails>, 
   return { key, path: `${d.rootPath}/${path}.${d.extension}`, mimeType: d.mimeType }
 }
 
-export function defaultIdStoreDetails ( root: string, parserStore: ParserStore ): AllIdStoreDetails {
-  return {
-    parserStore, details: {
-      eka: { extension: 'yaml', rootPath: `${root}/ekas`, mimeType: 'text/yaml; charset=UTF-8' },
-      ka: { extension: 'md', rootPath: `${root}/kas`, mimeType: 'text/markdown; charset=UTF-8' },
-      sc: { extension: 'md', rootPath: `${root}/scs`, mimeType: 'text/markdown; charset=UTF-8' },
-      ticket: { extension: 'md', rootPath: `${root}/tickets`, mimeType: 'text/plain; charset=UTF-8' }
-    }
-  }
-}
+
 export const loadFromIdStore = ( details: AllIdStoreDetails ): IdStore =>
   async ( id: string, parser: string ): Promise<IdStoreResult> => {
     try {

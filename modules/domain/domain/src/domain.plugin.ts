@@ -7,6 +7,7 @@ import { IdStoreDetails } from "@intellimaintain/idstore";
  * It's not react because we don't want to bind the react libraries to the domain code (we use it from cli or example
  * */
 export interface DomainPlugin<T> {
+  prefix: string
   parser: ParserStoreParser
   variablesExtractor: ExtractVariablesFn<T>
   idStoreDetails: IdStoreDetails

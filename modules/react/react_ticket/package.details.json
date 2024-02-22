@@ -1,0 +1,21 @@
+{
+  "template":    "react_library",
+  "name":        "@intellimaintain/react_ticket",
+  "description": "The react plugin for tickets",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+    },
+    "scripts":      {"start": "react-scripts start"}
+  },
+  "links":       [
+    "@intellimaintain/components",
+    "@intellimaintain/tickets"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

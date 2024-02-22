@@ -63,6 +63,7 @@ export function variablesFromEKnowledgeArticle ( eka: ExperimentalKnowledgeArtic
 
 export function ekaPlugin ( rootPath: string ): DomainPlugin<ExperimentalKnowledgeArticle> {
   return {
+    prefix: 'eka',
     parser: ekaArticleParser,
     variablesExtractor: variablesFromEKnowledgeArticle,
     idStoreDetails: { extension: 'md', rootPath, mimeType: 'text/markdown; charset=UTF-8' }

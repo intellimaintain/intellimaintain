@@ -11,7 +11,6 @@ export type Conversation = {
 }
 
 
-
 export type IdAndName = {
   id: string
   name: string
@@ -20,9 +19,5 @@ export type IdAndName = {
 export interface SoftwareCatalog extends IdAndName{
   body: string
 }
-export interface Ticket extends IdAndName {
-  severity: string
-  description: string
-}
 
-export type IdPrefixes = 'ticket' | 'sc' | 'ka'
+

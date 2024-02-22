@@ -1,8 +1,9 @@
-import { Tickets } from "./ticket/ticket";
+
 import { blankChatState, DemoChatState } from "./domain";
 import { SoftwareCatalogs } from "./softwarecatalog/sc";
 import { IdAndName } from "@intellimaintain/domain";
 import { EKnowledgeArticles, KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
+import {Tickets } from "@intellimaintain/react_ticket";
 
 export const ticket1: IdAndName = { id: 'ticket:pa123', name: 'Ticket PA123' };
 export const ticket2: IdAndName = { id: 'ticket:pa124', name: 'Ticket PA124' };

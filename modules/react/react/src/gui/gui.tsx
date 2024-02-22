@@ -1,12 +1,13 @@
 import { LensProps } from "@focuson/state";
 
-import { DisplayTickets } from "../domain/ticket/ticket";
+
 import { ChatState } from "../domain/domain";
 import { DisplaySoftwareCatalogs } from "../domain/softwarecatalog/sc";
 import { DisplayConversation } from "../domain/conversation/conversation.component";
 import { DisplayVariables } from "../domain/variables/variables";
 import { DisplayDebug, SimpleTabPanel, StateDisplay, TabPanel, TabsContainer, TabWithSideEffects, TwoRowLayout } from "@intellimaintain/components";
 import { DisplayEKnowledgeArticles, DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
+import { DisplayTickets } from "@intellimaintain/react_ticket";
 
 export interface DisplayGuiProps<S, C> extends LensProps<S, ChatState, C> {
   label: string

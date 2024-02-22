@@ -21,6 +21,7 @@ export function variablesFromKnowledgeArticle ( ka: KnowledgeArticle ): ErrorsAn
 
 export function kaPlugin ( rootPath: string ): DomainPlugin<KnowledgeArticle> {
   return {
+    prefix: 'ka',
     parser: kaArticleParser,
     variablesExtractor: variablesFromKnowledgeArticle,
     idStoreDetails: { extension: 'md', rootPath, mimeType: 'text/markdown; charset=UTF-8' }
