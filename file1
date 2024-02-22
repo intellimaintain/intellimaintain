@@ -20,3 +20,7 @@
 {"event":"append","path":"conversation.messages","value":{"message":"The issue is resolved. Press <here> to notify the ticket owner and mr.approver and close the ticket","who":"Wizard"},"context":{}}
 {"event":"setValue","path":"ekas.selected","value":"eka:deleteProject","context":{}}
 {"event":"setId","id":"eka:deleteProject","path":"ekas.item","parser":"eka","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa124","context":{}}
+{"event":"setId","id":"ticket:pa124","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}

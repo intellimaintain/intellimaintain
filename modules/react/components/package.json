@@ -1,5 +1,5 @@
 {
-  "name": "@intellimaintain/react",
+  "name": "@intellimaintain/components",
   "description": "",
   "version": "0.0.5",
   "browserslist": {
@@ -15,9 +15,10 @@
     ]
   },
   "dependencies": {
+    "react-markdown": "^8.0.7",
+    "rehype-raw": "^7.0.0",
+    "rehype-sanitize": "^6.0.0",
     "@intellimaintain/apiclienteventstore": "0.0.5",
-    "@intellimaintain/components": "0.0.5",
-    "@intellimaintain/domain": "0.0.5",
     "@intellimaintain/events": "0.0.5",
     "@intellimaintain/eventstore": "0.0.5",
     "@intellimaintain/variables": "0.0.5",
@@ -28,9 +29,7 @@
     "@focuson/state": "1.44.1",
     "@laoban/utils": "1.4.45",
     "@mui/material": "^5.15.10",
-    "@mui/icons-material": "^5.15.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@mui/icons-material": "^5.15.10"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
@@ -67,7 +66,10 @@
     "runbook"
   ],
   "license": "MIT",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "repository": "git@github.com:intellimaintain/intellimaintain.git",
   "scripts": {
     "start": "parcel src/index.html",

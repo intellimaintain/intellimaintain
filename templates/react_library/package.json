@@ -24,11 +24,11 @@
     "@focuson/state":      "1.44.1",
     "@laoban/utils":       "1.4.45",
     "@mui/material":       "^5.15.10",
-    "@mui/icons-material": "^5.15.10",
-    "react":               "^18.2.0",
-    "react-dom":           "^18.2.0"
+    "@mui/icons-material": "^5.15.10"
   },
   "peerDependencies": {
+    "react":     "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies":  {
     "@babel/preset-react": "^7.23.3",

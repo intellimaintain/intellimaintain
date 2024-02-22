@@ -8,14 +8,14 @@
     "@laoban@/laoban.json/react.laoban.json"
   ],
   "properties":     {
-    "license":    "MIT",
-    "repository": "git@github.com:run-book/runbook.git",
+    "license":       "MIT",
+    "repository":    "git@github.com:intellimaintain/intellimaintain.git",
     "laobanVersion": "1.4.40"
   },
   "templates":      {
-    "javascript": "@laoban@/templates/javascript",
-    "typescript": "templates/typescript",
-    "react":      "templates/react"
+    "typescript":    "templates/typescript",
+    "react":         "templates/react",
+    "react_library": "templates/react_library"
   },
   "defaultEnv":     {
     "NPM_TOKEN": ""

@@ -6,7 +6,8 @@ import { SideEffect } from "../sideeffects/sideeffects";
 import { SelectedAndList } from "../domain/domain";
 import { SetIdEvent, SetValueEvent } from "@intellimaintain/events";
 import { IdAndName } from "@intellimaintain/domain";
-import { Loading } from "./loading";
+import { Loading } from "@intellimaintain/components";
+
 
 
 //observations... it will take time to load the selected item

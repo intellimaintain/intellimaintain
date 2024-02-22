@@ -1,4 +1,4 @@
-import { LensProps, LensState } from "@focuson/state";
+import React from "react";
 
 
 export function Loading(){

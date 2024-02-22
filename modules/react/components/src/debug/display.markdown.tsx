@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import ReactMarkdown from 'react-markdown';
-import { LensProps } from '@focuson/state';
 
 export interface MarkdownDisplayProps<S> {
   md: string | undefined

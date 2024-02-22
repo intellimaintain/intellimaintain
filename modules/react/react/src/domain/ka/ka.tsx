@@ -3,8 +3,8 @@ import { SelectedAndList } from "../domain";
 import { SideEffect } from "../../sideeffects/sideeffects";
 import React from "react";
 import { KnowledgeArticle } from "@intellimaintain/domain";
-import { DisplayMarkdown } from "../../components/display.markdown";
 import { DropdownAsTitle } from "../../components/DropdownAsTitle";
+import { DisplayMarkdown } from "@intellimaintain/components";
 
 
 export type KnowledgeArticles = SelectedAndList<KnowledgeArticle>

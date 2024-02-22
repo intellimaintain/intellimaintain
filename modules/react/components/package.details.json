@@ -1,17 +1,18 @@
 {
-  "template":    "react",
-  "name":        "@intellimaintain/react",
+  "template":    "react_library",
+  "name":        "@intellimaintain/components",
   "description": "",
   "packageJson": {
     "files":        ["build/"],
     "dependencies": {
+      "react-markdown":  "^8.0.7",
+      "rehype-raw":      "^7.0.0",
+      "rehype-sanitize": "^6.0.0"
     },
     "scripts":      {"start": "react-scripts start"}
   },
   "links":       [
     "@intellimaintain/apiclienteventstore",
-    "@intellimaintain/components",
-    "@intellimaintain/domain",
     "@intellimaintain/events",
     "@intellimaintain/eventstore",
     "@intellimaintain/variables"

@@ -3,7 +3,7 @@ import { SideEffect } from "../../sideeffects/sideeffects";
 import React from "react";
 import { SoftwareCatalog } from "@intellimaintain/domain";
 import { SelectedAndList } from "../domain";
-import { DisplayMarkdown } from "../../components/display.markdown";
+import { DisplayMarkdown } from "@intellimaintain/components";
 import { DropdownAsTitle } from "../../components/DropdownAsTitle";
 
 
