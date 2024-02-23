@@ -4,12 +4,12 @@ import { KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 import { Tickets } from "@intellimaintain/react_ticket";
 import { SoftwareCatalogs } from "@intellimaintain/react_softwarecatalog"
 
-export const ticket1: IdAndName = { id: 'ticket:pa123', name: 'Ticket PA123' };
-export const ticket2: IdAndName = { id: 'ticket:pa124', name: 'Ticket PA124' };
+// export const ticket1: IdAndName = { id: 'ticket:pa123', name: 'Ticket PA123' };
+// export const ticket2: IdAndName = { id: 'ticket:pa124', name: 'Ticket PA124' };
 let tickets: Tickets = {
   selected: undefined,
   item: undefined,
-  options: [ ticket1, ticket2 ]
+  options: [ ]
 }
 
 export const ka1: IdAndName = {

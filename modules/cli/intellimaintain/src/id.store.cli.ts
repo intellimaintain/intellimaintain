@@ -53,9 +53,8 @@ export function idStoreCommands<Commander, Context, Config> (): SubCommandDetail
         },
         action: async ( commander, opts, idtype ) => {
           const all = listIds ( opts.id.toString () )
-          const lister = all[ idtype ]
-          const list = await lister ()
-          list.forEach ( l => console.log ( l ) )
+          const ids =await all( idtype )
+          ids.forEach ( l => console.log ( l ) )
         }
       }
     ]

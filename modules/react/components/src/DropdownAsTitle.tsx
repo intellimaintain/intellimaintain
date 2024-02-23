@@ -24,9 +24,9 @@ export interface DropdownAsTitleProps<S, T extends IdAndName> extends LensProps2
 export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, path, purpose, parser }: DropdownAsTitleProps<S, T> ) {
   const { selected, options } = state.optJson1 () || { options: [], item: undefined, selected: undefined }
   function handleChange ( event: SelectChangeEvent<string>, child: ReactNode ): void {
-    let id = event.target.value;
+    let id = event?.target?.value;
     if ( id ) {
-      console.log ( 'handleChange', id, event.target.value, event.target.name, event.target )
+      console.log ( 'handleChange', id, event?.target?.value, event?.target?.name, event.target )
       const setSelectedEvent: SetValueEvent = { event: 'setValue', path: path + '.selected', value: id, context: {} };
       const loadItemEvent: SetIdEvent = { event: 'setId', id, path: path + '.item', parser: parser || 'string', context: {} };
       state.transformJson (
@@ -35,6 +35,7 @@ export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, pat
         `${purpose} selected ${id}` );
     }
   }
+  console.log('options', options)
   return <Card variant="outlined">
     <CardContent  sx={{ display: 'flex', flexDirection: 'column' , height: '35vh'}}>
       <Select

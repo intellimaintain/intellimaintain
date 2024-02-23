@@ -1,5 +1,4 @@
 import { NameAnd } from "@laoban/utils"
 
-export type ListIds= () =>Promise<string[]>
+export type ListIds= (type: string) =>Promise<string[]>
 
-export type AllListIds = NameAnd<ListIds>
