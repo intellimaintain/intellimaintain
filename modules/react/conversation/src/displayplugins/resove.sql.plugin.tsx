@@ -6,17 +6,17 @@ import { SideEffect } from "@intellimaintain/react_core";
 import { JSONObject } from "@intellimaintain/utils";
 import { SqlData, SqlDataAndTest } from "./SqlData";
 
-const beforeAndAfterRegex = /^(.*?)\[(CheckSql)\](.*)$/;
-export const checkSqlDisplayMessagePlugin: DisplayMessagePlugin = {
+const beforeAndAfterRegex = /^(.*?)\[(ResolveSql)\](.*)$/;
+export const resolveSqlDisplayMessagePlugin: DisplayMessagePlugin = {
   accept: messageMatches ( beforeAndAfterRegex ),
   display: <S extends any> ( variables: JSONObject, who: string, s: LensState2<S, Message, SideEffect[], any> ) => {
     const sql = variables?.sql as any;
-    const checkSql = sql?.check?.sql?.toString () || '';
+    const resolveSql = sql?.resolve?.sql?.toString () || '';
     return <BeforeAfterComponent regex={beforeAndAfterRegex} state={s}>{_ =>
       <HighlightedAndMessageButton state={s.state2 ()}
-                                   buttonText="Check SQL"
-                                   buttonMessage={{ who, message: `Check Sql Pressed: please execute sql ${checkSql}` }}>
-        <strong>{checkSql}</strong>
+                                   buttonText="Resolve SQL"
+                                   buttonMessage={{ who, message: `Resolve Sql Pressed: please execute sql ${resolveSql}` }}>
+        <strong>{resolveSql}</strong>
         <SqlDataAndTest variables={variables}/>
         {/*<pre>{JSON.stringify ( variables, null, 2 )}></pre>*/}
       </HighlightedAndMessageButton>}</BeforeAfterComponent>

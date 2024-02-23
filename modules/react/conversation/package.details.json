@@ -5,6 +5,7 @@
   "packageJson": {
     "files":        ["build/"],
     "dependencies": {
+      "@laoban/variables": "1.4.45"
     },
     "scripts":      {"start": "react-scripts start"}
   },

@@ -4,15 +4,8 @@
 {"event":"setId","id":"ka:deleteProject","path":"kas.item","parser":"ka","context":{}}
 {"event":"setValue","path":"scs.selected","value":"sc:EPX","context":{}}
 {"event":"setId","id":"sc:EPX","path":"scs.item","parser":"sc","context":{}}
-{"event":"setValue","path":"tickets.selected","value":"ticket:pa124","context":{}}
-{"event":"setValue","path":"tickets.selected","value":"ticket:pa124","context":{}}
-{"event":"setId","id":"ticket:pa124","path":"tickets.item","parser":"ticket","context":{}}
-{"event":"setId","id":"ticket:pa124","path":"tickets.item","parser":"ticket","context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"[CheckSql]","who":"Operator"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Check it please"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"[CheckSql]"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Check Sql Pressed: please execute sql select * from projects where project_id = :projectId"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Check Sql Pressed: please execute sql select * from projects where project_id = :projectId"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"Before text[CheckSql]after"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Check Sql Pressed: please execute sql select * from projects where project_id = :projectId"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Check Sql Pressed: please execute sql select * from projects where project_id = :projectId"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"[sql: something]"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Check Sql Pressed: please execute sql  something"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"Only one value returned. Problem is present"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"Shall I ask for Approval?"},"context":{}}

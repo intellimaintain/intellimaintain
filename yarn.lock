@@ -802,6 +802,13 @@
   resolved "https://registry.npmjs.org/@laoban/validation/-/validation-1.4.45.tgz"
   integrity sha512-h5dxi2NeaAmcR4NRZizjVdsr2U67Dtn3vL7XUj+98ggciZkjjIUXXaJ1xcoS52+negIR30PgdrsCb1IiQX260Q==
 
+"@laoban/variables@1.4.45":
+  version "1.4.45"
+  resolved "https://registry.yarnpkg.com/@laoban/variables/-/variables-1.4.45.tgz#4a9650363ee4067461c48bf2a2cc9d039fa020c6"
+  integrity sha512-zYcrHEMP6HKtXmBuylrMncUA9Pp/jWMx8hvufet4HNT7WXeNPS/xOioRXkl4m860/gzMI19NT4KUtTMZ+/DEtA==
+  dependencies:
+    "@laoban/utils" "1.4.45"
+
 "@laoban/xml@1.4.45":
   version "1.4.45"
   resolved "https://registry.npmjs.org/@laoban/xml/-/xml-1.4.45.tgz"

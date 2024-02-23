@@ -1,3 +1,4 @@
+export * from './src/attribute.value';
 export * from './src/buttons/highlightedAndMessageButton';
 export * from './src/buttons/messageButton';
 export * from './src/debug/display.debug';
