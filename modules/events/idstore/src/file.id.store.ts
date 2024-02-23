@@ -1,6 +1,6 @@
 import { NameAnd } from "@laoban/utils";
 import { promises } from "fs";
-import { IdStore, IdStoreResult } from "./id.store";
+import { findIdKeyAndPath, IdStore, IdStoreResult } from "./id.store";
 import { ParserStore, parseUsingStore } from "@intellimaintain/parser";
 
 export interface IdStoreDetails {
@@ -27,13 +27,7 @@ export type KeyAndPath = {
   key: string
   path: string
 }
-export function findIdKeyAndPath ( s: string ):KeyAndPath {
-  const index = s.indexOf ( ':' )
-  if ( index === -1 ) throw Error ( `Invalid id no ':' in ${s}]` )
-  const key = s.slice ( 0, index )
-  const path = s.slice ( index + 1 ).replace ( /:/g, '/' )
-  return { key, path };
-}
+
 export function idPathToFilePathAndMimeType ( details: NameAnd<IdStoreDetails>, s: string ): PathAndMimeType {
   const { key, path } = findIdKeyAndPath ( s );
   const d = details[ key ]

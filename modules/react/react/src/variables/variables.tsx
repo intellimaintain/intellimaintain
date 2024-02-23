@@ -10,20 +10,30 @@ import ErrorIcon from '@mui/icons-material/Error';
 import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
 import { ChatState } from "../domain/domain";
 
-export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, se: SelectedAndList<T> ): Variables {
+export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, soFar: NameAnd<string>, se: SelectedAndList<T> ): Variables {
   function error ( msg: string ) {return { variables: {}, errors: [ msg ] } }
   if ( se.selected === undefined ) return error ( `No ${context} selected` )
   if ( se.item === undefined ) return error ( `No ${context} loaded (id is ${se.selected})` )
   console.log ( 'extractVariablesFromSelectedAndList', 'selected', se.selected, 'item', se.item )
-  return extractVariablesFrom ( ve, se.selected, se.item )
+  return extractVariablesFrom ( ve, se.selected, soFar, se.item )
 }
 
 export function extractVariablesAndAddToState ( chat: ChatState ) {
   const ve = defaultVariablesExtractor
+  const operator: Variables = { variables: { 'operator': chat.who }, errors: [] }
+  let ticket: Variables = extractVariablesFromSelectedAndList ( ve, 'Ticket', operator.variables, chat.tickets );
+  const soFar = { ...operator.variables, ...ticket.variables }
+  let ka = extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', soFar, chat.kas );
+  const soFarWithVariables = { ...soFar, ...ka.variables }
+  let sc = extractVariablesFromSelectedAndList ( ve, 'Software Catalog', soFarWithVariables, chat.scs );
+  const summary = { ...soFarWithVariables, ...sc.variables }
+  const allErrors = [ operator.errors, ticket.errors, ka.errors, sc.errors ].flat ()
   const variables: NameAnd<Variables> = {
-    Ticket: extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.tickets ),
-    'Knowledge Article': extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.kas ),
-    'Software Catalog': extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', chat.scs )
+    Operator: operator,
+    Ticket: ticket,
+    'Knowledge Article': ka,
+    'Software Catalog': sc,
+    'Summary': { variables: summary, errors: allErrors }
   }
   return { ...chat, variables }
 }

@@ -43,14 +43,11 @@ export type KnowledgeArticle = AdjustDatabaseSqlKS | InService1NotInService2KS
 
 
 export const kaArticleParser: ParserStoreParser = ( id, s ): ErrorsAnd<KnowledgeArticle> => {
-  console.log ( 'yaml - string', s )
-  console.log ( 'yaml', yaml )
   const doc = yaml.load ( s )
-
   return {id, ...doc}
 }
 
-export function variablesFromKnowledgeArticle ( ka: KnowledgeArticle ): ErrorsAnd<Variables> {
+export function variablesFromKnowledgeArticle (sofar: NameAnd<any>, ka: KnowledgeArticle ): ErrorsAnd<Variables> {
   return {
     variables: {
       'id': ka.id,

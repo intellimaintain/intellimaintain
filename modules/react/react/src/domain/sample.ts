@@ -33,7 +33,7 @@ export const scs: SoftwareCatalogs = {
   options: [ scEPX ]
 }
 
-let chatState = blankChatState ( 'Operator', 'Wizard', kas, scs, tickets );
+let chatState = blankChatState ( 'phil@example.com', 'Wizard', kas, scs, tickets );
 export const startAppState: DemoChatState = {
   chatState1: chatState,
   chatState2: chatState

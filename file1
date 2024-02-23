@@ -37,3 +37,6 @@
 {"event":"append","path":"conversation.messages","value":{"message":"hello","who":"Operator"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"hello again","who":"Operator"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"hi","who":"Wizard"},"context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"asd","who":"Operator"},"context":{}}

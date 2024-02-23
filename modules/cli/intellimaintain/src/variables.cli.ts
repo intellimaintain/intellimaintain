@@ -24,7 +24,7 @@ export function addVariableCommands<Commander, Context, Config> (): SubCommandDe
         if ( isBadIdStoreResult ( (result) ) )
           console.log ( `Error ${result.error}` )
         else {
-          const variables = extractVariablesFrom ( defaultVariablesExtractor, id, result.result )
+          const variables = extractVariablesFrom ( defaultVariablesExtractor, id, {},result.result )
           console.log ( variables )
         }
       }

@@ -10,6 +10,7 @@ import { Lenses } from "@focuson/lens";
 
 
 export interface ChatState {
+  who: string
   selectionState: SelectionState
   sideeffects: SideEffect[]
   log: SideeffectResult<any>[]
@@ -31,6 +32,7 @@ export const logs2L = chatState2L.focusOn ( 'log' )
 
 export function blankChatState ( chatter: string, responder: string, kas: KnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
   return {
+    who:chatter,
     selectionState: {},
     sideeffects: [],
     log: [],

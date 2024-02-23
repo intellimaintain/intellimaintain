@@ -18,7 +18,7 @@ function AdjustDatabaseSqlKs<S> ( { state }: LensProps<S, AdjustDatabaseSqlKS, a
 export function DisplayKnowledgeArticle<S> ( { state }: LensProps<S, KnowledgeArticle, any> ) {
   const ka = state.json ()
   if ( isAdjustDatabaseSqlKS ( ka ) ) return <AdjustDatabaseSqlKs state={state as LensState<S, AdjustDatabaseSqlKS, any>}/>
-  return <DisplayYaml yamlContent={ka} maxHeight='30vh'/>
+  return <DisplayYaml yamlContent={ka} />
 }
 export function DisplayKnowledgeArticles<S> ( { path, state }: LensProps2<S, KnowledgeArticles, SideEffect[], any> & { path: string } ) {
   return <DropdownAsTitle path={path} state={state} purpose='Knowledge Article' parser='ka'>{

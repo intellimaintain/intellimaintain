@@ -1,5 +1,5 @@
 import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
-import { ErrorsAnd } from "@laoban/utils";
+import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { extractVariablesFromMarkdown, Variables } from "@intellimaintain/variables";
 import { addVariables } from "@intellimaintain/defaultdomains";
 import { ParserStoreParser } from "@intellimaintain/parser";
@@ -9,7 +9,7 @@ export interface Ticket extends IdAndName {
   description: string
 }
 
-export function variablesFromTicket ( t: Ticket ): ErrorsAnd<Variables> {
+export function variablesFromTicket (sofar: NameAnd<any>, t: Ticket ): ErrorsAnd<Variables> {
   return addVariables ( extractVariablesFromMarkdown ( t.description ), { ticketId: t.id, severity: t.severity } )
 }
 
