@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/react",
   "description": "",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -15,17 +15,17 @@
     ]
   },
   "dependencies": {
-    "@intellimaintain/apiclienteventstore": "0.0.6",
-    "@intellimaintain/components": "0.0.6",
-    "@intellimaintain/domain": "0.0.6",
-    "@intellimaintain/events": "0.0.6",
-    "@intellimaintain/react_knowledge_articles": "0.0.6",
-    "@intellimaintain/eventstore": "0.0.6",
-    "@intellimaintain/react_core": "0.0.6",
-    "@intellimaintain/react_conversation": "0.0.6",
-    "@intellimaintain/react_softwarecatalog": "0.0.6",
-    "@intellimaintain/react_ticket": "0.0.6",
-    "@intellimaintain/variables": "0.0.6",
+    "@intellimaintain/apiclienteventstore": "0.0.8",
+    "@intellimaintain/components": "0.0.8",
+    "@intellimaintain/domain": "0.0.8",
+    "@intellimaintain/events": "0.0.8",
+    "@intellimaintain/react_knowledge_articles": "0.0.8",
+    "@intellimaintain/eventstore": "0.0.8",
+    "@intellimaintain/react_core": "0.0.8",
+    "@intellimaintain/react_conversation": "0.0.8",
+    "@intellimaintain/react_softwarecatalog": "0.0.8",
+    "@intellimaintain/react_ticket": "0.0.8",
+    "@intellimaintain/variables": "0.0.8",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/react_conversation",
   "description": "The react code for the conversation",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "@laoban/variables": "1.4.45",
-    "@intellimaintain/components": "0.0.6",
-    "@intellimaintain/react_core": "0.0.6",
+    "@intellimaintain/components": "0.0.8",
+    "@intellimaintain/react_core": "0.0.8",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

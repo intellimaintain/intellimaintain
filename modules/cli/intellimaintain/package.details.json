@@ -17,6 +17,7 @@
     }
   },
   "links":       [
+    "@intellimaintain/api",
     "@intellimaintain/cli",
     "@intellimaintain/commander12",
     "@intellimaintain/config",
