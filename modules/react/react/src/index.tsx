@@ -14,14 +14,14 @@ import { IdStore } from "@intellimaintain/idstore";
 import { DisplayGui } from './gui/gui';
 import { extractVariablesAndAddToState } from "./variables/variables";
 import { DI } from "./di/di";
-import { checkSqlDisplayMessagePlugin, sqlDisplayPlugin, dereferencePlugIn, resolveSqlDisplayMessagePlugin } from '@intellimaintain/react_conversation';
+import { checkSqlDisplayMessagePlugin, sqlDisplayPlugin, dereferencePlugIn, resolveSqlDisplayMessagePlugin, approvalDisplayPlugin } from '@intellimaintain/react_conversation';
 
 export type AppProps<S> = LensProps<S, DemoChatState, DI>
 function App<S> ( { state }: AppProps<S> ) {
   return <ThemeProvider theme={theme}>
     <TwoColumnLayout>
-      <DisplayGui from='Operator' label='display Operator' state={state.focusOn ( 'chatState1' )}/>
-      <DisplayGui from='Wizard' label='display Wizard' state={state.focusOn ( 'chatState2' )}/>
+      <DisplayGui from='Operator' path='chatState1.' label='display Operator' state={state.focusOn ( 'chatState1' )}/>
+      <DisplayGui from='Wizard' path='chatState2.' label='display Wizard' state={state.focusOn ( 'chatState2' )}/>
     </TwoColumnLayout>
   </ThemeProvider>
 }
@@ -41,7 +41,7 @@ const sep1 = defaultEventProcessor<DemoChatState> ( 'chatState1.', startAppState
 const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState, idStore )
 
 const di: DI = {
-  displayPlugins: [sqlDisplayPlugin,checkSqlDisplayMessagePlugin,resolveSqlDisplayMessagePlugin,dereferencePlugIn]
+  displayPlugins: [ sqlDisplayPlugin, checkSqlDisplayMessagePlugin, resolveSqlDisplayMessagePlugin, approvalDisplayPlugin, dereferencePlugIn ]
 }
 addEventStoreListener ( container, (( oldS, s, setJson ) =>
   root.render ( <App state={lensState ( s, setJson, 'Container', di )}/> )) );

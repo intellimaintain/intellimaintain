@@ -26,6 +26,7 @@
     "@intellimaintain/eventstore",
     "@intellimaintain/fileeventstore",
     "@intellimaintain/idstore",
+    "@intellimaintain/listids",
     "@intellimaintain/utils"
   ],
   "guards":      {

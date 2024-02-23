@@ -9,3 +9,6 @@
 {"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Check Sql Pressed: please execute sql select * from projects where project_id = :projectId"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"Only one value returned. Problem is present"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"Shall I ask for Approval?"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"[Approval]"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Please request approval"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"Check Sql Pressed: please execute sql select * from projects where project_id = :projectId"},"context":{}}

@@ -16,8 +16,9 @@ export interface HasDisplayPlugins {
 
 export interface ChatProps<S, C extends HasDisplayPlugins> extends LensProps3<S, Conversation, NameAnd<Variables>, SideEffect[], C> {
   from: string
+  path: string
 }
-export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, from }: ChatProps<S, C> ) {
+export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, from, path }: ChatProps<S, C> ) {
   const conversation: Conversation = state.json1 ()
   const plugins = state.context.displayPlugins
   const { messages, chatter } = conversation
@@ -51,7 +52,7 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
                     {message.who}:
                   </Typography>
                 </Grid>
-                <Grid item xs={10}>{displayMessage ( plugins, summary,from, state.state13().focus1On( 'messages' ).chain1 ( Lenses.nth ( index ) ) )}</Grid>
+                <Grid item xs={10}>{displayMessage ( plugins, summary, from, path+ `message[${index}].`, state.state13 ().focus1On ( 'messages' ).chain1 ( Lenses.nth ( index ) ) )}</Grid>
               </Grid>
             </ListItem>
           ) )}

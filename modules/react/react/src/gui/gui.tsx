@@ -34,12 +34,13 @@ export function TopPart<S, C> ( { state, label }: TopPartProps<S, C> ) {
 export interface DisplayGuiProps<S, C> extends LensProps<S, ChatState, C> {
   label: string
   from: string
+  path: string
 }
-export function DisplayGui<S, C extends HasDisplayPlugins> ( { state, label, from }: DisplayGuiProps<S, C> ) {
+export function DisplayGui<S, C extends HasDisplayPlugins> ( { state, label, from, path }: DisplayGuiProps<S, C> ) {
   const parentState = state.doubleUp ().focus2On ( 'selectionState' ).focus2On ( 'mainTab' )
   return <MainAppLayout>
     <TopPart label={label} state={state}/>
-    <DisplayConversation from={from} state={state.tripleUp ().focus1On ( 'conversation' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}/>
+    <DisplayConversation from={from} path={path+ 'conversation.'} state={state.tripleUp ().focus1On ( 'conversation' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}/>
 
   </MainAppLayout>
 }

@@ -1,0 +1,17 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/listids",
+  "description": "lists the ids in the id store",
+  "packageJson": {
+    "dependencies":    {
+      "@laoban/utils": "1.4.45"
+    },
+    "devDependencies": {}
+  },
+  "links":       ["@intellimaintain/utils"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

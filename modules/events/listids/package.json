@@ -1,15 +1,9 @@
 {
-  "name": "intellimaintain",
-  "description": "",
+  "name": "@intellimaintain/listids",
+  "description": "lists the ids in the id store",
   "version": "0.0.6",
   "main": "dist/index",
   "types": "dist/index",
-  "bin": {
-    "intellimaintain": "dist/index.js"
-  },
-  "browser": {
-    "child_process": false
-  },
   "browserslist": {
     "development": [
       "last 1 chrome version",
@@ -23,19 +17,7 @@
     ]
   },
   "dependencies": {
-    "node": "^v16.0.0",
     "@laoban/utils": "1.4.45",
-    "@laoban/filesops-node": "1.4.45",
-    "@intellimaintain/cli": "0.0.6",
-    "@intellimaintain/commander12": "0.0.6",
-    "@intellimaintain/config": "0.0.6",
-    "@intellimaintain/domain": "0.0.6",
-    "@intellimaintain/defaultdomains": "0.0.6",
-    "@intellimaintain/events": "0.0.6",
-    "@intellimaintain/eventstore": "0.0.6",
-    "@intellimaintain/fileeventstore": "0.0.6",
-    "@intellimaintain/idstore": "0.0.6",
-    "@intellimaintain/listids": "0.0.6",
     "@intellimaintain/utils": "0.0.6",
     "debug": "^4.3.4"
   },

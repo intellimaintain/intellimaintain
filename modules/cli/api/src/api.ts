@@ -3,6 +3,7 @@ import { chainOfResponsibility } from "@runbook/utils";
 import { fileLoading, fileLocking, loadStringIncrementally, withFileLock } from "@intellimaintain/fileeventstore";
 import { promises as fs } from 'fs';
 import { IdStore, IdStoreResult, isBadIdStoreResult } from "@intellimaintain/idstore";
+import { AllListIds } from "@intellimaintain/listids";
 
 
 export const ids = ( idstore: IdStore, debug: boolean ): KoaPartialFunction => ({
@@ -31,6 +32,31 @@ export const eventsPF: KoaPartialFunction = {
     ctx.context.body = `${result.newStart}\n${result.result}`
   }
 }
+export function getIdsPF ( getIds: AllListIds ): KoaPartialFunction {
+  return {
+    isDefinedAt: ( ctx ) => {
+      // Match the path against the regex pattern and check for 'GET' method
+      const match = /\/ids\/([^\/]+)/.exec ( ctx.context.request.path );
+      const isGetMethod = ctx.context.request.method === 'GET';
+      return match && isGetMethod
+    },
+    apply: async ( ctx ) => {
+      const match = /\/ids\/([^\/]+)/.exec ( ctx.context.request.path );
+      const type = match[ 1 ];
+      // Use the 'type' captured and attached to the context in 'isDefinedAt'
+      const getter = getIds [ type ];
+      if ( !getter ) {
+        ctx.context.status = 404;
+        ctx.context.body = `No such type ${type}`;
+        return
+      }
+      const ids = await getter ();
+      ctx.context.body = JSON.stringify ( ids ); // Set the response body to the result
+      ctx.context.set('Content-Type', 'application/json');
+
+    }
+  }
+};
 
 export const appendPostPF: KoaPartialFunction = {
   isDefinedAt: ( ctx ) => ctx.stats?.isFile () && ctx.context.request.method === 'POST',
@@ -54,10 +80,11 @@ export const appendPostPF: KoaPartialFunction = {
   }
 }
 
-export const wizardOfOzApiHandlers = ( idStore: IdStore, debug: boolean, ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats ) => Promise<void> =>
+export const wizardOfOzApiHandlers = ( idStore: IdStore, getIds: AllListIds, debug: boolean, ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats ) => Promise<void> =>
   chainOfResponsibility ( defaultShowsError, //called if no matches
     ids ( idStore, debug ),
     eventsPF,
+    getIdsPF ( getIds ),
     appendPostPF,
     ...handlers,
     notFoundIs404,

@@ -3,7 +3,7 @@ name: Delete Project
 required:
   - projectId
   - environment
-approver: mr.approver@example.com
+
 variables:
    system: EPX
 sql:
