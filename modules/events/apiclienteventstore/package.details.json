@@ -5,7 +5,7 @@
   "packageJson": {
     "dependencies":    {
       "@laoban/utils": "1.4.45",
-      "@focuson/lens": "1.44.1"
+      "@focuson/lens":  "1.44.3"
     },
     "devDependencies": {},
     "browser":         {

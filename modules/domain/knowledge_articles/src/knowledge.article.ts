@@ -2,6 +2,7 @@ import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { ParserStoreParser } from "@intellimaintain/parser";
 import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
+import { JSONObject } from "@intellimaintain/utils";
 
 const yaml = require ( 'js-yaml' );
 
@@ -44,18 +45,20 @@ export type KnowledgeArticle = AdjustDatabaseSqlKS | InService1NotInService2KS
 
 export const kaArticleParser: ParserStoreParser = ( id, s ): ErrorsAnd<KnowledgeArticle> => {
   const doc = yaml.load ( s )
-  return {id, ...doc}
+  return { id, ...doc }
 }
 
-export function variablesFromKnowledgeArticle (sofar: NameAnd<any>, ka: KnowledgeArticle ): ErrorsAnd<Variables> {
-  return {
-    variables: {
-      'id': ka.id,
-      'name': ka.name,
-      'approver': ka.approver,
-      ...(ka.variables)
-    }, errors: []
+export function variablesFromKnowledgeArticle ( sofar: NameAnd<any>, ka: KnowledgeArticle ): ErrorsAnd<Variables> {
+  let variables: JSONObject = {
+    'id': ka.id,
+    'name': ka.name,
+    'approver': ka.approver,
+    ...(ka.variables)
   }
+  if ( isAdjustDatabaseSqlKS ( ka ) ) {
+    variables[ 'sql' ] = ka.sql as any
+  }
+  return { variables, errors: [] }
 }
 
 export function kaPlugin ( rootPath: string ): DomainPlugin<KnowledgeArticle> {

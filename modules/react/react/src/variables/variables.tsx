@@ -9,8 +9,10 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
 import { ChatState } from "../domain/domain";
+import { DisplayYaml } from "@intellimaintain/components";
+import { JSONObject } from "@intellimaintain/utils";
 
-export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, soFar: NameAnd<string>, se: SelectedAndList<T> ): Variables {
+export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, soFar: JSONObject, se: SelectedAndList<T> ): Variables {
   function error ( msg: string ) {return { variables: {}, errors: [ msg ] } }
   if ( se.selected === undefined ) return error ( `No ${context} selected` )
   if ( se.item === undefined ) return error ( `No ${context} loaded (id is ${se.selected})` )
@@ -22,11 +24,11 @@ export function extractVariablesAndAddToState ( chat: ChatState ) {
   const ve = defaultVariablesExtractor
   const operator: Variables = { variables: { 'operator': chat.who }, errors: [] }
   let ticket: Variables = extractVariablesFromSelectedAndList ( ve, 'Ticket', operator.variables, chat.tickets );
-  const soFar = { ...operator.variables, ...ticket.variables }
+  const soFar: JSONObject = { ...operator.variables, ...ticket.variables }
   let ka = extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', soFar, chat.kas );
-  const soFarWithVariables = { ...soFar, ...ka.variables }
+  const soFarWithVariables:JSONObject = { ...soFar, ...ka.variables }
   let sc = extractVariablesFromSelectedAndList ( ve, 'Software Catalog', soFarWithVariables, chat.scs );
-  const summary = { ...soFarWithVariables, ...sc.variables }
+  const summary:JSONObject = { ...soFarWithVariables, ...sc.variables }
   const allErrors = [ operator.errors, ticket.errors, ka.errors, sc.errors ].flat ()
   const variables: NameAnd<Variables> = {
     Operator: operator,
@@ -57,23 +59,8 @@ function SectionCard ( { title, variables }: VariablesCardProps ) {
         <Typography variant="h6" component="h2" gutterBottom>
           {title}
         </Typography>
-        <List disablePadding>
-          {Object.entries ( variables.variables ).length > 0 ? (
-            Object.entries ( variables.variables ).map ( ( [ key, value ], index ) => (
-              <ListItem key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="body1" component="span" style={{ flexBasis: '20%', textAlign: 'left', marginRight: '16px' }}>
-                  {`${key}:`}
-                </Typography>
-                <Typography variant="body1" component="span" style={{ flexBasis: '80%' }}>
-                  {value}
-                </Typography>
-              </ListItem>
-            ) )
-          ) : (
-            <ListItem>
-              <ListItemText primary="No variables"/>
-            </ListItem>
-          )}
+        <DisplayYaml yamlContent={variables.variables}/>
+        {variables.errors.length > 0 && <List>
           {variables.errors.map ( ( error, index ) => (
             <ListItem key={`error-${index}`} style={{ paddingTop: '4px', paddingBottom: '4px' }}>
               <ListItemIcon>
@@ -81,8 +68,7 @@ function SectionCard ( { title, variables }: VariablesCardProps ) {
               </ListItemIcon>
               <ListItemText primary={error} primaryTypographyProps={{ variant: 'body2' }}/>
             </ListItem>
-          ) )}
-        </List>
+          ) )}</List>}
       </CardContent>
     </Card>
   );

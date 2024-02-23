@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@laoban/utils": "1.4.45",
-    "@focuson/lens": "1.44.1",
+    "@focuson/lens": "1.44.3",
     "@intellimaintain/domain": "0.0.6",
     "@intellimaintain/defaultdomains": "0.0.6",
     "@intellimaintain/events": "0.0.6",

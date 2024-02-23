@@ -7,7 +7,6 @@ export type Conversation = {
   messages: Message[]
   message?: string
   chatter: string
-  responder: string
 }
 
 

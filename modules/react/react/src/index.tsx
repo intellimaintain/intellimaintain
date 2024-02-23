@@ -11,15 +11,17 @@ import { startAppState } from "./domain/sample";
 import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
 import { theme, TwoColumnLayout } from '@intellimaintain/components';
 import { IdStore } from "@intellimaintain/idstore";
-import { DisplayGui2 } from './gui/newgui';
+import { DisplayGui } from './gui/gui';
 import { extractVariablesAndAddToState } from "./variables/variables";
+import { DI } from "./di/di";
+import { checkSqlDisplayMessagePlugin, sqlDisplayPlugin } from '@intellimaintain/react_conversation';
 
-export type AppProps<S> = LensProps<S, DemoChatState, any>
+export type AppProps<S> = LensProps<S, DemoChatState, DI>
 function App<S> ( { state }: AppProps<S> ) {
   return <ThemeProvider theme={theme}>
     <TwoColumnLayout>
-      <DisplayGui2 from='Operator' label='display Operator' state={state.focusOn ( 'chatState1' )}/>
-      <DisplayGui2 from='Wizard' label='display Wizard' state={state.focusOn ( 'chatState2' )}/>
+      <DisplayGui from='Operator' label='display Operator' state={state.focusOn ( 'chatState1' )}/>
+      <DisplayGui from='Wizard' label='display Wizard' state={state.focusOn ( 'chatState2' )}/>
     </TwoColumnLayout>
   </ThemeProvider>
 }
@@ -38,7 +40,11 @@ const setJson = setEventStoreValue ( container );
 const sep1 = defaultEventProcessor<DemoChatState> ( 'chatState1.', startAppState, idStore )
 const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState, idStore )
 
-addEventStoreListener ( container, (( oldS, s, setJson ) => root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
+const di: DI = {
+  displayPlugins: [sqlDisplayPlugin,checkSqlDisplayMessagePlugin]
+}
+addEventStoreListener ( container, (( oldS, s, setJson ) =>
+  root.render ( <App state={lensState ( s, setJson, 'Container', di )}/> )) );
 
 
 const pollingDetails = polling ( 1000, async s => {

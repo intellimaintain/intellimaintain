@@ -1,18 +1,29 @@
 import React, { useEffect, useRef } from 'react';
-import { Box, List, ListItem, Typography } from '@mui/material';
-import { LensProps2 } from "@focuson/state";
+import { Box, Grid, List, ListItem, Typography } from '@mui/material';
+import { LensProps2, LensProps3, LensState2, LensState3 } from "@focuson/state";
 import { UserTypingBox } from "./userTypingBox";
 import { Conversation } from "@intellimaintain/domain";
 import { SideEffect } from '@intellimaintain/react_core';
+import { displayMessage, DisplayMessagePlugin } from '@intellimaintain/components';
+import { Variables } from "@intellimaintain/variables";
+import { NameAnd } from "@laoban/utils";
+import { Lenses } from "@focuson/lens";
 
-export interface ChatProps<S, C> extends LensProps2<S, Conversation, SideEffect[], C> {
+export interface HasDisplayPlugins {
+  displayPlugins: DisplayMessagePlugin[]
+}
+
+
+export interface ChatProps<S, C extends HasDisplayPlugins> extends LensProps3<S, Conversation, NameAnd<Variables>, SideEffect[], C> {
   from: string
 }
-export function DisplayConversation<S, C> ( { state, from }: ChatProps<S, C> ) {
+export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, from }: ChatProps<S, C> ) {
   const conversation: Conversation = state.json1 ()
-  const { messages, chatter, responder } = conversation
+  const plugins = state.context.displayPlugins
+  const { messages, chatter } = conversation
   const endOfListRef = useRef ( null );
-
+  const variables = state.json2 ()
+  const summary = variables[ 'Summary' ]?.variables || {}
   useEffect ( () => {
     console.log ( 'scrolling to end', endOfListRef.current );
     const parent = (endOfListRef?.current as any)?.parentElement
@@ -34,9 +45,14 @@ export function DisplayConversation<S, C> ( { state, from }: ChatProps<S, C> ) {
         }}>
           {messages.map ( ( message, index ) => (
             <ListItem key={index}>
-              <Typography variant="subtitle1" color="textSecondary">
-                {message.who}: {message.message}
-              </Typography>
+              <Grid container spacing={2} alignItems="flex-start">
+                <Grid item xs={2}>
+                  <Typography variant="subtitle1" color="textSecondary">
+                    {message.who}:
+                  </Typography>
+                </Grid>
+                <Grid item xs={10}>{displayMessage ( plugins, summary,from, state.state13().focus1On( 'messages' ).chain1 ( Lenses.nth ( index ) ) )}</Grid>
+              </Grid>
             </ListItem>
           ) )}
         </List>

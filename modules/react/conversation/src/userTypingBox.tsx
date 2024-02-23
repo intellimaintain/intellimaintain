@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import { Box, IconButton, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-
-import { LensProps2 } from "@focuson/state";
-
-import { AppendEvent } from "@intellimaintain/events";
 import { SideEffect } from "@intellimaintain/react_core";
+import { NameAnd } from "@laoban/utils";
+import { Variables } from "@intellimaintain/variables";
+import { LensProps3 } from "@focuson/state";
+import { makeSideeffectForMessage } from '@intellimaintain/components';
 
 
-interface UserTypingBoxProps<S, C> extends LensProps2<S, string, SideEffect[], C> {
+interface UserTypingBoxProps<S, C> extends LensProps3<S, string, NameAnd<Variables>, SideEffect[], C> {
   from: string
 }
 
@@ -16,11 +16,12 @@ export function UserTypingBox<S, C> ( { state, from }: UserTypingBoxProps<S, C> 
   const inputRef = useRef<HTMLTextAreaElement> ( null );
   function sendMessage () {
     if ( inputRef.current ) {
-      const message = inputRef.current.value.trim ();
-      const event: AppendEvent = { event: 'append', path: 'conversation.messages', value: { message, who: from }, context: {} };
+      const message = { who: from, message: inputRef.current.value.trim () };
+      let sideEffect: SideEffect = makeSideeffectForMessage ( message );
       state.transformJson (
         msg => '',
-        old => [ ...(old || []), { command: 'event', event } ],
+        vars => vars,
+        old => [ ...(old || []), sideEffect ],
         'sent message' );
       inputRef.current.value = '';
     }

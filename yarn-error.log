@@ -538,21 +538,21 @@ Lockfile:
     integrity sha512-9TANp6GPoMtYzQdt54kfAyMmz1+osLlXdg2ENroU7zzrtflTLrrC/lgrIfaSe+Wu0b89GKccT7vxXA0MoAIO+Q==
   
   "@focuson/lens@1.44.1":
-    version "1.44.1"
+    version  "1.44.3"
     resolved "https://registry.npmjs.org/@focuson/lens/-/lens-1.44.1.tgz"
     integrity sha512-YaBOnZcE8YsgvlFQrxfSJG4egw1fcOltjX0Z4gB/F7R6zDMJlXKn/WSyZS50/+GdAliLXJkUXUzGXw4zHiu3FA==
     dependencies:
-      "@focuson/utils" "1.44.1"
+      "@focuson/utils"  "1.44.3"
   
   "@focuson/state@1.44.1":
-    version "1.44.1"
+    version  "1.44.3"
     resolved "https://registry.npmjs.org/@focuson/state/-/state-1.44.1.tgz"
     integrity sha512-1aMlTatoUOPWRyH+ux2DKohQNY1q5S+/vF96GI7pMh6Arsqydtug2VM7vsX16Gc+Jb5MxYJtrk3/QXssaizWGw==
     dependencies:
-      "@focuson/lens" "1.44.1"
+      "@focuson/lens"  "1.44.3"
   
   "@focuson/utils@1.44.1":
-    version "1.44.1"
+    version  "1.44.3"
     resolved "https://registry.npmjs.org/@focuson/utils/-/utils-1.44.1.tgz"
     integrity sha512-OfpvIH/2t6UFkam6/kQKzt64Saii+ttF6xOYu3UEonSm8w/KyNmMJNS9n0qrOcfNIdxF+YAk3zUUvIui/m3GyA==
     dependencies:

@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid";
 export interface MainAppLayoutProps {
   children: [ ReactNode, ReactNode ];
 }
-export function MainAppLayout ( { children } ) {
+export function MainAppLayout ( { children } : MainAppLayoutProps) {
   const theme = useTheme<Theme & WizardOfOz> ();
   const [ topPart, bottomPart ] = children;
   const { topPartHeight, bottomPartHeight } = theme.wizardOfOz;

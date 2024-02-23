@@ -30,13 +30,13 @@ export const chatState2L = idL.focusOn ( 'chatState2' )
 export const sideEffects2L = chatState2L.focusOn ( 'sideeffects' )
 export const logs2L = chatState2L.focusOn ( 'log' )
 
-export function blankChatState ( chatter: string, responder: string, kas: KnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
+export function blankChatState ( chatter: string, kas: KnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
   return {
     who:chatter,
     selectionState: {},
     sideeffects: [],
     log: [],
-    conversation: { messages: [], chatter, responder },
+    conversation: { messages: [], chatter },
     sql: [],
     kas,
     scs,

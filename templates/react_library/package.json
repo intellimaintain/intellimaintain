@@ -20,8 +20,8 @@
     "debug":               "^4.3.4",
     "@emotion/react":      "^11.11.3",
     "@emotion/styled":     "^11.11.0",
-    "@focuson/lens":       "1.44.1",
-    "@focuson/state":      "1.44.1",
+    "@focuson/lens":        "1.44.3",
+    "@focuson/state":       "1.44.3",
     "@laoban/utils":       "1.4.45",
     "@mui/material":       "^5.15.10",
     "@mui/icons-material": "^5.15.10"

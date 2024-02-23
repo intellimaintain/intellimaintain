@@ -6,7 +6,7 @@
     "dependencies":    {
       "node":          "^v14.4.0",
       "@laoban/utils": "1.4.45",
-      "@focuson/lens": "1.44.1",
+      "@focuson/lens":  "1.44.3",
       "js-yaml":       "^4.1.0"
     },
     "devDependencies": {},
