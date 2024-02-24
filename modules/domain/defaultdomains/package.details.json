@@ -17,6 +17,7 @@
     "@intellimaintain/knowledge_articles",
     "@intellimaintain/tickets",
     "@intellimaintain/softwarecatalog",
+    "@intellimaintain/templates",
     "@intellimaintain/utils"
   ],
   "guards":      {

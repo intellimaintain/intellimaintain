@@ -4,7 +4,7 @@ import { LensProps2, LensProps3, LensState2, LensState3 } from "@focuson/state";
 import { UserTypingBox } from "./userTypingBox";
 import { Conversation } from "@intellimaintain/domain";
 import { SideEffect } from '@intellimaintain/react_core';
-import { displayMessage, DisplayMessagePlugin } from '@intellimaintain/components';
+import { displayMessage, DisplayMessagePlugin, TemplateFn } from '@intellimaintain/components';
 import { Variables } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
 import { Lenses } from "@focuson/lens";
@@ -18,9 +18,10 @@ export interface HasDisplayPlugins {
 export interface ConversationProps<S, C extends HasDisplayPlugins> extends LensProps3<S, Conversation, NameAnd<Variables>, SideEffect[], C> {
   from: string
   path: string
+  template: TemplateFn<S>
   children?: React.ReactNode
 }
-export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, from, path, children }: ConversationProps<S, C> ) {
+export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, from, path, children, template }: ConversationProps<S, C> ) {
   const conversation: Conversation = state.json1 ()
   const plugins = state.context.displayPlugins
   const { messages, chatter } = conversation
@@ -44,7 +45,7 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
         <Grid item xs={3}>
           <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>
         </Grid>
-        {children && <Grid xs={9} >{children}</Grid>}
+        {children && <Grid xs={9}>{children}</Grid>}
       </Grid>
       <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
         <List sx={{
@@ -59,7 +60,7 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
                     {message.who}:
                   </Typography>
                 </Grid>
-                <Grid item xs={10}>{displayMessage ( plugins, summary, from, path + `message[${index}].`, state.state13 ().focus1On ( 'messages' ).chain1 ( Lenses.nth ( index ) ) )}</Grid>
+                <Grid item xs={10}>{displayMessage ( plugins, summary, from, path + `message[${index}].`, state.state13 ().focus1On ( 'messages' ).chain1 ( Lenses.nth ( index ) ), template )}</Grid>
               </Grid>
             </ListItem>
           ) )}

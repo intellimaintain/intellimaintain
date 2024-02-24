@@ -18,6 +18,7 @@
     "@intellimaintain/react_core",
     "@intellimaintain/react_conversation",
     "@intellimaintain/react_softwarecatalog",
+    "@intellimaintain/react_templates",
     "@intellimaintain/react_ticket",
     "@intellimaintain/variables"
   ],

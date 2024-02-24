@@ -21,7 +21,7 @@ buttons:
     message: "[CheckSql]"
   RequestApproval:
     text: "Request Approval"
-    message: "[RequestApproval]"
+    message: "[Email approval]"
     notWhen: approved
   Resolve:
     message: "[ResolveSql]"

@@ -7,6 +7,7 @@ import { KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 import { SoftwareCatalogs } from "@intellimaintain/react_softwarecatalog"
 import { Tickets } from "@intellimaintain/react_ticket";
 import { Lenses } from "@focuson/lens";
+import { Templates } from "@intellimaintain/react_templates";
 
 
 export interface ChatState {
@@ -18,6 +19,7 @@ export interface ChatState {
   sql: string[]
   kas: KnowledgeArticles
   scs: SoftwareCatalogs
+  templates: Templates
   variables: NameAnd<Variables>
   tickets: Tickets
 }
@@ -30,7 +32,7 @@ export const chatState2L = idL.focusOn ( 'chatState2' )
 export const sideEffects2L = chatState2L.focusOn ( 'sideeffects' )
 export const logs2L = chatState2L.focusOn ( 'log' )
 
-export function blankChatState ( chatter: string, kas: KnowledgeArticles, scs: SoftwareCatalogs, tickets: Tickets ): ChatState {
+export function blankChatState ( chatter: string, tickets: Tickets, kas: KnowledgeArticles, scs: SoftwareCatalogs, templates: Templates ): ChatState {
   return {
     who:chatter,
     selectionState: {},
@@ -40,6 +42,7 @@ export function blankChatState ( chatter: string, kas: KnowledgeArticles, scs: S
     sql: [],
     kas,
     scs,
+    templates,
     tickets,
     variables: {}
   }

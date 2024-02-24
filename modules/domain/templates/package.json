@@ -1,6 +1,6 @@
 {
-  "name": "@intellimaintain/defaultdomains",
-  "description": "Code that extras variables from the domain objects",
+  "name": "@intellimaintain/templates",
+  "description": "Stored templates that can be used for emails or ticket comments or...",
   "version": "0.0.8",
   "main": "dist/index",
   "types": "dist/index",
@@ -20,14 +20,7 @@
     ]
   },
   "dependencies": {
-    "node": "^v14.4.0",
-    "@laoban/utils": "1.4.45",
     "@intellimaintain/domain": "0.0.8",
-    "@intellimaintain/knowledge_articles": "0.0.8",
-    "@intellimaintain/tickets": "0.0.8",
-    "@intellimaintain/softwarecatalog": "0.0.8",
-    "@intellimaintain/templates": "0.0.8",
-    "@intellimaintain/utils": "0.0.8",
     "debug": "^4.3.4"
   },
   "devDependencies": {

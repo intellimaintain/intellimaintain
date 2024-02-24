@@ -5,11 +5,13 @@ import { LensState2 } from "@focuson/state";
 import { JSONObject } from "@intellimaintain/utils";
 import { SideEffect } from "@intellimaintain/react_core";
 
+export type TemplateFn<S> = (state: S, templateName: string) => string
 export interface MessagePlugInParams<S> {
   variables: JSONObject
   who: string
   path: string
   state: LensState2<S, Message, SideEffect[], any>
+  template: TemplateFn<S>
 
 }
 export const messageMatches = ( regex: RegExp ) => ( message: Message | undefined, ): boolean =>
@@ -27,8 +29,8 @@ export const defaultMessagePlugin: DisplayMessagePlugin = {
   }
 }
 
-export function displayMessage<S> ( plugins: DisplayMessagePlugin[], variables: JSONObject, who: string, path: string, state: LensState2<S, Message, SideEffect[], any> ) {
+export function displayMessage<S> ( plugins: DisplayMessagePlugin[], variables: JSONObject, who: string, path: string, state: LensState2<S, Message, SideEffect[], any> , template: (state: S, templateName: string)=> string) {
   const plugin = plugins.find ( p => p.accept ( state.optJson1 () ) )
-  const params: MessagePlugInParams<S> = { variables, who, path, state }
+  const params: MessagePlugInParams<S> = { variables, who, path, state, template }
   return plugin?.display ( params ) ?? defaultMessagePlugin.display ( params )
 }

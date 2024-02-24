@@ -6,23 +6,27 @@ import { ThemeProvider } from "@mui/material";
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { apiIdStore, apiLoading, ApiLoading, apiLoadingFromBrowser, idStoreFromApi, listidsFromFetch, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
 import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
-import { DemoChatState, logs1L, logs2L, sideEffects1L, sideEffects2L } from "./domain/domain";
+import { ChatState, DemoChatState, logs1L, logs2L, sideEffects1L, sideEffects2L } from "./domain/domain";
 import { startAppState } from "./domain/sample";
 import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
-import { theme, TwoColumnLayout } from '@intellimaintain/components';
+import { TemplateFn, theme, TwoColumnLayout } from '@intellimaintain/components';
 import { IdStore } from "@intellimaintain/idstore";
 import { DisplayGui } from './gui/gui';
 import { extractVariablesAndAddToState } from "./variables/variables";
 import { DI } from "./di/di";
-import { approvalDisplayPlugin, checkSqlDisplayMessagePlugin, dereferencePlugIn, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin } from '@intellimaintain/react_conversation';
+import { checkSqlDisplayMessagePlugin, dereferencePlugIn, emailDisplayPlugin, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin } from '@intellimaintain/react_conversation';
 import { ListIds } from "@intellimaintain/listids";
 
+const templateFn= <K extends keyof DemoChatState> (offset: K): TemplateFn<any>  =>( state, templateName ) => {
+  //this is a terrible hack just to see what the gui looks like
+  return state?.[offset]?.templates?.item?.template || ''
+}
 export type AppProps<S> = LensProps<S, DemoChatState, DI>
 function App<S> ( { state }: AppProps<S> ) {
   return <ThemeProvider theme={theme}>
     <TwoColumnLayout>
-      <DisplayGui from='Operator' path='chatState1.' label='display Operator' state={state.focusOn ( 'chatState1' )}/>
-      <DisplayGui from='Wizard' path='chatState2.' label='display Wizard' state={state.focusOn ( 'chatState2' )}/>
+      <DisplayGui from='Operator' path='chatState1.' template={templateFn('chatState1')} label='display Operator' state={state.focusOn ( 'chatState1' )}/>
+      <DisplayGui from='Wizard' path='chatState2.' template={templateFn('chatState1')} label='display Wizard' state={state.focusOn ( 'chatState2' )}/>
     </TwoColumnLayout>
   </ThemeProvider>
 }
@@ -44,7 +48,7 @@ const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState
 
 const di: DI = {
   displayPlugins: [ checkSqlDisplayMessagePlugin,
-    resolveSqlDisplayMessagePlugin, approvalDisplayPlugin, dereferencePlugIn,
+    resolveSqlDisplayMessagePlugin, emailDisplayPlugin, dereferencePlugIn,
     sqlDataDisplayMessagePlugin ]
 }
 addEventStoreListener ( container, (( oldS, s, setJson ) =>
@@ -58,12 +62,18 @@ async function loadInitialIds ( s: DemoChatState ) {
   console.log ( 'scIds', scIds )
   const ticketIds = await listIds ( 'ticket' )
   console.log ( 'ticketIds', ticketIds )
+  const templateIds = await listIds ( 'template' )
+  console.log ( 'template', templateIds )
+
   s.chatState1.kas.options = kaIds.map ( k => ({ id: k, name: k }) )
   s.chatState1.scs.options = scIds.map ( k => ({ id: k, name: k }) )
   s.chatState1.tickets.options = ticketIds.map ( k => ({ id: k, name: k }) )
+  s.chatState1.templates.options = templateIds.map ( k => ({ id: k, name: k }) )
+
   s.chatState2.kas.options = kaIds.map ( k => ({ id: k, name: k }) )
   s.chatState2.scs.options = scIds.map ( k => ({ id: k, name: k }) )
   s.chatState2.tickets.options = ticketIds.map ( k => ({ id: k, name: k }) )
+  s.chatState2.templates.options = templateIds.map ( k => ({ id: k, name: k }) )
   console.log ( 's', s )
 }
 

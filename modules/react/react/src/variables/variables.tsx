@@ -22,13 +22,13 @@ export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: V
 
 export function extractVariablesAndAddToState ( chat: ChatState ) {
   const ve = defaultVariablesExtractor
-  const operator: Variables = { variables: { 'operator': chat.who }, errors: [] }
+  const operator: Variables = { variables: { 'operator': { email: chat.who, name: 'phil' } }, errors: [] }
   let ticket: Variables = extractVariablesFromSelectedAndList ( ve, 'Ticket', operator.variables, chat.tickets );
   const soFar: JSONObject = { ...operator.variables, ...ticket.variables }
   let ka = extractVariablesFromSelectedAndList ( ve, 'Knowledge Article', soFar, chat.kas );
-  const soFarWithVariables:JSONObject = { ...soFar, ...ka.variables }
+  const soFarWithVariables: JSONObject = { ...soFar, ...ka.variables }
   let sc = extractVariablesFromSelectedAndList ( ve, 'Software Catalog', soFarWithVariables, chat.scs );
-  const summary:JSONObject = { ...soFarWithVariables, ...sc.variables }
+  const summary: JSONObject = { ...soFarWithVariables, ...sc.variables }
   const allErrors = [ operator.errors, ticket.errors, ka.errors, sc.errors ].flat ()
   const variables: NameAnd<Variables> = {
     Operator: operator,

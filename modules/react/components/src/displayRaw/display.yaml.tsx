@@ -1,11 +1,9 @@
-import { SelectedAndList } from "@intellimaintain/react_core";
-import { KnowledgeArticle } from "@intellimaintain/knowledge_articles";
 import { JSONObject } from "@intellimaintain/utils";
 import { Paper, Typography } from "@mui/material";
 import React from "react";
 
 const yaml = require ( 'js-yaml' );
-export type KnowledgeArticles = SelectedAndList<KnowledgeArticle>
+
 function turnToYaml ( jsonObject: JSONObject ) {
   if ( jsonObject === undefined ) return ''
   if ( typeof jsonObject !== 'object' ) throw new Error ( `Not an object ${typeof jsonObject} ${JSON.stringify ( jsonObject )}` );

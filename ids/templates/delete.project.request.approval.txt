@@ -1,0 +1,10 @@
+
+${customer} has raised ticket number ${ticketId}.
+
+hey want to delete project ${projectId} in the ${environment} environment.
+
+Please confirm that this is acceptable
+
+regards
+
+${operator.name}
