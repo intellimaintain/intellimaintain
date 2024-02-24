@@ -42,7 +42,8 @@ export const loadFromIdStore = ( details: AllIdStoreDetails ): IdStore =>
     try {
       const { path, mimeType } = idPathToFilePathAndMimeType ( details.details, id )
       let buffer = await promises.readFile ( path );
-      const parserResult = parseUsingStore ( details.parserStore, id, buffer.toString ( 'utf-8' ), parser )
+      let string = buffer.toString ( 'utf-8' );
+      const parserResult = parseUsingStore ( details.parserStore, id, string, parser )
       if ( parserResult.error ) return { id, error: parserResult.error }
       return { id, mimeType, result: parserResult.result }
     } catch ( e ) {

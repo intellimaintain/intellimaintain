@@ -13,7 +13,7 @@ export const checkSqlDisplayMessagePlugin: DisplayMessagePlugin = {
                                    buttonText="Check SQL"
                                    buttonMessage={{ who, message: `Check Sql Pressed: please execute sql ${checkSql}` }}>
         <strong>{checkSql}</strong>
-        <SqlDataAndTest variables={variables}/>
+        <SqlDataAndTest variables={variables} sql={checkSql}/>
         {/*<pre>{JSON.stringify ( variables, null, 2 )}></pre>*/}
       </HighlightedAndMessageButton>}</BeforeAfterComponent>
   }

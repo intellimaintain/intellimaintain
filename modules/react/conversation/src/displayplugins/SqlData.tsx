@@ -3,8 +3,10 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import { AttributeValue } from "@intellimaintain/components";
+import { CopyToClipboardButton } from "@intellimaintain/components";
 
 export interface SqlDataProps {
+  sql?: string
   variables: any
 }
 
@@ -23,8 +25,10 @@ export function SqlData ( { variables }: SqlDataProps ) {
   </Grid>
 }
 
-export function SqlDataAndTest ( { variables }: SqlDataProps ) {
-  return <><SqlData variables={variables}/>
+export function SqlDataAndTest ( props: SqlDataProps ) {
+  const { sql, variables } = props
+  return <><SqlData {...props}/>
     <button>Test connection</button>
+    {sql &&<CopyToClipboardButton textToCopy={sql}/>}
   </>
 }

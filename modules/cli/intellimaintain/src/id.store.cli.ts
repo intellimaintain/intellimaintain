@@ -1,7 +1,7 @@
 import { defaultEventProcessor } from "@intellimaintain/events";
 import { SubCommandDetails } from "@intellimaintain/cli";
 import { defaultIdStoreDetails, defaultParserStore } from "@intellimaintain/defaultdomains";
-import { isBadIdStoreResult, loadFromIdStore } from "@intellimaintain/idstore";
+import { findIdKeyAndPath, isBadIdStoreResult, loadFromIdStore } from "@intellimaintain/idstore";
 import { findListIds } from "@intellimaintain/listids";
 
 
@@ -24,16 +24,17 @@ export function idStoreCommands<Commander, Context, Config> (): SubCommandDetail
       cmd: 'get <id>', description: 'Gets the id from the id store',
       options: {
         '-i,--id <idroot>': { description: "The root of the id store", default: "ids" },
-        '-p,--parser <parser>': { description: "What parser to use. 'json' and 'string' are common", default: "string" }
+        '-p,--parser <parser>': { description: "What parser to use. 'json' and 'string' are common. Default is defined by id tyoe" }
       },
       action: async ( commander, opts, id ) => {
-        console.log ( `getting id  ${id} ${JSON.stringify ( opts )}` )
         const store = idStore ( opts.id.toString () )
-        const result = await store ( id, opts.parser.toString () )
+        const {key} = findIdKeyAndPath ( id )
+        let parser = opts?.parser?.toString () || key;
+        const result = await store ( id, parser )
         if ( isBadIdStoreResult ( (result) ) )
           console.log ( `Error ${result.error}` )
         else
-          console.log ( result.result )
+          console.log ( JSON.stringify(result.result ,null,2))
       }
     },
       {

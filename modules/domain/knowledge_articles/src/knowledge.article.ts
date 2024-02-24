@@ -2,7 +2,7 @@ import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { ParserStoreParser } from "@intellimaintain/parser";
 import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
-import { JSONObject } from "@intellimaintain/utils";
+import { JSONObject, transformKeysToCamelCase } from "@intellimaintain/utils";
 
 const yaml = require ( 'js-yaml' );
 
@@ -44,19 +44,15 @@ export type KnowledgeArticle = AdjustDatabaseSqlKS | InService1NotInService2KS
 
 
 export const kaArticleParser: ParserStoreParser = ( id, s ): ErrorsAnd<KnowledgeArticle> => {
-  const doc = yaml.load ( s )
+  const doc = transformKeysToCamelCase<any>(yaml.load ( s ))
   return { id, ...doc }
 }
 
 export function variablesFromKnowledgeArticle ( sofar: NameAnd<any>, ka: KnowledgeArticle ): ErrorsAnd<Variables> {
-  let variables: JSONObject = {
+  let variables: NameAnd<any> = {
     'id': ka.id,
     'name': ka.name,
-    'approver': ka.approver,
-    ...(ka.variables)
-  }
-  if ( isAdjustDatabaseSqlKS ( ka ) ) {
-    variables[ 'sql' ] = ka.sql as any
+    ...ka
   }
   return { variables, errors: [] }
 }

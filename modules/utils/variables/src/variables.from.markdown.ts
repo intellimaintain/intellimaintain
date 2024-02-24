@@ -1,5 +1,6 @@
 import { ErrorsAnd, hasErrors, NameAnd } from "@laoban/utils";
 import { Variables } from "./variables";
+import { transformKeysToCamelCase } from "@intellimaintain/utils";
 
 function extractVariablesSection ( markdown: string ): ErrorsAnd<string> {
   const variablesStart = markdown.indexOf ( '# Variables' );
@@ -41,7 +42,7 @@ export function extractVariablesFromMarkdown ( markdown: string ): ErrorsAnd<Var
     console.log ( 'extractVariablesFromMarkdown', markdown )
     const variablesSection = extractVariablesSection ( markdown );
     if ( hasErrors ( variablesSection ) ) return { variables: {}, errors: variablesSection }
-    return parseVariablesSection ( variablesSection );
+    return transformKeysToCamelCase ( parseVariablesSection ( variablesSection ) );
   } catch ( e ) {
     return [ `Error ${e} extracting variables from\n${markdown}` ]
   }

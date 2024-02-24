@@ -4,6 +4,10 @@ Approval:
 Database:
   type: "Oracle"
   user: "#supportuser#"
+  parameters:
+       projectId:
+           escape: "true"
+
 Environments:
   Acceptance:
     Database:

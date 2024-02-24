@@ -1,6 +1,7 @@
 import { deepCombineTwoObjects, ErrorsAnd, hasErrors, NameAnd } from "@laoban/utils";
 import { findIdKeyAndPath } from "@intellimaintain/idstore";
-import { isJsonPrimitive, JSONObject } from "@intellimaintain/utils";
+import { isJsonPrimitive, JSONObject, transformKeysToCamelCase } from "@intellimaintain/utils";
+import { toCamelCase } from "@intellimaintain/utils/dist/src/strings";
 
 export type Variables = {
   variables: JSONObject
@@ -33,12 +34,13 @@ export function findRelevant ( soFar: NameAnd<string>, section: string, key: str
   const foundKey = soFar[ key ] // now do we know what the environment is?
   console.log ( 'findRelevant', 'foundKey', key, foundKey )
   if ( foundKey === undefined ) return t
-
+  const cleanedKey = toCamelCase ( foundKey )
+  console.log ( 'findRelevant', 'cleanedKey', cleanedKey )
   const foundSection = t[ section ] // i.e. are there any 'Environments' in the t
   console.log ( 'findRelevant', 'foundSection', foundSection )
   if ( foundSection === undefined ) return t
 
-  const foundRelevant = foundSection[ foundKey ] // look up the found environment in the Environments
+  const foundRelevant = foundSection[ cleanedKey ] // look up the found environment in the Environments
 
   console.log ( 'findRelevant', 'foundRelevant', foundRelevant )
   let result = deepCombineTwoObjects ( t, foundRelevant );
