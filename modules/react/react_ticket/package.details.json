@@ -5,8 +5,7 @@
   "packageJson": {
     "files":        ["build/"],
     "dependencies": {
-    },
-    "scripts":      {"start": "react-scripts start"}
+    }
   },
   "links":       [
     "@intellimaintain/components",

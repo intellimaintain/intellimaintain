@@ -8,7 +8,7 @@ export const approvalDisplayPlugin: DisplayMessagePlugin = {
     const Approval: any = variables?.Approval
     const method = Approval?.method?.toString () || '<No Method>'
     const to = Approval?.to?.toString () || '<No To>'
-    return <BeforeAfterComponent regex={beforeAndAfterRegex} state={state}>{during =>
+    return <BeforeAfterComponent regex={beforeAndAfterRegex} state={state.state1()}>{during =>
       <HighlightedAndMessageButton state={state.state2 ()}
                                    buttonText="Request Approval"
                                    buttonMessage={{ who, message: `Please request approval` }}>

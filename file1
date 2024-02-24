@@ -4,5 +4,8 @@
 {"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
 {"event":"setValue","path":"tickets.selected","value":"ticket:pa124","context":{}}
 {"event":"setId","id":"ticket:pa124","path":"tickets.item","parser":"ticket","context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Wizard","message":"[CheckSql]"},"context":{}}
+{{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"[CheckSql]"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Check Sql Pressed: please execute sql select * from projects where project_id = :projectId"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"[ResolveSql]"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"[SqlData: resolve]"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Execute Sql Pressed: please execute sql delete from projects where project_id = :projectId"},"context":{}}

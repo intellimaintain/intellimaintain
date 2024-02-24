@@ -37,7 +37,7 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
     }
   }, [ messages ] );
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '35vh', border: '1px solid #ccc' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '50vh', border: '1px solid #ccc' }}>
       <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>
       <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
         <List sx={{

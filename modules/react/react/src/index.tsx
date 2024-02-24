@@ -6,7 +6,7 @@ import { ThemeProvider } from "@mui/material";
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { apiIdStore, apiLoading, ApiLoading, apiLoadingFromBrowser, idStoreFromApi, listidsFromFetch, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
 import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
-import { ChatState, DemoChatState, logs1L, logs2L, sideEffects1L, sideEffects2L } from "./domain/domain";
+import { DemoChatState, logs1L, logs2L, sideEffects1L, sideEffects2L } from "./domain/domain";
 import { startAppState } from "./domain/sample";
 import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
 import { theme, TwoColumnLayout } from '@intellimaintain/components';
@@ -14,7 +14,7 @@ import { IdStore } from "@intellimaintain/idstore";
 import { DisplayGui } from './gui/gui';
 import { extractVariablesAndAddToState } from "./variables/variables";
 import { DI } from "./di/di";
-import { approvalDisplayPlugin, checkSqlDisplayMessagePlugin, dereferencePlugIn, resolveSqlDisplayMessagePlugin, sqlDisplayPlugin } from '@intellimaintain/react_conversation';
+import { approvalDisplayPlugin, checkSqlDisplayMessagePlugin, dereferencePlugIn, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin } from '@intellimaintain/react_conversation';
 import { ListIds } from "@intellimaintain/listids";
 
 export type AppProps<S> = LensProps<S, DemoChatState, DI>
@@ -43,7 +43,9 @@ const sep1 = defaultEventProcessor<DemoChatState> ( 'chatState1.', startAppState
 const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState, idStore )
 
 const di: DI = {
-  displayPlugins: [ sqlDisplayPlugin, checkSqlDisplayMessagePlugin, resolveSqlDisplayMessagePlugin, approvalDisplayPlugin, dereferencePlugIn ]
+  displayPlugins: [ checkSqlDisplayMessagePlugin,
+    resolveSqlDisplayMessagePlugin, approvalDisplayPlugin, dereferencePlugIn,
+    sqlDataDisplayMessagePlugin ]
 }
 addEventStoreListener ( container, (( oldS, s, setJson ) =>
   root.render ( <App state={lensState ( s, setJson, 'Container', di )}/> )) );

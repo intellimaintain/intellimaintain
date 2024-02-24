@@ -33,7 +33,7 @@ const rawTheme: ThemeOptions = ({
 })
 function calcTheme (): Theme {
   const topPartHeight = '40vh';
-  const bottomPartHeight = `40vh`;
+  const bottomPartHeight = `50vh`;
   const wizardOfOz: WizardOfOz = {
     wizardOfOz: {
       topPartHeight,

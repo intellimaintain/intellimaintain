@@ -11,7 +11,7 @@ export const dereferencePlugIn: DisplayMessagePlugin = {
   accept: messageMatches ( beforeAndAfterRegex ),
   display: <S extends any> ( { variables, who, state } :MessagePlugInParams<S>) => {
     const sql = variables?.sql as any;
-    return <BeforeAfterComponent regex={beforeAndAfterRegex} state={state}>{string => {
+    return <BeforeAfterComponent regex={beforeAndAfterRegex} state={state.state1()}>{string => {
       const message: Message = { who, message: derefence ( 'Variable Plugin', variables, string, { variableDefn: dollarsBracesVarDefn } ) }
       return <HighlightedAndMessageButton state={state.state2 ()}
                                           buttonText="Dereference string"

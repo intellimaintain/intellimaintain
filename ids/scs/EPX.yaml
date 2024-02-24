@@ -6,7 +6,7 @@ Database:
   user: "#supportuser#"
   parameters:
        projectId:
-           escape: "true"
+           escape: true
 
 Environments:
   Acceptance:
