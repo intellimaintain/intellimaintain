@@ -6,7 +6,7 @@ import { DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_artic
 import { DisplaySoftwareCatalogs } from "@intellimaintain/react_softwarecatalog";
 
 import { DisplayDebug, MainAppLayout, StateDisplay } from "@intellimaintain/components";
-import { DisplayConversation, HasDisplayPlugins } from "@intellimaintain/react_conversation";
+import { ChatButton, DisplayConversation, HasDisplayPlugins } from "@intellimaintain/react_conversation";
 import { DisplayVariables } from "../variables/variables";
 import { Lenses } from "@focuson/lens";
 
@@ -37,10 +37,14 @@ export interface DisplayGuiProps<S, C> extends LensProps<S, ChatState, C> {
   path: string
 }
 export function DisplayGui<S, C extends HasDisplayPlugins> ( { state, label, from, path }: DisplayGuiProps<S, C> ) {
-  const parentState = state.doubleUp ().focus2On ( 'selectionState' ).focus2On ( 'mainTab' )
+  console.log('DisplayGui', 'state', state)
   return <MainAppLayout>
     <TopPart label={label} state={state}/>
-    <DisplayConversation from={from} path={path+ 'conversation.'} state={state.tripleUp ().focus1On ( 'conversation' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}/>
+    <div>
+      <DisplayConversation from={from} path={path + 'conversation.'} state={state.tripleUp ().focus1On ( 'conversation' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}>
+        <ChatButton who={from} state={state.tripleUp().focus1On ( 'kas' ).focus1On ( 'item' ).focus2On('variables').focus3On ( 'sideeffects' )}/>
+      </DisplayConversation>
+    </div>
 
   </MainAppLayout>
 }

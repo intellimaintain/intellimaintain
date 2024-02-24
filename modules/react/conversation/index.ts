@@ -1,3 +1,4 @@
+export * from './src/chatbuttons/chatbuttons';
 export * from './src/conversation.component';
 export * from './src/displayplugins/approval.display.plugin';
 export * from './src/displayplugins/check.sql.plugin';

@@ -5,19 +5,8 @@ import { AdjustDatabaseSqlKS, isAdjustDatabaseSqlKS, KnowledgeArticle } from "@i
 import { DisplayDebug, DisplayYaml, DropdownAsTitle } from "@intellimaintain/components";
 
 export type KnowledgeArticles = SelectedAndList<KnowledgeArticle>
-function AdjustDatabaseSqlKs<S> ( { state }: LensProps<S, AdjustDatabaseSqlKS, any> ) {
-  const ka = state.json ()
-  const sql = ka.sql
-  const woSql = { ...ka, sql: undefined }
-  return <div>
-    <DisplayDebug state={state.focusOn ( 'sql' )}/>
-    <hr/>
-    <DisplayYaml yamlContent={woSql} maxHeight='30vh'/>
-  </div>;
-}
 export function DisplayKnowledgeArticle<S> ( { state }: LensProps<S, KnowledgeArticle, any> ) {
   const ka = state.json ()
-  if ( isAdjustDatabaseSqlKS ( ka ) ) return <AdjustDatabaseSqlKs state={state as LensState<S, AdjustDatabaseSqlKS, any>}/>
   return <DisplayYaml yamlContent={ka} />
 }
 export function DisplayKnowledgeArticles<S> ( { path, state }: LensProps2<S, KnowledgeArticles, SideEffect[], any> & { path: string } ) {

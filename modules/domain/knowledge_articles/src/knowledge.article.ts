@@ -2,15 +2,23 @@ import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { ParserStoreParser } from "@intellimaintain/parser";
 import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
-import { JSONObject, transformKeysToCamelCase } from "@intellimaintain/utils";
+import { transformKeysToCamelCase } from "@intellimaintain/utils";
 
 const yaml = require ( 'js-yaml' );
+
+export interface ButtonData{
+  text?: string
+  message: string
+  when?: string
+  notWhen?: string
+}
 
 export interface BaseKnowledgeArticle extends IdAndName {
   required: string[]
   softwareCatalog: string // mini dsl. sc1:production + sc2:acceptance|sc3:production
   approver?: string // e.g. specific email for POC. Might have dsl in future. If not here no approval needed
   variables?: NameAnd<string>
+  buttons?: NameAnd<ButtonData>
 }
 
 export type SqlDetailsType = 'atLeastOne' | 'none' | 'exactlyOne' | 'manual'
@@ -44,7 +52,7 @@ export type KnowledgeArticle = AdjustDatabaseSqlKS | InService1NotInService2KS
 
 
 export const kaArticleParser: ParserStoreParser = ( id, s ): ErrorsAnd<KnowledgeArticle> => {
-  const doc = transformKeysToCamelCase<any>(yaml.load ( s ))
+  const doc = transformKeysToCamelCase<any> ( yaml.load ( s ) )
   return { id, ...doc }
 }
 

@@ -5,12 +5,26 @@ required:
   - environment
 
 variables:
-   system: EPX
+  system: EPX
 sql:
-   check:
-     sql: 'select * from projects where project_id = :projectId'
-     correctWhen: atLeastOne
-   resolve:
-        sql: 'delete from projects where project_id = :projectId'
-   validate:
-     correctWhen: none
+  check:
+    sql: 'select * from projects where project_id = :projectId'
+    correctWhen: atLeastOne
+  resolve:
+    sql: 'delete from projects where project_id = :projectId'
+  validate:
+    sql: 'select * from projects where project_id = :projectId'
+    correctWhen: none
+
+buttons:
+  Check:
+    message: "[CheckSql]"
+  RequestApproval:
+    text: "Request Approval"
+    message: "[RequestApproval]"
+    notWhen: approved
+  Resolve:
+    message: "[ResolveSql]"
+    when: approved
+  Validate:
+    message: "[ValidateSql]"

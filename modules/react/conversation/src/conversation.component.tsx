@@ -8,17 +8,19 @@ import { displayMessage, DisplayMessagePlugin } from '@intellimaintain/component
 import { Variables } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
 import { Lenses } from "@focuson/lens";
+import { ChatButton } from "./chatbuttons/chatbuttons";
 
 export interface HasDisplayPlugins {
   displayPlugins: DisplayMessagePlugin[]
 }
 
 
-export interface ChatProps<S, C extends HasDisplayPlugins> extends LensProps3<S, Conversation, NameAnd<Variables>, SideEffect[], C> {
+export interface ConversationProps<S, C extends HasDisplayPlugins> extends LensProps3<S, Conversation, NameAnd<Variables>, SideEffect[], C> {
   from: string
   path: string
+  children?: React.ReactNode
 }
-export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, from, path }: ChatProps<S, C> ) {
+export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, from, path, children }: ConversationProps<S, C> ) {
   const conversation: Conversation = state.json1 ()
   const plugins = state.context.displayPlugins
   const { messages, chatter } = conversation
@@ -38,7 +40,12 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
   }, [ messages ] );
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '50vh', border: '1px solid #ccc' }}>
-      <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={3}>
+          <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>
+        </Grid>
+        {children && <Grid xs={9} >{children}</Grid>}
+      </Grid>
       <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
         <List sx={{
           padding: '8px',
@@ -52,7 +59,7 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
                     {message.who}:
                   </Typography>
                 </Grid>
-                <Grid item xs={10}>{displayMessage ( plugins, summary, from, path+ `message[${index}].`, state.state13 ().focus1On ( 'messages' ).chain1 ( Lenses.nth ( index ) ) )}</Grid>
+                <Grid item xs={10}>{displayMessage ( plugins, summary, from, path + `message[${index}].`, state.state13 ().focus1On ( 'messages' ).chain1 ( Lenses.nth ( index ) ) )}</Grid>
               </Grid>
             </ListItem>
           ) )}
@@ -61,5 +68,6 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
       </Box>
       <UserTypingBox from={from} state={state.focus1On ( 'message' )}/>
     </Box>
-  );
+  )
+    ;
 }

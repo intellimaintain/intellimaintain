@@ -3,7 +3,7 @@ import { genericSqlDisplayMessagePlugin } from "./SqlData";
 
 export const checkSqlDisplayMessagePlugin: DisplayMessagePlugin =
                genericSqlDisplayMessagePlugin ( {
-                 beforeAfterRex: /^(.*?)\[(Check)Sql\](.*)$/,
+                 beforeAfterRex: /^(.*?)\[(.*)Sql\](.*)$/,
                  sqlFn: sql => sql?.check?.sql?.toString () || ''
                } )
 
