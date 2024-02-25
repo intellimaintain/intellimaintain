@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/variables",
   "description": "Each of the artifacts we have needs to be scanned for variables (software catalogs/knowledge models)",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "main": "dist/index",
   "types": "dist/index",
   "browser": {
@@ -23,9 +23,9 @@
     "node": "^v14.4.0",
     "@laoban/utils": "1.4.45",
     "@focuson/lens": "1.44.3",
-    "@intellimaintain/utils": "0.0.8",
-    "@intellimaintain/idstore": "0.0.8",
-    "@intellimaintain/parser": "0.0.8",
+    "@intellimaintain/utils": "0.1.1",
+    "@intellimaintain/idstore": "0.1.1",
+    "@intellimaintain/parser": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

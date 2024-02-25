@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/config",
   "description": "The configuration for the Intellimaintain project",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "main": "dist/index",
   "types": "dist/index",
   "browser": {
@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "@laoban/utils": "1.4.45",
-    "@intellimaintain/utils": "0.0.8",
-    "@intellimaintain/cli": "0.0.8",
+    "@intellimaintain/utils": "0.1.1",
+    "@intellimaintain/cli": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

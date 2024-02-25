@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/listids",
   "description": "lists the ids in the id store",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "main": "dist/index",
   "types": "dist/index",
   "browserslist": {
@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@laoban/utils": "1.4.45",
-    "@intellimaintain/utils": "0.0.8",
+    "@intellimaintain/utils": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

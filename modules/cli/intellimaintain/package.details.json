@@ -1,6 +1,6 @@
 {
   "template":    "typescript",
-  "name":        "intellimaintain",
+  "name":        "itsm-workbench",
   "description": "",
   "packageJson": {
     "dependencies":    {
@@ -10,7 +10,7 @@
     },
     "devDependencies": {},
     "bin":             {
-      "intellimaintain": "dist/index.js"
+      "itsm": "dist/index.js"
     },
     "browser":         {
       "child_process": false

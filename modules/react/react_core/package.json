@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/react_core",
   "description": "",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "main": "dist/index",
   "types": "dist/index",
   "browserslist": {
@@ -17,9 +17,9 @@
     ]
   },
   "dependencies": {
-    "@intellimaintain/apiclienteventstore": "0.0.8",
-    "@intellimaintain/events": "0.0.8",
-    "@intellimaintain/eventstore": "0.0.8",
+    "@intellimaintain/apiclienteventstore": "0.1.1",
+    "@intellimaintain/events": "0.1.1",
+    "@intellimaintain/eventstore": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

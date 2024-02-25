@@ -1,11 +1,11 @@
 {
-  "name": "intellimaintain",
+  "name": "itsm-workbench",
   "description": "",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "main": "dist/index",
   "types": "dist/index",
   "bin": {
-    "intellimaintain": "dist/index.js"
+    "itsm": "dist/index.js"
   },
   "browser": {
     "child_process": false
@@ -26,18 +26,18 @@
     "node": "^v16.0.0",
     "@laoban/utils": "1.4.45",
     "@laoban/filesops-node": "1.4.45",
-    "@intellimaintain/api": "0.0.8",
-    "@intellimaintain/cli": "0.0.8",
-    "@intellimaintain/commander12": "0.0.8",
-    "@intellimaintain/config": "0.0.8",
-    "@intellimaintain/domain": "0.0.8",
-    "@intellimaintain/defaultdomains": "0.0.8",
-    "@intellimaintain/events": "0.0.8",
-    "@intellimaintain/eventstore": "0.0.8",
-    "@intellimaintain/fileeventstore": "0.0.8",
-    "@intellimaintain/idstore": "0.0.8",
-    "@intellimaintain/listids": "0.0.8",
-    "@intellimaintain/utils": "0.0.8",
+    "@intellimaintain/api": "0.1.1",
+    "@intellimaintain/cli": "0.1.1",
+    "@intellimaintain/commander12": "0.1.1",
+    "@intellimaintain/config": "0.1.1",
+    "@intellimaintain/domain": "0.1.1",
+    "@intellimaintain/defaultdomains": "0.1.1",
+    "@intellimaintain/events": "0.1.1",
+    "@intellimaintain/eventstore": "0.1.1",
+    "@intellimaintain/fileeventstore": "0.1.1",
+    "@intellimaintain/idstore": "0.1.1",
+    "@intellimaintain/listids": "0.1.1",
+    "@intellimaintain/utils": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

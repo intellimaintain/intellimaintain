@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/domain",
   "description": "A event source library for node.js backed with a file",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "main": "dist/index",
   "types": "dist/index",
   "browser": {
@@ -24,11 +24,11 @@
     "@laoban/utils": "1.4.45",
     "@focuson/lens": "1.44.3",
     "js-yaml": "^4.1.0",
-    "@intellimaintain/utils": "0.0.8",
-    "@intellimaintain/events": "0.0.8",
-    "@intellimaintain/eventstore": "0.0.8",
-    "@intellimaintain/parser": "0.0.8",
-    "@intellimaintain/variables": "0.0.8",
+    "@intellimaintain/utils": "0.1.1",
+    "@intellimaintain/events": "0.1.1",
+    "@intellimaintain/eventstore": "0.1.1",
+    "@intellimaintain/parser": "0.1.1",
+    "@intellimaintain/variables": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

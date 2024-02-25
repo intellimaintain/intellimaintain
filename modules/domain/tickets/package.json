@@ -1,7 +1,7 @@
 {
   "name": "@intellimaintain/tickets",
   "description": "The tickets plugin. Everything except react",
-  "version": "0.0.8",
+  "version": "0.1.1",
   "main": "dist/index",
   "types": "dist/index",
   "browser": {
@@ -20,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "@intellimaintain/domain": "0.0.8",
+    "@intellimaintain/domain": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {
