@@ -14,7 +14,7 @@ import { IdStore } from "@intellimaintain/idstore";
 import { DisplayGui } from './gui/gui';
 import { extractVariablesAndAddToState } from "./variables/variables";
 import { DI } from "./di/di";
-import { ChatEntryWorkspace, checkSqlDisplayMessagePlugin, dereferencePlugIn, emailDisplayPlugin, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin, SqlWorkspace } from '@intellimaintain/react_conversation';
+import { ChatEntryWorkspace, checkSqlDisplayMessagePlugin, dereferencePlugIn, emailDisplayPlugin, EmailWorkspace, LdapWorkspace, QuickWorkspace, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin, SqlWorkspace } from '@intellimaintain/react_conversation';
 import { ListIds } from "@intellimaintain/listids";
 
 const templateFn = <K extends keyof DemoChatState> ( offset: K ): TemplateFn<any> => ( state, templateName ) => {
@@ -50,9 +50,13 @@ const di: DI<ChatState> = {
   displayPlugins: [ checkSqlDisplayMessagePlugin,
     resolveSqlDisplayMessagePlugin, emailDisplayPlugin, dereferencePlugIn,
     sqlDataDisplayMessagePlugin ],
-  defaultPlugin: ChatEntryWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'chatTempSpace' ).focus2On ( 'sideeffects' ) ),
+  defaultPlugin:
+    QuickWorkspace<ChatState> ( state => state.tripleUp ().focus1On ( 'kas' ).focus1On ( 'item' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' ) ),
   workspacePlugins: [
+    ChatEntryWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'chatTempSpace' ).focus2On ( 'sideeffects' ) ),
     SqlWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'sqlTempSpace' ).focus2On ( 'sideeffects' ) ),
+    LdapWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'ldapTempSpace' ).focus2On ( 'sideeffects' ) ),
+    EmailWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'emailTempSpace' ).focus2On ( 'sideeffects' ) ),
   ]
 
 }

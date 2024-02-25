@@ -1,28 +1,31 @@
 parent: 'katype:adjustDatabaseSql'
-name: Delete Project
+name: Update Price
 required:
-  - projectId
+  - itemId
+  - itemName
+  - newPrice
+  - price
   - environment
 
 variables:
   system: EPX
 sql:
   check:
-    sql: 'select * from projects where project_id = :projectId'
-    correctWhen: atLeastOne
+    sql: 'select * from items where item_id=:itemId '
+    correctWhen: 'should be equal to :newPrice and itemName should be equal to :itemName'
   resolve:
-    sql: 'delete from projects where project_id = :projectId'
+    sql: 'update item set price=:newPrice where itemId=:itemId and price=:old_price'
   validate:
-    sql: 'select * from projects where project_id = :projectId'
-    correctWhen: none
+    sql:  'select * from items where item_id = :itemId '
+    correctWhen: 'should be equal to :newPrice'
 
 buttons:
-  CheckTicket:
-    message: "[CheckSql]"
   ValidateTicketCreator:
     message: "Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'"
   ValidateApprover:
     message: "Please check the approver is in LDAP and a member of the group 'EPX-Project-Admin'"
+  CheckTicket:
+    message: "[CheckSql]"
   RequestApproval:
     text: "Request Approval"
     message: "[Email approval]"

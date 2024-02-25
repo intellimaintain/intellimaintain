@@ -1,4 +1,4 @@
-import { ChatTempSpace,SqlTempSpace } from "@intellimaintain/react_conversation";
+import { ChatTempSpace, LdapTempSpace, SqlTempSpace ,EmailTempSpace} from "@intellimaintain/react_conversation";
 
 export interface SelectionState {
   mainTab?: number
@@ -6,5 +6,7 @@ export interface SelectionState {
   topBottomSlider?: number
   chatTempSpace?: ChatTempSpace
   sqlTempSpace?: SqlTempSpace
+  ldapTempSpace?: LdapTempSpace
+  emailTempSpace?: EmailTempSpace
 }
 

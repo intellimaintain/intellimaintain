@@ -40,9 +40,6 @@ export function DisplayGui<S, C extends HasDisplayPlugins & HasWorkspacePlugins<
   return <MainAppLayout>
     <TopPart label={label} state={state}/>
     <div>
-
-
-      {/*<ChatButton who={from} state={state.tripleUp ().focus1On ( 'kas' ).focus1On ( 'item' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}/>*/}
       <DisplayConversation from={from} path={path + 'conversation.'} template={template}
                            state={state.tripleUp ().focus1On ( 'conversation' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}>
         <WorkspaceTabs state={state.doubleUp ().focus2On ( 'selectionState' ).focus2On ( 'workspaceTab' )}/>

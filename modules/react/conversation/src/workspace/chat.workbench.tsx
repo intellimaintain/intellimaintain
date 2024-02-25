@@ -12,7 +12,7 @@ export function ChatEntryWorkspace<Mid> ( dataFn: WorkspaceStateSideEffectFn<Mid
   return ({
     tabName: 'Chat',
     dataFn,
-    display: ChatEntry
+    display: DisplayChatWorkbench
 
   });
 }
@@ -21,7 +21,7 @@ export function ChatEntryWorkspace<Mid> ( dataFn: WorkspaceStateSideEffectFn<Mid
 //   from: string
 // }
 
-export function ChatEntry<S> ( { state }: LensProps2<S, ChatTempSpace, SideEffect[], any> ) {
+export function DisplayChatWorkbench<S> ( { state }: LensProps2<S, ChatTempSpace, SideEffect[], any> ) {
   const newState = state.focus1On ( 'chat' )
   return <UserTypingBox state={newState} from='from'/>
 

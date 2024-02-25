@@ -1,7 +1,9 @@
 
 ${customer} has raised ticket number ${ticketId}.
 
-They want to delete project ${projectId} in the ${environment} environment.
+They want to update item ${itemName} with itemCode ${itemId} and
+change the price from ${oldPrice} to ${newPrice}.
+
 
 Please confirm that this is acceptable
 
