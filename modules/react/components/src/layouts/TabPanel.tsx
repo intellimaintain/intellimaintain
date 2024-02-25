@@ -41,6 +41,7 @@ export function TabWithSideEffects<S, M extends HasSideeffects, K extends keyof 
 }
 export interface TabsContainerProps<S, M, C> extends LensProps2<S, M, number, C> {
   label: string
+  height?: string
   children: React.ReactElement<TabPanelDetails>[] | React.ReactElement<TabPanelDetails>;
 }
 
@@ -54,7 +55,7 @@ export function TabsContainer<S, M, C> ( props: TabsContainerProps<S, M, C> ) {
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%'}}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: props.height}}>
       <Tabs value={activeTab} onChange={handleChange} aria-label={label}>
         {childrenArray.map ( ( child, index ) => (
           <Tab label={child.props.title} key={child.props.title}/>

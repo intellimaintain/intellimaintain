@@ -8,7 +8,7 @@ import { displayMessage, DisplayMessagePlugin, TemplateFn } from '@intellimainta
 import { Variables } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
 import { Lenses } from "@focuson/lens";
-import { ChatButton } from "./chatbuttons/chatbuttons";
+import { ChatButtons } from "./chatbuttons/chatbuttons";
 
 export interface HasDisplayPlugins {
   displayPlugins: DisplayMessagePlugin[]
@@ -40,14 +40,8 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
     }
   }, [ messages ] );
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '50vh', border: '1px solid #ccc' }}>
-      {/*<Grid container spacing={2} alignItems="center">*/}
-      {/*  <Grid item xs={3}>*/}
-      {/*    <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>*/}
-      {/*  </Grid>*/}
-      {/*  {children && <Grid xs={9}>{children}</Grid>}*/}
-      {/*</Grid>*/}
-          <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '90vh', border: '1px solid #ccc' }}>
+          <Typography variant="h2" component="h2" gutterBottom>ITMS Workbench</Typography>
       <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
         <List sx={{
           padding: '8px',

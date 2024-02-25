@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { LensProps, lensState } from "@focuson/state";
+import { LensProps, LensState, lensState, LensState2 } from "@focuson/state";
 import { ThemeProvider } from "@mui/material";
 
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
@@ -14,7 +14,7 @@ import { IdStore } from "@intellimaintain/idstore";
 import { DisplayGui } from './gui/gui';
 import { extractVariablesAndAddToState } from "./variables/variables";
 import { DI } from "./di/di";
-import { ChatEntryWorkspace, checkSqlDisplayMessagePlugin, dereferencePlugIn, emailDisplayPlugin, EmailWorkspace, LdapWorkspace, QuickWorkspace, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin, SqlWorkspace } from '@intellimaintain/react_conversation';
+import { ChatEntryWorkspace, checkSqlDisplayMessagePlugin, dereferencePlugIn, emailDisplayPlugin, EmailWorkspace, LdapWorkspace, QuickData, QuickWorkspace, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin, SqlWorkspace } from '@intellimaintain/react_conversation';
 import { ListIds } from "@intellimaintain/listids";
 
 const templateFn = <K extends keyof DemoChatState> ( offset: K ): TemplateFn<any> => ( state, templateName ) => {
@@ -25,8 +25,8 @@ export type AppProps<S> = LensProps<S, DemoChatState, DI<S>>
 function App<S> ( { state }: AppProps<S> ) {
   return <ThemeProvider theme={theme}>
     <TwoColumnLayout>
-      <DisplayGui from='Operator' path='chatState1.' template={templateFn ( 'chatState1' )} label='display Operator' state={state.focusOn ( 'chatState1' )}/>
-      <DisplayGui from='Wizard' path='chatState2.' template={templateFn ( 'chatState1' )} label='display Wizard' state={state.focusOn ( 'chatState2' )}/>
+      <DisplayGui from='Operator' tabsHeight='45vh' path='chatState1.' template={templateFn ( 'chatState1' )} state={state.focusOn ( 'chatState1' )}/>
+      <DisplayGui from='Wizard' tabsHeight='45vh' path='chatState2.' template={templateFn ( 'chatState1' )} state={state.focusOn ( 'chatState2' )}/>
     </TwoColumnLayout>
   </ThemeProvider>
 }
@@ -51,7 +51,14 @@ const di: DI<ChatState> = {
     resolveSqlDisplayMessagePlugin, emailDisplayPlugin, dereferencePlugIn,
     sqlDataDisplayMessagePlugin ],
   defaultPlugin:
-    QuickWorkspace<ChatState> ( state => state.tripleUp ().focus1On ( 'kas' ).focus1On ( 'item' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' ) ),
+    QuickWorkspace<ChatState> ( ( s: LensState<any, ChatState, any> ): QuickData<ChatState> => {
+      const state = s.doubleUp ().focus1On ( 'variables' ).focus2On ( 'sideeffects' )
+      const knowledgeArticle = s.focusOn ( 'kas' ).optJson ()?.item
+      const ticket = s.focusOn ( 'tickets' ).optJson ()?.item
+      let qd = { state, knowledgeArticle, ticket };
+      console.log('qd', qd)
+      return qd
+    } ),
   workspacePlugins: [
     ChatEntryWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'chatTempSpace' ).focus2On ( 'sideeffects' ) ),
     SqlWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'sqlTempSpace' ).focus2On ( 'sideeffects' ) ),

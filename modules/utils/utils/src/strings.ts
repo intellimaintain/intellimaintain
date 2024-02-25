@@ -24,6 +24,7 @@ export function escapeSqlParameters ( sql: string, lookupMap: Record<string, Has
   // Regular expression to find all instances of `:parameterName`
   const parameterRegex = /:([\w.]+)/g;
 
+  if (lookupMap === undefined) throw new Error('lookupMap is undefined');
   // Replace function to handle each match
   const replacer = ( match: string, paramName: string ): string => {
     // Check if the parameter needs quotes

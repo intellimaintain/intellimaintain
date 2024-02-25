@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
-import { Box, Card, CardContent, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { Box, Card, CardContent, MenuItem, Select, SelectChangeEvent, Theme, useTheme } from "@mui/material";
 import { LensProps, LensProps2, LensState } from "@focuson/state";
 
 import { SetIdEvent, SetValueEvent } from "@intellimaintain/events";
 import { IdAndName } from "@intellimaintain/domain";
-import { Loading } from "@intellimaintain/components";
+import { Loading, WizardOfOz } from "@intellimaintain/components";
 import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
 
 
@@ -35,9 +35,10 @@ export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, pat
         `${purpose} selected ${id}` );
     }
   }
-  console.log('options', options)
-  return <Card variant="outlined">
-    <CardContent  sx={{ display: 'flex', flexDirection: 'column' , height: '35vh'}}>
+  console.log ( 'options', options )
+
+  return <Card sx={{height: '100%' }} variant="outlined">
+    <CardContent sx={{ display: 'flex', flexDirection: 'column'  }}>
       <Select
         value={selected || ''}
         onChange={handleChange}
@@ -49,7 +50,7 @@ export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, pat
           <MenuItem key={option.name} value={option.id}>{option.name}</MenuItem>
         ) )}
       </Select>
-      <Box sx={{ flexGrow: 1, overflowY: 'scroll', border:'1px solid #ccc' }}>
+      <Box sx={{ flexGrow: 1, overflowY: 'scroll', border: '1px solid #ccc' }}>
         <LoadingOr state={state.state1 ()} children={children}/>
       </Box>
     </CardContent></Card>

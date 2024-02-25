@@ -26,7 +26,7 @@ export function SqlData ( { sql, variables, children }: SqlDataProps ) {
   const paramMetaData = database?.parameters
   const params: [ string, any ][] = extractSqlString ( sql ).map ( p => [ p, variables[ p ] === true ] )
   const paramsObj = fromEntries ( ...params )
-  const sqlWithQuotes = escapeSqlParameters ( sql || '', paramMetaData )
+  const sqlWithQuotes = escapeSqlParameters ( sql || '', paramMetaData| {} )
   const derefedSql = derefence ( 'sql', variables, sqlWithQuotes, { variableDefn: colonPrefixedVarDefn, emptyTemplateReturnsSelf: true } )
   return <AttributeTable rows={{
     "Environment": environment,

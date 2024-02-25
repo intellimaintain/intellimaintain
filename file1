@@ -1,21 +1,7 @@
 {"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
 {"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
 {"event":"setValue","path":"kas.selected","value":"ka:deleteproject","context":{}}
-{"event":"setValue","path":"kas.selected","value":"ka:deleteproject","context":{}}
 {"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
-{"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'","who":"from quick"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Please check the approver is in LDAP and a member of the group 'EPX-Project-Admin'","who":"from quick"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"[CheckSql]","who":"from quick"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"[Email approval]","who":"from quick"},"context":{}}
 {"event":"setValue","path":"scs.selected","value":"sc:EPX","context":{}}
 {"event":"setId","id":"sc:EPX","path":"scs.item","parser":"sc","context":{}}
 {"event":"setValue","path":"templates.selected","value":"template:delete.project.request.approval","context":{}}
-{"event":"setId","id":"template:delete.project.request.approval","path":"templates.item","parser":"template","context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"[ValidateSql]","who":"from quick"},"context":{}}
-{"event":"setValue","path":"tickets.selected","value":"ticket:price44","context":{}}
-{"event":"setId","id":"ticket:price44","path":"tickets.item","parser":"ticket","context":{}}
-{"event":"setValue","path":"kas.selected","value":"ka:updateprice","context":{}}
-{"event":"setId","id":"ka:updateprice","path":"kas.item","parser":"ka","context":{}}
-{"event":"setValue","path":"templates.selected","value":"template:update.price.request.approval","context":{}}
-{"event":"setId","id":"template:update.price.request.approval","path":"templates.item","parser":"template","context":{}}
