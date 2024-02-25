@@ -14,7 +14,7 @@ import { IdStore } from "@intellimaintain/idstore";
 import { DisplayGui } from './gui/gui';
 import { extractVariablesAndAddToState } from "./variables/variables";
 import { DI } from "./di/di";
-import { ChatEntryWorkspace, checkSqlDisplayMessagePlugin, dereferencePlugIn, emailDisplayPlugin, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin } from '@intellimaintain/react_conversation';
+import { ChatEntryWorkspace, checkSqlDisplayMessagePlugin, dereferencePlugIn, emailDisplayPlugin, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin, SqlWorkspace } from '@intellimaintain/react_conversation';
 import { ListIds } from "@intellimaintain/listids";
 
 const templateFn = <K extends keyof DemoChatState> ( offset: K ): TemplateFn<any> => ( state, templateName ) => {
@@ -51,7 +51,9 @@ const di: DI<ChatState> = {
     resolveSqlDisplayMessagePlugin, emailDisplayPlugin, dereferencePlugIn,
     sqlDataDisplayMessagePlugin ],
   defaultPlugin: ChatEntryWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'chatTempSpace' ).focus2On ( 'sideeffects' ) ),
-  workspacePlugins: []
+  workspacePlugins: [
+    SqlWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'sqlTempSpace' ).focus2On ( 'sideeffects' ) ),
+  ]
 
 }
 addEventStoreListener ( container, (( oldS, s, setJson ) =>

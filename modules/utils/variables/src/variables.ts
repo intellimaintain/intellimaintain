@@ -1,7 +1,7 @@
 import { deepCombineTwoObjects, ErrorsAnd, hasErrors, NameAnd } from "@laoban/utils";
 import { findIdKeyAndPath } from "@intellimaintain/idstore";
 import { isJsonPrimitive, JSONObject, transformKeysToCamelCase } from "@intellimaintain/utils";
-import { toCamelCase } from "@intellimaintain/utils/dist/src/strings";
+import { toCamelCase } from "@intellimaintain/utils";
 
 export type Variables = {
   variables: JSONObject

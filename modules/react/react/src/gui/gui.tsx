@@ -1,16 +1,12 @@
-import { LensProps, LensProps3, LensState3 } from "@focuson/state";
+import { LensProps } from "@focuson/state";
 import { ChatState } from "../domain/domain";
 import { DisplayDebug, MainAppLayout, SimpleTabPanel, StateDisplay, TabsContainer, TabWithSideEffects, TemplateFn } from "@intellimaintain/components";
-import { DisplayTickets } from "@intellimaintain/react_ticket/dist/src/display.ticket";
+import { DisplayTickets } from "@intellimaintain/react_ticket";
 import { DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 import { DisplaySoftwareCatalogs } from "@intellimaintain/react_softwarecatalog";
-import { ChatButton, DisplayConversation, HasDisplayPlugins, HasWorkspacePlugins, WorkSpace, WorkspaceTabs } from "@intellimaintain/react_conversation";
+import { DisplayConversation, HasDisplayPlugins, HasWorkspacePlugins, WorkspaceTabs } from "@intellimaintain/react_conversation";
 import { DisplayVariables } from "../variables/variables";
-import { DisplayTemplates } from "@intellimaintain/react_templates/src/display.template";
-import { KnowledgeArticle } from "@intellimaintain/knowledge_articles";
-import { NameAnd } from "@laoban/utils";
-import { Variables } from "@intellimaintain/variables";
-import { SideEffect } from "@intellimaintain/react_core";
+import { DisplayTemplates } from "@intellimaintain/react_templates/";
 
 export interface TopPartProps<S, C> extends LensProps<S, ChatState, C> {
   label: string

@@ -2,7 +2,7 @@ import React from 'react';
 import { ButtonData, KnowledgeArticle } from "@intellimaintain/knowledge_articles";
 import { LensProps2, LensProps3 } from "@focuson/state";
 import { SideEffect } from "@intellimaintain/react_core";
-import { MessageButton } from "@intellimaintain/components/dist/src/buttons/messageButton";
+import { MessageButton } from "@intellimaintain/components";
 import { Variables } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
 import { uppercaseFirstLetter } from "@intellimaintain/utils";

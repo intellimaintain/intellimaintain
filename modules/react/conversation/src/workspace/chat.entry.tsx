@@ -6,8 +6,6 @@ import { UserTypingBox } from "../userTypingBox";
 import { ChatButton } from "../chatbuttons/chatbuttons";
 
 export interface ChatTempSpace {
-  who: string
-  sideeffects: SideEffect[]
   chat: string
 }
 export function ChatEntryWorkspace<Mid> ( dataFn: WorkspaceStateSideEffectFn<Mid, ChatTempSpace> ): WorkspaceSideEffectPlugin<Mid, ChatTempSpace> {

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { AttributeTable, BeforeAfterComponent, DisplayMessagePlugin, MessageButton, messageMatches, MessagePlugInParams } from "@intellimaintain/components";
 import { escapeSqlParameters, extractSqlString, uppercaseFirstLetter } from "@intellimaintain/utils";
-import { fromEntries } from "@laoban/utils/dist/src/nameAnd";
+import { fromEntries } from "@laoban/utils";
 import { derefence, VariableDefn } from "@laoban/variables";
 import { Typography } from "@mui/material";
 import { NameAnd } from "@laoban/utils";

@@ -1,15 +1,7 @@
 import { LensProps, LensProps2, LensState, LensState2 } from "@focuson/state";
 import { SideEffect } from "@intellimaintain/react_core";
-import { SimpleTabPanel, TabPanelDetails, TabsContainer, TabWithSideEffects } from "@intellimaintain/components/dist/src/layouts/TabPanel";
-import { DisplayTickets } from "@intellimaintain/react_ticket/dist/src/display.ticket";
-import { DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_articles/dist/src/display.knowledge.article";
-import { DisplaySoftwareCatalogs } from "@intellimaintain/react_softwarecatalog/dist/src/display.software.catalog";
-import { DisplayTemplates } from "@intellimaintain/react_templates/dist/src/display.template";
-import { DisplayVariables } from "@intellimaintain/react/dist/variables/variables";
-import { DisplayDebug, StateDisplay } from "@intellimaintain/components/dist/src/debug/display.debug";
-import { Box } from "@mui/material";
+import { TabPanelDetails } from "@intellimaintain/components";
 import React from "react";
-import { ChatEntryWorkspace } from "./chat.entry";
 
 export type WorkspaceStateFn<Mid, WSLens> = ( state: LensState<any, Mid, any> ) => WSLens
 export type WorkspaceStateSideEffectFn<Mid, Data> = <S extends any>( state: LensState<S, Mid, any> ) => LensState2<S, Data, SideEffect[], any>
@@ -34,6 +26,4 @@ export function WorkSpace<S, Mid, C extends HasWorkspacePlugins<Mid>> ( { state 
   return plugin.display ( plugin.dataFn ( state.state1 () ) );
 }
 
-export interface WorkspaceTabProps<S, Mids, WSLens> extends LensProps<S, Mids, any>, TabPanelDetails {
-  plugin: WorkSpacePlugin<Mids, WSLens>
-}
+

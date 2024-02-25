@@ -3,7 +3,6 @@ import { startKoa } from "@runbook/koa";
 import { wizardOfOzApiHandlers } from "./api";
 import { loadFromIdStore } from "@intellimaintain/idstore";
 import { defaultIdStoreDetails, defaultParserStore } from "@intellimaintain/defaultdomains";
-import { listIds } from "intellimaintain/dist/src/id.store.cli";
 import { findListIds } from "@intellimaintain/listids";
 
 
