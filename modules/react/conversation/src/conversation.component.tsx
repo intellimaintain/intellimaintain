@@ -41,12 +41,13 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
   }, [ messages ] );
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '50vh', border: '1px solid #ccc' }}>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item xs={3}>
+      {/*<Grid container spacing={2} alignItems="center">*/}
+      {/*  <Grid item xs={3}>*/}
+      {/*    <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>*/}
+      {/*  </Grid>*/}
+      {/*  {children && <Grid xs={9}>{children}</Grid>}*/}
+      {/*</Grid>*/}
           <Typography variant="h2" component="h2" gutterBottom>Chat</Typography>
-        </Grid>
-        {children && <Grid xs={9}>{children}</Grid>}
-      </Grid>
       <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
         <List sx={{
           padding: '8px',
@@ -67,7 +68,7 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
         </List>
         <div ref={endOfListRef}/>
       </Box>
-      <UserTypingBox from={from} state={state.focus1On ( 'message' )}/>
+      {children}
     </Box>
   )
     ;

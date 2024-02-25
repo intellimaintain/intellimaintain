@@ -1,15 +1,16 @@
-import { LensProps } from "@focuson/state";
+import { LensProps, LensProps3, LensState3 } from "@focuson/state";
 import { ChatState } from "../domain/domain";
-import { SimpleTabPanel, TabPanel, TabsContainer, TabWithSideEffects } from "@intellimaintain/components/dist/src/layouts/TabPanel";
+import { DisplayDebug, MainAppLayout, SimpleTabPanel, StateDisplay, TabsContainer, TabWithSideEffects, TemplateFn } from "@intellimaintain/components";
 import { DisplayTickets } from "@intellimaintain/react_ticket/dist/src/display.ticket";
-import { DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_articles/dist/src/display.knowledge.article";
+import { DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 import { DisplaySoftwareCatalogs } from "@intellimaintain/react_softwarecatalog";
-
-import { DisplayDebug, MainAppLayout, StateDisplay, TemplateFn } from "@intellimaintain/components";
-import { ChatButton, DisplayConversation, HasDisplayPlugins } from "@intellimaintain/react_conversation";
+import { ChatButton, DisplayConversation, HasDisplayPlugins, HasWorkspacePlugins, WorkSpace, WorkspaceTabs } from "@intellimaintain/react_conversation";
 import { DisplayVariables } from "../variables/variables";
-import { Lenses } from "@focuson/lens";
 import { DisplayTemplates } from "@intellimaintain/react_templates/src/display.template";
+import { KnowledgeArticle } from "@intellimaintain/knowledge_articles";
+import { NameAnd } from "@laoban/utils";
+import { Variables } from "@intellimaintain/variables";
+import { SideEffect } from "@intellimaintain/react_core";
 
 export interface TopPartProps<S, C> extends LensProps<S, ChatState, C> {
   label: string
@@ -28,8 +29,8 @@ export function TopPart<S, C> ( { state, label }: TopPartProps<S, C> ) {
       <DisplayTemplates path='templates' state={state}/>}</TabWithSideEffects>
     <TabWithSideEffects title='Variables' state={state} focuson='variables'>{state =>
       <DisplayVariables state={state}/>}</TabWithSideEffects>
-    <SimpleTabPanel title='State'><DisplayDebug maxHeight='40vh' maxWidth = '40vw' state={state}/></SimpleTabPanel>
-    <SimpleTabPanel title='Debug'><StateDisplay maxHeight='40vh' maxWidth = '40vw'state={state}/></SimpleTabPanel>
+    <SimpleTabPanel title='State'><DisplayDebug maxHeight='40vh' maxWidth='40vw' state={state}/></SimpleTabPanel>
+    <SimpleTabPanel title='Debug'><StateDisplay maxHeight='40vh' maxWidth='40vw' state={state}/></SimpleTabPanel>
   </TabsContainer>
 }
 
@@ -39,14 +40,17 @@ export interface DisplayGuiProps<S, C> extends LensProps<S, ChatState, C> {
   path: string
   template: TemplateFn<S>
 }
-export function DisplayGui<S, C extends HasDisplayPlugins> ( { state, label, from, path, template }: DisplayGuiProps<S, C> ) {
-  console.log ( 'DisplayGui', 'state', state )
+export function DisplayGui<S, C extends HasDisplayPlugins & HasWorkspacePlugins<ChatState>> ( { state, label, from, path, template }: DisplayGuiProps<S, C> ) {
   return <MainAppLayout>
     <TopPart label={label} state={state}/>
     <div>
+
+
+      {/*<ChatButton who={from} state={state.tripleUp ().focus1On ( 'kas' ).focus1On ( 'item' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}/>*/}
       <DisplayConversation from={from} path={path + 'conversation.'} template={template}
                            state={state.tripleUp ().focus1On ( 'conversation' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}>
-        <ChatButton who={from} state={state.tripleUp ().focus1On ( 'kas' ).focus1On ( 'item' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )}/>
+        <WorkspaceTabs state={state.doubleUp ().focus2On ( 'selectionState' ).focus2On ( 'workspaceTab' )}/>
+
       </DisplayConversation>
     </div>
 

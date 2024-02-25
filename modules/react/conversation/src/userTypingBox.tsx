@@ -2,13 +2,11 @@ import React, { useRef } from 'react';
 import { Box, IconButton, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { SideEffect } from "@intellimaintain/react_core";
-import { NameAnd } from "@laoban/utils";
-import { Variables } from "@intellimaintain/variables";
-import { LensProps3 } from "@focuson/state";
+import { LensProps2 } from "@focuson/state";
 import { makeSideeffectForMessage } from '@intellimaintain/components';
 
 
-interface UserTypingBoxProps<S, C> extends LensProps3<S, string, NameAnd<Variables>, SideEffect[], C> {
+interface UserTypingBoxProps<S, C> extends LensProps2<S, string, SideEffect[], C> {
   from: string
 }
 
@@ -20,7 +18,6 @@ export function UserTypingBox<S, C> ( { state, from }: UserTypingBoxProps<S, C> 
       let sideEffect: SideEffect = makeSideeffectForMessage ( message );
       state.transformJson (
         msg => '',
-        vars => vars,
         old => [ ...(old || []), sideEffect ],
         'sent message' );
       inputRef.current.value = '';

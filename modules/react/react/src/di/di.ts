@@ -1,3 +1,4 @@
-import { HasDisplayPlugins } from "@intellimaintain/react_conversation";
+import { HasDisplayPlugins, HasWorkspacePlugins } from "@intellimaintain/react_conversation";
+import { ChatState, DemoChatState } from "../domain/domain";
 
-export interface DI extends HasDisplayPlugins {}
+export interface DI<Mid> extends HasDisplayPlugins, HasWorkspacePlugins<ChatState> {}

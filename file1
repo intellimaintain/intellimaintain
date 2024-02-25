@@ -16,3 +16,6 @@
 {"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
 {"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
 {"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"from","message":"Hi"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"who":"from","message":"HI"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"[CheckSql]","who":"Operator"},"context":{}}
