@@ -16,7 +16,7 @@ export function WorkspaceTab<S, Mid, WSLens> ( { height, state, plugin }: Worksp
   </Box>
 }
 
-export interface WorkspaceTabsProps<S, Mid, C> extends LensProps2<S, Mid, number, C> {
+export interface WorkspaceTabsProps<S, Mid, C> extends LensProps2<S, Mid, string, C> {
   height?: string
   children?: React.ReactElement<TabPanelDetails>[] | React.ReactElement<TabPanelDetails>
 }

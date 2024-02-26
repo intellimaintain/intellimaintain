@@ -17,6 +17,7 @@ import { DI } from "./di/di";
 import { ChatEntryWorkspace, DashBoardData, DashboardWorkspace, dereferencePlugIn, emailDisplayPlugin, EmailWorkspace, LdapWorkspace, QuickData, QuickWorkspace, sqlDataDisplayMessagePlugin, sqlDisplayMessagePlugin, SqlWorkspace } from '@intellimaintain/react_conversation';
 import { ListIds } from "@intellimaintain/listids";
 import { dropFirstSegments } from "@intellimaintain/utils";
+import { Action } from '@intellimaintain/actions';
 
 const templateFn = <K extends keyof DemoChatState> ( offset: K ): TemplateFn<any> => ( state, templateName ) => {
   //this is a terrible hack just to see what the gui looks like
@@ -57,8 +58,9 @@ const di: DI<ChatState> = {
     const knowledgeArticle = s.focusOn ( 'kas' ).optJson ()?.item
     const ticket = s.focusOn ( 'tickets' ).optJson ()?.item
     const ticketState = s.focusOn ( 'ticketState' ).optJson () || {}
-
-    let qd: DashBoardData<ChatState> = { state, knowledgeArticle, ticket, dropSegments: 1 };
+    const setDashboard = ( tab: string, action: Action ) => s.focusOn ( 'selectionState' )
+      .doubleUp ().focus1On ( 'workspaceTab' ).focus2On ( 'action' ).setJson ( tab, action, 'tab changed' )
+    let qd: DashBoardData<ChatState> = { state, knowledgeArticle, ticket, dropSegments: 1, setDashboard };
     console.log ( 'qd', qd )
     return qd
   } ),

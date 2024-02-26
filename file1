@@ -31,3 +31,17 @@
 {"event":"append","path":"conversation.messages","value":{"message":"[CheckSql]","who":"from quick"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'","who":"from quick"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Please check the approver is in LDAP and a member of the group 'EPX-Project-Admin'","who":"from quick"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":"ticketState.receivedApproval","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be false","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":"ticketState.receivedApproval","value":false,"context":{}}
+{"event":"setValue","path":"ticketState.receivedApproval","value":false,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be false","who":"phil@example.com"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":"ticketState.receivedApproval","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be false","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":"ticketState.receivedApproval","value":false,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":"ticketState.receivedApproval","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be false","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":"ticketState.receivedApproval","value":false,"context":{}}

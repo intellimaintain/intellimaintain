@@ -35,11 +35,11 @@ export interface TabPanelWithSideEffectsProps<S, M extends HasSideeffects, K ext
 }
 export function TabWithSideEffects<S, M extends HasSideeffects, K extends keyof M, C> ( { state, focuson, children }: TabPanelWithSideEffectsProps<S, M, K, C> ) {
   const childState = state.doubleUp ().focus1On ( focuson ).focus2On ( 'sideeffects' )
-  return <Box sx={{height:'100%'}}>
+  return <Box sx={{ height: '100%' }}>
     {children ( childState )}
   </Box>
 }
-export interface TabsContainerProps<S, M, C> extends LensProps2<S, M, number, C> {
+export interface TabsContainerProps<S, M, C> extends LensProps2<S, M, string, C> {
   label: string
   height?: string
   children: React.ReactElement<TabPanelDetails>[] | React.ReactElement<TabPanelDetails>;
@@ -48,20 +48,25 @@ export interface TabsContainerProps<S, M, C> extends LensProps2<S, M, number, C>
 export function TabsContainer<S, M, C> ( props: TabsContainerProps<S, M, C> ) {
   const { state, children, label } = props;
   const childrenArray = toArray ( children )
-  const activeTab = state.optJson2 () || 0;
+  let activeTabName = state.optJson2 ();
+  const rawActiveTab = childrenArray.findIndex ( c => c.props.title === activeTabName )
+  const activeTab = rawActiveTab > 0 ? rawActiveTab : 0;
 
   function handleChange ( event: React.SyntheticEvent, newValue: number ) {
-    state.state2 ().setJson ( newValue, 'tab changed' );
+    const child = childrenArray[ newValue ];
+    const tabName = child?.props.title;
+    if ( tabName )
+      state.state2 ().setJson ( tabName, 'tab changed' );
   }
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: props.height}}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: props.height }}>
       <Tabs value={activeTab} onChange={handleChange} aria-label={label}>
         {childrenArray.map ( ( child, index ) => (
           <Tab label={child.props.title} key={child.props.title}/>
         ) )}
       </Tabs>
-      <Box sx={{height: '100%'}}>
+      <Box sx={{ height: '100%' }}>
         {/* Ensure the selected TabPanel is rendered here and is the only part scrollable */}
         {React.cloneElement ( childrenArray[ activeTab ], { key: activeTab } )}
       </Box>

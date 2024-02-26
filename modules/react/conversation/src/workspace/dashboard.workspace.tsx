@@ -14,7 +14,7 @@ import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
 import InfoIcon from '@mui/icons-material/Info';
 import { derefence } from "@laoban/variables";
 import { dollarsBracesVarDefn } from "@laoban/variables/dist/src/variables";
-import { dropFirstSegments, extractPathFromDescription } from "@intellimaintain/utils";
+import { dropFirstSegments, extractPathFromDescription, uppercaseFirstLetter } from "@intellimaintain/utils";
 import { makeSideeffectForMessage } from "@intellimaintain/components/dist/src/messages/messaging";
 
 export interface DashBoardData<S> {
@@ -22,6 +22,7 @@ export interface DashBoardData<S> {
   knowledgeArticle: KnowledgeArticle | undefined
   ticket: Ticket | undefined
   dropSegments: number
+  setDashboard: ( s: string, action: Action ) => void
 }
 
 export function DashboardWorkspace<Mid> ( dataFn: WorkspaceStateFn<Mid, DashBoardData<Mid>> ):
@@ -35,7 +36,7 @@ export function DashboardWorkspace<Mid> ( dataFn: WorkspaceStateFn<Mid, DashBoar
 
 export interface DisplayTodoProps<S> extends LensProps3<S, NameAnd<boolean>, NameAnd<Variables>, SideEffect[], any> {
   dropSegments: number
-
+  setDashboard: ( s: string, action: Action ) => void
 }
 
 interface StatusIndicatorProps {
@@ -95,7 +96,8 @@ export function YesButton<S> ( { state, path, actionName, who }: YesNoButtonProp
 export function NoButton<S> ( { state, path, actionName, who }: YesNoButtonProps<S> ) {
   return <Button variant="contained" color="primary" fullWidth onClick={() => setAction ( state, path, actionName, who, false )}>No</Button>
 }
-export const ActionRow = <S extends any> ( variables: any, state: LensState3<S, NameAnd<boolean>, NameAnd<Variables>, SideEffect[], any>, dropSegments: number ) => ( [ actionName, action ]: [ string, Action ] ) => {
+export const ActionRow = <S extends any> ( variables: any, state: LensState3<S, NameAnd<boolean>, NameAnd<Variables>, SideEffect[], any>, dropSegments: number,
+                                           setDashboard: ( s: string, action: Action ) => void ) => ( [ actionName, action ]: [ string, Action ] ) => {
   const ticketState: NameAnd<boolean> = state.optJson1 () || {}
   const who = variables?.operator?.email || 'unknown'
   const value = ticketState[ actionName ]
@@ -115,7 +117,7 @@ export const ActionRow = <S extends any> ( variables: any, state: LensState3<S, 
     <TableCell> <Tooltip title={<ActionTooltip/>} placement="top"><span>{actionName}</span></Tooltip></TableCell>
     <TableCell><StatusIndicator value={value}/></TableCell>
     <TableCell><WaitingFor ticketState={ticketState} waitingFor={action.waitingFor}/></TableCell>
-    <TableCell align="left"><ActionButton action={action}/> </TableCell>
+    <TableCell align="left">{action.by === 'manually' ? 'manually' : <ActionButton action={action} setDashboard={setDashboard}/>} </TableCell>
     <TableCell align="left">
       <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
         <YesButton state={state.state3 ()} actionName={actionName} path={path} who={who}/>
@@ -127,15 +129,17 @@ export const ActionRow = <S extends any> ( variables: any, state: LensState3<S, 
 };
 export interface ActionButtonProps {
   action: Action
+  setDashboard: ( s: string, action: Action ) => void
 }
-export function ActionButton ( { action }: ActionButtonProps ) {
+export function ActionButton ( { action, setDashboard }: ActionButtonProps ) {
   return <Button
     variant="contained" // Gives the button a background color
     color="primary" // Use the theme's primary color
     fullWidth
+    onClick={() => {setDashboard ( uppercaseFirstLetter ( action.by.toLowerCase () ), action )}}
   >{action.by}</Button>
 }
-export function DisplayTodos<S> ( { state, dropSegments }: DisplayTodoProps<S> ) {
+export function DisplayTodos<S> ( { state, dropSegments, setDashboard }: DisplayTodoProps<S> ) {
 
   let summary: any = state.optJson2 ()?.Summary?.variables || {};
 
@@ -155,15 +159,15 @@ export function DisplayTodos<S> ( { state, dropSegments }: DisplayTodoProps<S> )
         </TableRow>
       </TableHead>
       <TableBody>
-        {Object.entries ( definition ).map ( ActionRow ( summary, state, dropSegments, ) )}
+        {Object.entries ( definition ).map ( ActionRow ( summary, state, dropSegments, setDashboard ) )}
       </TableBody>
     </Table>
   </TableContainer>);
 }
 export function DisplayDashboard<S> ( { state: qd }: { state: DashBoardData<S> } ) {
-  const { state, knowledgeArticle, ticket, dropSegments } = qd
+  const { state, knowledgeArticle, ticket, dropSegments, setDashboard } = qd
   return <div>
     <p>The current knowledge article is <strong>{knowledgeArticle?.name || '<unknown>'}</strong>. Is that correct. If not change it in the 'KSA' tab above</p>
-    <DisplayTodos state={state} dropSegments={dropSegments}/>
+    <DisplayTodos state={state} dropSegments={dropSegments} setDashboard={setDashboard}/>
   </div>
 }

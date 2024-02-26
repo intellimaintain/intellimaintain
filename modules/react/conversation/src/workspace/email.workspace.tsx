@@ -21,7 +21,7 @@ export function EmailWorkspace<Mid> ( dataFn: WorkspaceStateSideEffectFn<Mid, Em
 
 export function DisplayEmail<S> ( { state }: LensProps2<S, EmailTempSpace, SideEffect[], any> ) {
   const newState = state.focus1On ( 'email' )
-  return <div><p>SQL Entry goes here</p>
+  return <div><p>Email Entry goes here</p>
     <p>The Knowledge article controls what kinds of email are common. This gui is critical to get right.</p>
     <p>Examples</p>
     <ul>
