@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { LensProps, LensState, lensState, LensState2 } from "@focuson/state";
+import { LensProps, LensState, lensState } from "@focuson/state";
 import { ThemeProvider } from "@mui/material";
 
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
@@ -14,8 +14,9 @@ import { IdStore } from "@intellimaintain/idstore";
 import { DisplayGui } from './gui/gui';
 import { extractVariablesAndAddToState } from "./variables/variables";
 import { DI } from "./di/di";
-import { ChatEntryWorkspace, checkSqlDisplayMessagePlugin, dereferencePlugIn, emailDisplayPlugin, EmailWorkspace, LdapWorkspace, QuickData, QuickWorkspace, resolveSqlDisplayMessagePlugin, sqlDataDisplayMessagePlugin, SqlWorkspace } from '@intellimaintain/react_conversation';
+import { ChatEntryWorkspace, DashBoardData, DashboardWorkspace, dereferencePlugIn, emailDisplayPlugin, EmailWorkspace, LdapWorkspace, QuickData, QuickWorkspace, sqlDataDisplayMessagePlugin, sqlDisplayMessagePlugin, SqlWorkspace } from '@intellimaintain/react_conversation';
 import { ListIds } from "@intellimaintain/listids";
+import { dropFirstSegments } from "@intellimaintain/utils";
 
 const templateFn = <K extends keyof DemoChatState> ( offset: K ): TemplateFn<any> => ( state, templateName ) => {
   //this is a terrible hack just to see what the gui looks like
@@ -47,19 +48,29 @@ const sep1 = defaultEventProcessor<DemoChatState> ( 'chatState1.', startAppState
 const sep2 = defaultEventProcessor<DemoChatState> ( 'chatState2.', startAppState, idStore )
 
 const di: DI<ChatState> = {
-  displayPlugins: [ checkSqlDisplayMessagePlugin,
-    resolveSqlDisplayMessagePlugin, emailDisplayPlugin, dereferencePlugIn,
+  displayPlugins: [ sqlDisplayMessagePlugin,
+    emailDisplayPlugin, dereferencePlugIn,
     sqlDataDisplayMessagePlugin ],
-  defaultPlugin:
+  defaultPlugin: DashboardWorkspace<ChatState> ( ( s: LensState<any, ChatState, any> ): DashBoardData<ChatState> => {
+    //  state: LensState3<S,  NameAnd<boolean>,NameAnd<Variables>, SideEffect[], any>
+    const state = s.tripleUp ().focus1On ( 'ticketState' ).focus2On ( 'variables' ).focus3On ( 'sideeffects' )
+    const knowledgeArticle = s.focusOn ( 'kas' ).optJson ()?.item
+    const ticket = s.focusOn ( 'tickets' ).optJson ()?.item
+    const ticketState = s.focusOn ( 'ticketState' ).optJson () || {}
+
+    let qd: DashBoardData<ChatState> = { state, knowledgeArticle, ticket, dropSegments: 1 };
+    console.log ( 'qd', qd )
+    return qd
+  } ),
+  workspacePlugins: [
     QuickWorkspace<ChatState> ( ( s: LensState<any, ChatState, any> ): QuickData<ChatState> => {
       const state = s.doubleUp ().focus1On ( 'variables' ).focus2On ( 'sideeffects' )
       const knowledgeArticle = s.focusOn ( 'kas' ).optJson ()?.item
       const ticket = s.focusOn ( 'tickets' ).optJson ()?.item
       let qd = { state, knowledgeArticle, ticket };
-      console.log('qd', qd)
+      console.log ( 'qd', qd )
       return qd
     } ),
-  workspacePlugins: [
     ChatEntryWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'chatTempSpace' ).focus2On ( 'sideeffects' ) ),
     SqlWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'sqlTempSpace' ).focus2On ( 'sideeffects' ) ),
     LdapWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'ldapTempSpace' ).focus2On ( 'sideeffects' ) ),

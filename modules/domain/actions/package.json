@@ -1,6 +1,6 @@
 {
-  "name": "@intellimaintain/knowledge_articles",
-  "description": "The knowledge articles plugin. Everything except react",
+  "name": "@intellimaintain/actions",
+  "description": "Actions ",
   "version": "0.1.1",
   "main": "dist/index",
   "types": "dist/index",
@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@intellimaintain/domain": "0.1.1",
-    "@intellimaintain/actions": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

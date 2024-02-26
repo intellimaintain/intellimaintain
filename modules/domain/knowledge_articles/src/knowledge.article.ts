@@ -3,6 +3,7 @@ import { ParserStoreParser } from "@intellimaintain/parser";
 import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
 import { transformKeysToCamelCase } from "@intellimaintain/utils";
+import { Action } from "@intellimaintain/actions";
 
 const yaml = require ( 'js-yaml' );
 
@@ -13,12 +14,14 @@ export interface ButtonData{
   notWhen?: string
 }
 
+
 export interface BaseKnowledgeArticle extends IdAndName {
   required: string[]
   softwareCatalog: string // mini dsl. sc1:production + sc2:acceptance|sc3:production
   approver?: string // e.g. specific email for POC. Might have dsl in future. If not here no approval needed
   variables?: NameAnd<string>
   buttons?: NameAnd<ButtonData>
+  state: NameAnd<Action>
 }
 
 export type SqlDetailsType = 'atLeastOne' | 'none' | 'exactlyOne' | 'manual'

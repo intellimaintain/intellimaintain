@@ -1,7 +1,7 @@
 {
   "template":    "typescript",
-  "name":        "@intellimaintain/knowledge_articles",
-  "description": "The knowledge articles plugin. Everything except react",
+  "name":        "@intellimaintain/actions",
+  "description": "Actions ",
   "packageJson": {
     "dependencies":    {},
     "devDependencies": {},
@@ -9,7 +9,7 @@
       "child_process": false
     }
   },
-  "links":       ["@intellimaintain/domain", "@intellimaintain/actions"],
+  "links":       ["@intellimaintain/domain"],
   "guards":      {
     "compile": true,
     "publish": true,

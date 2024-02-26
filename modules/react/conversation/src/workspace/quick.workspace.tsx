@@ -1,4 +1,4 @@
-import { LensState2 } from "@focuson/state";
+import { LensProps2, LensState2 } from "@focuson/state";
 import { SideEffect } from "@intellimaintain/react_core";
 import { WorkSpacePlugin, WorkspaceStateFn } from "./workspace";
 import React from "react";
@@ -7,9 +7,9 @@ import { NameAnd } from "@laoban/utils";
 import { Variables } from "@intellimaintain/variables";
 import { ChatButtons } from "../chatbuttons/chatbuttons";
 import { Ticket } from "@intellimaintain/tickets";
-import { Box, Grid, Typography } from "@mui/material";
-import { DisplayMarkdown } from "@intellimaintain/components/dist/src/displayRaw/display.markdown";
+import { Box, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
 import ReactMarkdown from "react-markdown";
+import { TicketStateDefinition } from "@intellimaintain/actions";
 
 
 export interface QuickData<S> {
@@ -21,17 +21,35 @@ export interface QuickData<S> {
 export function QuickWorkspace<Mid> ( dataFn: WorkspaceStateFn<Mid, QuickData<Mid>> ):
   WorkSpacePlugin<Mid, QuickData<Mid>> {
   return ({
-    tabName: 'Dashboard',
+    tabName: 'Quick',
     dataFn,
     display: DisplayQuick
-
   });
 }
 
-//interface UserTypingBoxProps<S, C> extends LensProps3<S, string, NameAnd<Variables>, SideEffect[], C> {
-//   from: string
-// }
-
+export interface DisplayStateProps<S> extends LensProps2<S, NameAnd<Variables>, SideEffect[], any> {}
+export function DisplayState<S> ( { state }: DisplayStateProps<S> ) {
+  const stateData: any = state.optJson1 ()?.Summary?.variables?.state || {}
+  const definition: TicketStateDefinition = stateData.definition ||{}
+  return (<TableContainer component={Paper}>
+    <Table size='small'>
+      <TableHead>
+        <TableRow>
+          <TableCell>State</TableCell>
+          <TableCell>Value</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {Object.entries ( definition ).map ( ( [ button, buttonData ], index ) =>
+          <TableRow key={button}>
+            <TableCell>{button}</TableCell>
+            <TableCell align="right">
+            </TableCell>
+          </TableRow> )}
+      </TableBody>
+    </Table>
+  </TableContainer>);
+}
 export function DisplayQuick<S> ( { state: qd }: { state: QuickData<S> } ) {
   const { state, knowledgeArticle, ticket } = qd
   return <div>
@@ -44,8 +62,8 @@ export function DisplayQuick<S> ( { state: qd }: { state: QuickData<S> } ) {
         </Box>
       </Grid>
       <Grid xs={6}>
-        <p>Here we should put the 'are you approved? Have you been checked? Have you been resolved? Have you been validated etc</p>
-        <ChatButtons who='from quick' state={state} ticket={ticket} knowledgeArticle={knowledgeArticle}/>
+        <DisplayState state={state}/>
+        <ChatButtons who='from quick' state={state} knowledgeArticle={knowledgeArticle}/>
       </Grid>
     </Grid>
   </div>

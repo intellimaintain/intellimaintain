@@ -1,12 +1,18 @@
 Approval:
   method: "By email"
   to: "mr.approver@example.com"
+  template: "template:delete.project.request.approval"
 Database:
   type: "Oracle"
   user: "#supportuser#"
   parameters:
        projectId:
            escape: true
+LDAP:
+    user_group:
+         EPX_USER
+    addmin_group:
+         EPX_ADMIN
 
 Environments:
   Acceptance:

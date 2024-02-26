@@ -3,7 +3,6 @@ import { SideEffect } from "@intellimaintain/react_core";
 import { WorkspaceSideEffectPlugin, WorkspaceStateSideEffectFn } from "./workspace";
 import React from "react";
 import { UserTypingBox } from "../userTypingBox";
-import { ChatButtons } from "../chatbuttons/chatbuttons";
 
 export interface ChatTempSpace {
   chat: string

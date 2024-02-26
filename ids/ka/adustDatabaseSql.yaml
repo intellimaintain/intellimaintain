@@ -1,0 +1,54 @@
+required:
+  - environment
+
+
+state:
+  checkedIssue: boolean
+  checkedUser: boolean
+  checkedApprover: boolean
+  approval: boolean
+  validated: boolean
+  sentApprovalEmail: boolean
+
+buttons:
+  CheckTicket:
+    action: "sql: check"
+    message: "[CheckSql]" # will vanish
+    ifSuccess:
+      - checkedIssue: true
+
+  ValidateTicketCreator:
+    action: "ldap: checkTicketCreator"
+    message: "Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'"
+    ifSuccess:
+      - checkedUser: true
+
+  ValidateApprover:
+    action: "ldap: checkApprover"
+    message: "Please check the approver is in LDAP and a member of the group 'EPX-Project-Admin'"
+    ifSuccess:
+      - checkedApprover: true
+
+  RequestApproval:
+    action: "email: requestApproval"
+    message: "[Email approval]"
+    notWhen: approved or sentApprovalEmail
+    ifSuccess:
+      - sentApprovalEmail: true
+
+  ResolveTicket:
+    action: "sql: resolve"
+    message: "[ResolveSql]"
+    when: approved and checkedUser and checkedApprover
+
+  ValidateTicket:
+    action: "sql: validate"
+    message: "[ValidateSql]"
+    ifSuccess:
+      - validated: true
+
+  CloseTicket:
+    action: "closeTicket"
+    message: "Close the ticket"
+    when: validated
+

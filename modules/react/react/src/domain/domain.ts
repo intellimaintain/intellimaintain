@@ -22,6 +22,7 @@ export interface ChatState {
   templates: Templates
   variables: NameAnd<Variables>
   tickets: Tickets
+  ticketState: NameAnd<boolean>
 }
 export const idL = Lenses.identity<DemoChatState> ()
 export const chatState1L = idL.focusOn ( 'chatState1' )
@@ -44,7 +45,8 @@ export function blankChatState ( chatter: string, tickets: Tickets, kas: Knowled
     scs,
     templates,
     tickets,
-    variables: {}
+    variables: {},
+    ticketState: {}
   }
 }
 

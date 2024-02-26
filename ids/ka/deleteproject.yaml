@@ -6,8 +6,10 @@ required:
 
 variables:
   system: EPX
+
 sql:
   check:
+    # we could specify a system but defaults to the variable 'system'
     sql: 'select * from projects where project_id = :projectId'
     correctWhen: atLeastOne
   resolve:
@@ -16,19 +18,108 @@ sql:
     sql: 'select * from projects where project_id = :projectId'
     correctWhen: none
 
+
+
+
+
+
+
+
+
+# Belongs in the parent Knowledge Acticle
+# Delete as soon have that working
+
+
+checklist:
+  checkedUser:
+    hint: "Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'"
+    safe: true
+    by: ldap
+    success: "user should be a member of group 'EPX-Project'"
+  checkedApprover:
+    hint: "Please check the approver is in LDAP and a member of the group 'EPX-Project-Admin'"
+    safe: true
+    by: ldap
+    success: "user should be a member of group 'EPX-Project-Admin'"
+  checkedIssueExists:
+    hint: "Please check the project ${projectId} exists"
+    safe: true
+    by: sql
+    type: "check"
+  requestedApproval:
+    hint: "Please request approval from ${approval.to}"
+    by: email
+    template: "template:delete.project.request.approval"
+  receivedApproval:
+    by: manually
+  resolve:
+    hint: "Please update the database by deleting the project with id ${projectId}"
+    safe: true
+    by: sql
+    type: validate
+    waitingFor: receivedApproval
+  validated:
+    hint: "Please check the project ${projectId} is not in the database"
+    safe: true
+    by: sql
+    type: validate
+    waitingFor: resolve
+  requestClosure:
+    hint: "Please ask the user to confirm the project ${projectId} is deleted"
+    by: email
+    template: "template:delete.project.agreed.closed"
+    waitingFor: validated
+  agreeClosure:
+    by: manually
+    waitingFor: requestClosure
+  closed:
+    hint: "Please close the ticket"
+    by: ticket
+    template: "template:delete.project.closed"
+    waitingFor: agreeClosure
+
+
 buttons:
   CheckTicket:
-    message: "[CheckSql]"
+    action: "sql: check"
+    message: "[CheckSql]" # will vanish
+    ifSuccess:
+      - checkedIssue: true
+
   ValidateTicketCreator:
+    action: "ldap: checkTicketCreator"
     message: "Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'"
+    ifSuccess:
+      - checkedUser: true
+
   ValidateApprover:
+    action: "ldap: checkApprover"
     message: "Please check the approver is in LDAP and a member of the group 'EPX-Project-Admin'"
+    ifSuccess:
+      - checkedApprover: true
+
   RequestApproval:
-    text: "Request Approval"
+    action: "email: requestApproval"
     message: "[Email approval]"
-    notWhen: approved
+    notWhen: approved or sentApprovalEmail
+    ifSuccess:
+      - sentApprovalEmail: true
+
+
+
   ResolveTicket:
+    action: "sql: resolve"
     message: "[ResolveSql]"
-    when: approved
+    when: approved and checkedUser and checkedApprover
+
   ValidateTicket:
+    action: "sql: validate"
     message: "[ValidateSql]"
+    ifSuccess:
+      - validated: true
+
+  CloseTicket:
+    action: "closeTicket"
+    message: "Close the ticket"
+    when: validated
+

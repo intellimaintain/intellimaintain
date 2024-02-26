@@ -26,7 +26,7 @@ export function WorkspaceTabs<S, Mid, C extends HasWorkspacePlugins<Mid>> ( { st
   const workspacePlugins: WorkSpacePlugin<Mid, any>[] = state.context.workspacePlugins || []
   console.log ( 'WorkspaceTabs', 'workspacePlugins', workspacePlugins )
   const def = <WorkspaceTab title={defaultPlugin.tabName} state={state.state1 ()} plugin={defaultPlugin}/>
-  const plugins = workspacePlugins.map ( ( plugin, index ) => (
+  const plugins: React.ReactElement<TabPanelDetails>[] = workspacePlugins.map ( ( plugin, index ) => (
     <WorkspaceTab key={plugin.tabName} title={plugin.tabName} state={state.state1 ()} plugin={plugin}/>
   ) )
   return <TabsContainer height={height} label='Workspace' state={state} children={[ def, ...plugins, ...toArray ( children ) ]}/>

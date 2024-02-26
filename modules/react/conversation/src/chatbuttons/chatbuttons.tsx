@@ -37,7 +37,7 @@ export interface ActionTableProps<S> extends LensProps2<S, NameAnd<Variables>, S
 function calcCondition ( buttonData: ButtonData ) {
   if ( buttonData.when ) return `When ${buttonData.when}`
   if ( buttonData.notWhen ) return `When not ${buttonData.notWhen}`
-  return 'Always available';
+  return '';
 }
 function ActionTable<S> ( { buttons, state, who }: ActionTableProps<S> ) {
   return (<TableContainer component={Paper}>

@@ -1,10 +1,8 @@
 import React, { ReactNode } from "react";
-import { AttributeTable, BeforeAfterComponent, DisplayMessagePlugin, MessageButton, messageMatches, MessagePlugInParams } from "@intellimaintain/components";
-import { escapeSqlParameters, extractSqlString, uppercaseFirstLetter } from "@intellimaintain/utils";
+import { AttributeTable } from "@intellimaintain/components";
+import { escapeSqlParameters, extractSqlString } from "@intellimaintain/utils";
 import { fromEntries } from "@laoban/utils";
 import { derefence, VariableDefn } from "@laoban/variables";
-import { Typography } from "@mui/material";
-import { NameAnd } from "@laoban/utils";
 
 export interface SqlDataProps {
   sql?: string
@@ -26,7 +24,7 @@ export function SqlData ( { sql, variables, children }: SqlDataProps ) {
   const paramMetaData = database?.parameters
   const params: [ string, any ][] = extractSqlString ( sql ).map ( p => [ p, variables[ p ] === true ] )
   const paramsObj = fromEntries ( ...params )
-  const sqlWithQuotes = escapeSqlParameters ( sql || '', paramMetaData| {} )
+  const sqlWithQuotes = escapeSqlParameters ( sql || '', paramMetaData|| {} )
   const derefedSql = derefence ( 'sql', variables, sqlWithQuotes, { variableDefn: colonPrefixedVarDefn, emptyTemplateReturnsSelf: true } )
   return <AttributeTable rows={{
     "Environment": environment,
@@ -44,34 +42,4 @@ export function SqlDataAndTest ( props: SqlDataProps ) {
     <button>Test connection</button>
     {props.children}
   </>
-}
-
-export interface GenericSqlPlugin {
-  beforeAfterRex: RegExp
-  sqlFn: ( v: NameAnd<any> ) => string
-  children?: ( text: string ) => ReactNode
-}
-
-export function genericSqlDisplayMessagePlugin ( props: GenericSqlPlugin ): DisplayMessagePlugin {
-  return {
-    accept: messageMatches ( props.beforeAfterRex ),
-    display: <S extends any> ( { variables, who, state }: MessagePlugInParams<S> ) => {
-      const sqlVariables = variables?.sql as any;
-      return <BeforeAfterComponent regex={props.beforeAfterRex} state={state.state1 ()}>{rawSqlName => {
-        const sqlName = rawSqlName.trim ().toLowerCase();
-        const sql = props.sqlFn ( sqlVariables )
-        let title = uppercaseFirstLetter ( rawSqlName );
-        return <>
-          <Typography style={{ backgroundColor: '#f0f0f0', padding: '8px', borderRadius: '4px', marginTop: '8px', marginBottom: '8px' }}>
-            <strong>{title} Sql</strong>
-            <hr/>
-            <strong>{sql}</strong>
-          </Typography>
-          <MessageButton label={"Show SQL details"} state={state.state2 ()} message={{ who, message: `[SqlData: ${sqlName}]` }}/>
-          <MessageButton label={`${title} SQL`} state={state.state2 ()} message={{ who, message: `${title} Sql Pressed: please execute sql ${sql}` }}/>
-        </>
-      }
-      }</BeforeAfterComponent>
-    }
-  }
 }
