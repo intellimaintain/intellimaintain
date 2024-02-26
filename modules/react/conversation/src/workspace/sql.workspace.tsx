@@ -1,12 +1,15 @@
-import { LensProps2 } from "@focuson/state";
+import { LensProps, LensProps2, LensState } from "@focuson/state";
 import { SideEffect } from "@intellimaintain/react_core";
-import { WorkspaceSideEffectPlugin, WorkspaceStateSideEffectFn } from "./workspace";
+import { WorkSpacePlugin, WorkspaceSideEffectPlugin, WorkspaceStateFn, WorkspaceStateSideEffectFn } from "./workspace";
 import React from "react";
+import { CommonState } from "./common.state";
+import { DashBoardData } from "./dashboard.workspace";
 
-export interface SqlTempSpace {
-  sql: string
+export interface SqlTempSpace<S, S1 extends CommonState> {
+  state: LensState<S, S1, any>
 }
-export function SqlWorkspace<Mid> ( dataFn: WorkspaceStateSideEffectFn<Mid, SqlTempSpace> ): WorkspaceSideEffectPlugin<Mid, SqlTempSpace> {
+
+export function SqlWorkspace<Mid, S1 extends CommonState> ( dataFn: WorkspaceStateFn<Mid, SqlTempSpace<Mid, S1>> ): WorkSpacePlugin<Mid, SqlTempSpace<Mid, S1>> {
   return ({
     tabName: 'Sql',
     dataFn,
@@ -19,8 +22,8 @@ export function SqlWorkspace<Mid> ( dataFn: WorkspaceStateSideEffectFn<Mid, SqlT
 //   from: string
 // }
 
-export function DisplaySqlWorkbench<S> ( { state }: LensProps2<S, SqlTempSpace, SideEffect[], any> ) {
-  const newState = state.focus1On ( 'sql' )
+export function DisplaySqlWorkbench<S, S1 extends CommonState> ( { state: qd }: { state: SqlTempSpace<S, S1> } ) {
+  const {state } = qd
   return <div><p>SQL Entry goes here</p>
     <p>The Knowledge article controls what kinds of sql are common. This gui is critical to get right.</p>
     <ul>

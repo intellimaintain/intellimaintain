@@ -9,64 +9,7 @@
 {"event":"append","path":"conversation.messages","value":{"message":"[CheckSql]","who":"from quick"},"context":{}}
 {"event":"setValue","path":"kas.selected","value":"ka:deleteproject","context":{}}
 {"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
-
-{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"[SqlData: check]"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedUser to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedUser","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedApprover","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedApprover","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedIssueExists to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedIssueExists","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"[Email approval]","who":"from quick"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"Please request approval"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set requestedApproval to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.requestedApproval","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.receivedApproval","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.receivedApproval","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set validated to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.validated","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set agreeClosure to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.agreeClosure","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.receivedApproval","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set resolve to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.resolve","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set resolve to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.resolve","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"from","message":"[CheckSql]"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"from","message":"[SqlDetails]"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"[SqlData: check]"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedIssueExists to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedIssueExists","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"from","message":"A message"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"[CheckSql]","who":"from quick"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"Operator","message":"[SqlData: check]"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedIssueExists to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedIssueExists","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedIssueExists to be false","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedIssueExists","value":false,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedIssueExists to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedIssueExists","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set requestedApproval to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".requestedApproval","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".receivedApproval","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"who":"from","message":"Hello"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedUser to be false","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".checkedUser","value":false,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be false","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".checkedApprover","value":false,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".checkedApprover","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedUser to be false","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".ticketState..checkedUser","value":false,"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedUser to be true","who":"phil@example.com"},"context":{}}
 {"event":"setValue","path":".ticketState..checkedUser","value":true,"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be false","who":"phil@example.com"},"context":{}}
 {"event":"setValue","path":".ticketState..checkedApprover","value":false,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".ticketState..checkedApprover","value":true,"context":{}}
