@@ -65,7 +65,8 @@ export const ActionRow = <S, S1 extends CommonState> ( variables: any, state: Le
     </pre>
   );
   const raw = extractPathFromDescription ( state.optional.description )
-  const path = raw
+
+  const path = raw + ".ticketState."
   return <TableRow key={actionName}>
     <TableCell> <Tooltip title={<ActionTooltip/>} placement="top"><span>{actionName}</span></Tooltip></TableCell>
     <TableCell><StatusIndicator value={value}/></TableCell>

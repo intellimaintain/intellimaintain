@@ -56,3 +56,17 @@
 {"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
 {"event":"setValue","path":".receivedApproval","value":true,"context":{}}
 {"event":"append","path":"conversation.messages","value":{"who":"from","message":"Hello"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedUser to be false","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".checkedUser","value":false,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be false","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".checkedApprover","value":false,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".checkedApprover","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedUser to be false","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".ticketState..checkedUser","value":false,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedUser to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".ticketState..checkedUser","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be false","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".ticketState..checkedApprover","value":false,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".ticketState..checkedApprover","value":true,"context":{}}
