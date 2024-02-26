@@ -1,8 +1,7 @@
-import { ChatTempSpace, LdapTempSpace, SqlTempSpace, EmailTempSpace } from "@intellimaintain/react_conversation";
+import { ChatTempSpace, LdapTempSpace, SqlTempSpace, EmailTempSpace, WorkspaceSelectionState } from "@intellimaintain/react_conversation";
 import { Action } from "@intellimaintain/actions";
 
-export interface SelectionState {
-  workspaceTab?: string
+export interface SelectionState extends WorkspaceSelectionState {
   action?: Action
   topBottomSlider?: number
   chatTempSpace?: ChatTempSpace

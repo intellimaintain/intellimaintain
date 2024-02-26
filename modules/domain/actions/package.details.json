@@ -3,7 +3,7 @@
   "name":        "@intellimaintain/actions",
   "description": "Actions ",
   "packageJson": {
-    "dependencies":    {},
+    "dependencies":    {   "@laoban/utils": "1.4.45"},
     "devDependencies": {},
     "browser":         {
       "child_process": false

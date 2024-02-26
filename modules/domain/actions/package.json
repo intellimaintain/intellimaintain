@@ -20,6 +20,7 @@
     ]
   },
   "dependencies": {
+    "@laoban/utils": "1.4.45",
     "@intellimaintain/domain": "0.1.1",
     "debug": "^4.3.4"
   },

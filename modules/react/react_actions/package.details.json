@@ -1,0 +1,21 @@
+{
+  "template":    "react_library",
+  "name":        "@intellimaintain/react_actions",
+  "description": "The react plugin for actions",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+    },
+    "scripts":      {"start": "react-scripts start"}
+  },
+  "links":       [
+    "@intellimaintain/components",
+    "@intellimaintain/actions"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

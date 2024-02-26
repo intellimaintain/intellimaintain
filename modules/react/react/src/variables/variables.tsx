@@ -20,7 +20,7 @@ export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: V
   return extractVariablesFrom ( ve, se.selected, soFar, se.item )
 }
 
-export function extractVariablesAndAddToState ( chat: ChatState ) {
+export function extractVariablesAndAddToState ( chat: ChatState ): ChatState {
   const ve = defaultVariablesExtractor
   const operator: Variables = { variables: { 'operator': { email: chat.who, name: 'phil' } }, errors: [] }
   let ticket: Variables = extractVariablesFromSelectedAndList ( ve, 'Ticket', operator.variables, chat.tickets );

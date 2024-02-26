@@ -1,4 +1,4 @@
-import { blankChatState, DemoChatState } from "./domain";
+import { blankChatState, ChatState } from "./domain";
 import { IdAndName } from "@intellimaintain/domain";
 import { KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 import { Tickets } from "@intellimaintain/react_ticket";
@@ -32,7 +32,4 @@ export const templates: Templates = {
   options: []
 }
 
-export const startAppState: DemoChatState = {
-  chatState1: blankChatState ( 'phil@example.com', tickets, kas, scs, templates ),
-  chatState2: blankChatState ( 'wizard@example.com', tickets, kas, scs, templates )
-}
+export const startAppState: ChatState = blankChatState( 'phil@example.com', tickets, kas, scs, templates )
