@@ -1,4 +1,4 @@
-import { toCamelCase } from "./strings";
+import { splitAndCapitalize, toCamelCase } from "./strings";
 
 describe('toCamelCase', () => {
   test('converts mixed separators while preserving existing camelCase', () => {
@@ -30,4 +30,27 @@ describe('toCamelCase', () => {
     const output = "someNumbers123AndSpecialChars";
     expect(toCamelCase(input)).toBe(output);
   });
+});
+
+// Import the function if it's defined in a separate module, for example:
+// import { splitAndCapitalize } from './path-to-your-function';
+
+describe('splitAndCapitalize', () => {
+  it('converts camelCase to space-separated words with the first letter capitalized', () => {
+    expect(splitAndCapitalize('helloWorld')).toBe('Hello World');
+    expect(splitAndCapitalize('ThisIsASample')).toBe('This Is A Sample');
+  });
+
+  it('handles single-word input without spaces', () => {
+    expect(splitAndCapitalize('Word')).toBe('Word');
+  });
+
+  it('returns an empty string for empty input', () => {
+    expect(splitAndCapitalize('')).toBe('');
+  });
+
+  it('returns an empty string for undefined input', () => {
+    expect(splitAndCapitalize(undefined)).toBe('');
+  });
+
 });

@@ -53,7 +53,7 @@ export function DisplayEmailWorkbench<S, S1 extends CommonState> ( { state: qd }
       <Typography variant="subtitle1" gutterBottom>Email</Typography>
       <TextField fullWidth variant="outlined" value={template} multiline rows={10}/>
       <Box display="flex" flexDirection="row" flexWrap="wrap" gap={1}>
-        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName}>Send</FakeSendButton>
+        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName} message={`Need to make pretty gui still... Sent to ${toName}${template}`}>Send</FakeSendButton>
         {/*<Button variant="contained" color="primary" endIcon={<PlayArrowIcon/>}> Send </Button>*/}
         <Button variant="contained" color="primary" endIcon={<TestIcon/>}> Test Connection </Button>
         <Button variant="contained" color="primary" endIcon={<RefreshIcon/>}> Reset</Button>

@@ -34,6 +34,11 @@ sql:
 
 
 checklist:
+  checkedIssueExists:
+    hint: "Please check the project ${projectId} exists"
+    safe: true
+    by: sql
+    type: "check"
   checkedUser:
     hint: "Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'"
     safe: true
@@ -46,23 +51,21 @@ checklist:
     by: ldap
     who: approval.to
     success: "user should be a member of group 'EPX-Project-Admin'"
-  checkedIssueExists:
-    hint: "Please check the project ${projectId} exists"
-    safe: true
-    by: sql
-    type: "check"
   requestedApproval:
     hint: "Please request approval from ${approval.to}"
     by: email
     to: approval.to
     template: "template:delete.project.request.approval"
+    waitingFor: checkedIssueExists
   receivedApproval:
     by: manually
+    waitingFor: requestedApproval
   checkedIssueStillExists:
     hint: "Please check the project ${projectId} exists"
     safe: true
     by: sql
     type: "check"
+    waitingFor: receivedApproval
   resolve:
     hint: "Please update the database by deleting the project with id ${projectId}"
     safe: true

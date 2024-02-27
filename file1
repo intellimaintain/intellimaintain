@@ -8,25 +8,13 @@
 {"event":"setId","id":"template:delete.project.request.approval","path":"templates.item","parser":"template","context":{}}
 {"event":"setValue","path":"kas.selected","value":"ka:deleteproject","context":{}}
 {"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttoncheckedUser ","who":"fake"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedUser","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttoncheckedApprover ","who":"fake"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedApprover","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttoncheckedIssueExists ","who":"fake"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"[checkSql]","who":"fake"},"context":{}}
 {"event":"setValue","path":"ticketState.checkedIssueExists","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonrequestedApproval ","who":"fake"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Need to make pretty gui... Checked phil@example.com","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkedUser","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Need to make pretty gui... Checked mr.approver@example.com","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkedApprover","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Need to make pretty gui still... Sent to approval.to\r\na.customer@example.com has raised ticket number ticket:pa123.\r\n\r\nThey want to delete project P-6666 in the acceptance environment.\r\n\r\nPlease confirm that this is acceptable\r\n\r\nregards\r\n\r\nphil\r\n","who":"fake"},"context":{}}
 {"event":"setValue","path":"ticketState.requestedApproval","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".ticketState..receivedApproval","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttoncheckedIssueStillExists ","who":"fake"},"context":{}}
-{"event":"setValue","path":"ticketState.checkedIssueStillExists","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonresolve ","who":"fake"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonresolve ","who":"fake"},"context":{}}
-{"event":"setValue","path":"ticketState.resolve","value":true,"context":{}}
-{"event":"setValue","path":"ticketState.resolve","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonvalidated ","who":"fake"},"context":{}}
-{"event":"setValue","path":"ticketState.validated","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonresolve ","who":"fake"},"context":{}}
-{"event":"setValue","path":"ticketState.resolve","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set agreeClosure to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".ticketState..agreeClosure","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Need to make pretty gui still... Sent to approval.to\r\na.customer@example.com has raised ticket number ticket:pa123.\r\n\r\nThey want to delete project P-6666 in the acceptance environment.\r\n\r\nPlease confirm that this is acceptable\r\n\r\nregards\r\n\r\nphil\r\n","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.requestedApproval","value":true,"context":{}}

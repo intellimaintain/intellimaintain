@@ -50,7 +50,7 @@ export function DisplaySqlWorkbench<S, S1 extends CommonState> ( { state: qd }: 
       <Typography variant="subtitle1" gutterBottom>SQL to execute</Typography>
       <TextField fullWidth variant="outlined" value={details.derefedSql} multiline rows={4}/>
       <Box display="flex" flexDirection="row" flexWrap="wrap" gap={1}>
-        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName}>Execute</FakeSendButton>
+        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName} message={`[${type}Sql]`} >Execute</FakeSendButton>
         <Button variant="contained" color="primary" endIcon={<TestIcon/>}> Test Connection </Button>
         <Button variant="contained" color="primary" endIcon={<RefreshIcon/>}> Reset</Button>
         <Button variant="contained" color="secondary" endIcon={<CancelIcon/>}> Cancel </Button>

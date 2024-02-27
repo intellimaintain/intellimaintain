@@ -46,7 +46,7 @@ export function DisplayLdapWorkbench<S, S1 extends CommonState> ( { state: qd }:
       <Typography variant="subtitle1" gutterBottom>User name</Typography>
       <TextField fullWidth variant="outlined" value={who}/>
       <Box display="flex" flexDirection="row" flexWrap="wrap" gap={1}>
-        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName}>Execute</FakeSendButton>
+        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName} message ={`Need to make pretty gui... Checked ${who}`}>Execute</FakeSendButton>
         <Button variant="contained" color="primary" endIcon={<TestIcon/>}> Test Connection </Button>
         <Button variant="contained" color="primary" endIcon={<RefreshIcon/>}> Reset</Button>
         <Button variant="contained" color="secondary" endIcon={<CancelIcon/>}> Cancel </Button>

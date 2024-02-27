@@ -1,0 +1,11 @@
+Name: Adjust Database Sql
+
+# Note that these can be provided from the KA or the Ticket
+# We might want data types here... it's ok to be more specific in the ktype
+Required:
+  system: string
+  environment: "string and in the software catalog"
+  sql: NameAnd<Sql> [check, resolve, validate]
+
+
+

@@ -41,7 +41,7 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
   }, [ messages ] );
   return (
     <>
-    <Typography variant="h2" component="h2" gutterBottom>ITMS Workbench</Typography>
+    <Typography variant="h2" component="h2" gutterBottom>ITSM Workbench</Typography>
     <Box sx={{ display: 'flex', flexDirection: 'row', height: '90vh', border: '1px solid #ccc' }}>
       {children}
       <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>

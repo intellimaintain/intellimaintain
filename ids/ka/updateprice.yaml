@@ -9,15 +9,32 @@ required:
 
 variables:
   system: EPX
+
 sql:
   check:
+    purpose: "Check the price is  ${oldPrice}"
     sql: 'select * from items where item_id=:itemId '
     correctWhen: 'should be equal to :newPrice and itemName should be equal to :itemName'
   resolve:
+    purpose: "Change the price of ${itemName} to ${newPrice}"
     sql: 'update item set price=:newPrice where itemId=:itemId and price=:old_price'
   validate:
+    purpose: "Check the price is  ${newPrice}"
     sql:  'select * from items where item_id = :itemId '
     correctWhen: 'should be equal to :newPrice'
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
