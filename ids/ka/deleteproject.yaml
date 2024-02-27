@@ -34,45 +34,45 @@ sql:
 
 
 checklist:
-  checkedIssueExists:
+  checkIssueExists:
     hint: "Please check the project ${projectId} exists"
     safe: true
     by: sql
     type: "check"
-  checkedUser:
+  checkUser:
     hint: "Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'"
     safe: true
     by: ldap
     who: operator.email
     success: "user should be a member of group 'EPX-Project'"
-  checkedApprover:
+  checkApprover:
     hint: "Please check the approver is in LDAP and a member of the group 'EPX-Project-Admin'"
     safe: true
     by: ldap
     who: approval.to
     success: "user should be a member of group 'EPX-Project-Admin'"
-  requestedApproval:
+  requestApproval:
     hint: "Please request approval from ${approval.to}"
     by: email
     to: approval.to
     template: "template:delete.project.request.approval"
-    waitingFor: checkedIssueExists
-  receivedApproval:
-    by: manually
-    waitingFor: requestedApproval
-  checkedIssueStillExists:
+    waitingFor: checkIssueExists,checkUser,checkApprover
+  receiveApproval:
+    by: receiveEmail
+    waitingFor: requestApproval
+  checkIssueStillExists:
     hint: "Please check the project ${projectId} exists"
     safe: true
     by: sql
     type: "check"
-    waitingFor: receivedApproval
+    waitingFor: receiveApproval
   resolve:
     hint: "Please update the database by deleting the project with id ${projectId}"
     safe: true
     by: sql
     type: resolve
-    waitingFor: receivedApproval
-  validated:
+    waitingFor: receiveApproval
+  validateFixed:
     hint: "Please check the project ${projectId} is not in the database"
     safe: true
     by: sql
@@ -83,9 +83,9 @@ checklist:
     by: email
     to: operator.email
     template: "template:delete.project.agreed.closed"
-    waitingFor: validated
+    waitingFor: validateFixed
   agreeClosure:
-    by: manually
+    by: receiveEmail
     waitingFor: requestClosure
   closed:
     hint: "Please close the ticket"

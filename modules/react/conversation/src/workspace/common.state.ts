@@ -9,6 +9,7 @@ import { LensState } from "@focuson/state";
 import { KnowledgeArticle } from "@intellimaintain/knowledge_articles";
 import { derefence, dollarsBracesVarDefn } from "@laoban/variables";
 import { Templates } from "@intellimaintain/react_templates";
+import { uppercaseFirstLetter } from "@intellimaintain/utils";
 
 export interface WorkspaceSelectionState {
   workspaceTab?: string
@@ -47,4 +48,10 @@ export function calculateActionDetails<S, S1 extends CommonState >( state: LensS
   const variables = commonState?.variables?.Summary?.variables || {}
   const title = derefence ( 'Title', variables, hint, { variableDefn: dollarsBracesVarDefn, emptyTemplateReturnsSelf: true } )
   return { knowledgeArticle, action, variables, title,actionName: actionStatus.actionName };
+}
+export function onClickAction<S, S1 extends CommonState> ( state: LensState<S, S1, any>, actionStatus: ActionStatus ) {
+  return () => state.focusOn ( 'selectionState' ).doubleUp ()
+    .focus1On ( 'workspaceTab' )
+    .focus2On ( 'actionName' )
+    .setJson ( uppercaseFirstLetter ( actionStatus.action.by.toLowerCase () ), actionStatus.actionName, '' )
 }

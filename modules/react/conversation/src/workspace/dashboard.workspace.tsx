@@ -1,18 +1,16 @@
 import { LensProps, LensState } from "@focuson/state";
-import { SideEffect } from "@intellimaintain/react_core";
 import { WorkSpacePlugin, WorkspaceStateFn } from "./workspace";
 import React from "react";
 import { KnowledgeArticle } from "@intellimaintain/knowledge_articles";
 import { NameAnd } from "@laoban/utils";
-import { Button, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
-import { Action, ActionStatus, calcStatusForAll } from "@intellimaintain/actions";
-import InfoIcon from '@mui/icons-material/Info';
+import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from "@mui/material";
+import { ActionStatus, calcStatusForAll } from "@intellimaintain/actions";
 import { derefence, dollarsBracesVarDefn } from "@laoban/variables";
-import { extractPathFromDescription, uppercaseFirstLetter } from "@intellimaintain/utils";
-import { makeSideeffectForMessage } from "@intellimaintain/components";
-import { CommonState, WorkspaceSelectionState } from "./common.state";
+import { extractPathFromDescription, splitAndCapitalize } from "@intellimaintain/utils";
+import { CommonState, onClickAction } from "./common.state";
 import { StatusIndicator } from "./status.indicator";
-import { WaitingFor } from "./waiting.for";
+import ErrorIcon from '@mui/icons-material/Error';
+import { InPlaceMenu } from "./inPlaceMenu";
 
 export interface DashBoardData<S, S1 extends CommonState> {
   state: LensState<S, S1, any>
@@ -27,37 +25,34 @@ export function DashboardWorkspace<Mid, S1 extends CommonState> ( dataFn: Worksp
   });
 }
 
+export interface ActionTitleProps<S, S1> extends LensProps<S, S1, any> {
+  actionStatus: ActionStatus
+  summary: any
+  actionValue: boolean | undefined
+}
 
-
-interface YesNoButtonProps<S> extends LensProps<S, SideEffect[], any> {
-  path: string
-  who: string
-  actionName: string
-}
-function setAction<S> ( state: LensState<S, SideEffect[], any>, rootPath: string, actionName: string, who: string, value: boolean ) {
-  const path = rootPath + '.' + actionName
-  state.transform ( old => [ ...(old || []),
-    makeSideeffectForMessage ( { message: `Manually set ${actionName} to be ${value}`, who } ),
-    { command: 'event', event: { event: 'setValue', path, value, context: {} } }
-  ], '' )
-}
-export function YesButton<S> ( { state, path, actionName, who }: YesNoButtonProps<S> ) {
-  return <Button variant="contained" color="primary" fullWidth onClick={() => setAction ( state, path, actionName, who, true )}>Yes</Button>
-}
-export function NoButton<S> ( { state, path, actionName, who }: YesNoButtonProps<S> ) {
-  return <Button variant="contained" color="primary" fullWidth onClick={() => setAction ( state, path, actionName, who, false )}>No</Button>
-}
-export const ActionRow = <S, S1 extends CommonState> ( state: LensState<S, S1, any>, summary: any ) => ( [ actionName, actionStatus ]: [ string, ActionStatus ] ) => {
-  const action = actionStatus.action
-  const ticketState: NameAnd<boolean> = state.optJson ()?.ticketState || {}
-  const who = summary?.operator?.email || 'unknown'
-
-  const value = ticketState[ actionName ]
+export function ActionTitle<S, S1 extends CommonState> ( { state, summary, actionStatus, actionValue }: ActionTitleProps<S, S1>, ) {
+  const { action, actionName } = actionStatus
   const ActionTooltip = () => {
     return action.hint
       ? <span>{derefence ( '', summary, action.hint, { variableDefn: dollarsBracesVarDefn, emptyTemplateReturnsSelf: true } )}</span>
       : <></>;
   }
+  const disabled = actionStatus.cantStartBecause.length > 0 || actionValue !== undefined
+  return <Tooltip title={<ActionTooltip/>} placement="top">
+    {disabled ?
+      <span>{splitAndCapitalize ( actionName )}</span> :
+      <Button onClick={onClickAction ( state, actionStatus )} variant="text"> {splitAndCapitalize ( actionName )}</Button>}
+  </Tooltip>
+
+}
+
+export const ActionRow = <S, S1 extends CommonState> ( state: LensState<S, S1, any>, summary: any ) => ( [ actionName, actionStatus ]: [ string, ActionStatus ] ) => {
+  const action = actionStatus.action
+  const ticketState: NameAnd<boolean> = state.optJson ()?.ticketState || {}
+  const who = summary?.operator?.email || 'unknown'
+
+  const actionValue = ticketState[ actionName ]
 
   const JsonTooltip = () => (
     <pre>{JSON.stringify ( { actionName: { action } }, null, 2 )}
@@ -66,69 +61,64 @@ export const ActionRow = <S, S1 extends CommonState> ( state: LensState<S, S1, a
   const raw = extractPathFromDescription ( state.optional.description )
 
   const path = raw + ".ticketState."
+  const disabled = actionStatus.cantStartBecause.length > 0
+  const problem = actionValue === true && disabled
+
   return <TableRow key={actionName}>
-    <TableCell> <Tooltip title={<ActionTooltip/>} placement="top"><span>{actionName}</span></Tooltip></TableCell>
-    <TableCell><StatusIndicator value={value}/></TableCell>
-    <TableCell><WaitingFor ticketState={ticketState} waitingFor={action?.waitingFor}/></TableCell>
-    <TableCell align="left">{action.by === 'manually' ? 'manually' :
-      <ActionButton state={state.focusOn ( 'selectionState' )} action={action} actionName={actionName}/>} </TableCell>
-    <TableCell align="left">
-      <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-        <YesButton state={state.focusOn ( 'sideeffects' )} actionName={actionName} path={path} who={who}/>
-        <NoButton state={state.focusOn ( 'sideeffects' )} actionName={actionName} path={path} who={who}/>
-        <Tooltip title={<JsonTooltip/>} placement="top"><IconButton size="small"> <InfoIcon/> </IconButton></Tooltip>
-      </div>
+    <TableCell>
+      <ActionTitle actionStatus={actionStatus} summary={summary} state={state} actionValue={actionValue}/>
     </TableCell>
+    <TableCell>
+      <Box display="flex" alignItems="center"><StatusIndicator value={actionValue}/>{problem && <ErrorIcon/>}</Box>
+    </TableCell>
+    <TableCell> <InPlaceMenu state={state} actionStatus={actionStatus} rootPath={path} who={who}/></TableCell>
   </TableRow>
 };
-export interface ActionButtonProps<S> extends LensProps<S, WorkspaceSelectionState, any> {
-  actionName: string
-  action: Action
-
+export interface ActionButtonProps<S, S1 extends CommonState> extends LensProps<S, S1, any> {
+  actionStatus: ActionStatus
+  disabled?: boolean
+  actionValue: boolean
 }
-export function ActionButton<S> ( { action,actionName, state }: ActionButtonProps<S> ) {
+export function OutOfTurnActionButton<S, S1 extends CommonState> ( { actionStatus, state, disabled, actionValue }: ActionButtonProps<S, S1> ) {
+  const done = actionValue !== undefined
+  const notReady = actionStatus.cantStartBecause.length > 0
+  const title = done ? 'Do again' : notReady ? 'Do it anyway' : undefined
+  if ( title === undefined ) return <></>
   return <Button
-    variant="contained" // Gives the button a background color
-    color="primary" // Use the theme's primary color
-    fullWidth
-    onClick={() => {state.doubleUp().focus1On ( 'workspaceTab' ).focus2On('actionName').setJson ( uppercaseFirstLetter ( action.by.toLowerCase () ), actionName , '')}}
-  >{action.by}</Button>
+    variant="text"
+    color="secondary"
+    style={{ textTransform: 'none' }}
+    onClick={onClickAction ( state, actionStatus )}
+  >({title})</Button>
 }
 
 export interface DisplayTodoProps<S, S1 extends CommonState> extends LensProps<S, S1, any> {
   actionStatus: NameAnd<ActionStatus>
 }
 
-export function DisplayTodos<S, S1 extends CommonState> ( { state,actionStatus }: DisplayTodoProps<S, S1> ) {
+export function DisplayTodos<S, S1 extends CommonState> ( { state, actionStatus }: DisplayTodoProps<S, S1> ) {
   let summary: any = state.optJson ()?.variables.Summary?.variables || {};
-  // console.log ( 'summary', summary )
-  // const checkList: any = summary.checklist || {}
-  // console.log ( 'checkList', checkList )
-  // const definition: NameAnd<Action> = checkList || {}
-
-
   return (<TableContainer style={{ height: 'auto', maxWidth: '750px' }} component={Paper}>
     <Table>
       <TableHead>
         <TableRow>
-          <TableCell>State</TableCell>
-          <TableCell>Value</TableCell>
-          <TableCell>Waiting For</TableCell>
-          <TableCell>Action</TableCell>
-          <TableCell>Manually</TableCell>
+          <TableCell>Check List</TableCell>
+          <TableCell>Done</TableCell>
+          <TableCell>
+          </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {Object.entries ( actionStatus ).map ( ActionRow (  state ,summary) )}
+        {Object.entries ( actionStatus ).map ( ActionRow ( state, summary ) )}
       </TableBody>
     </Table>
   </TableContainer>);
 }
 export function DisplayDashboard<S, S1 extends CommonState> ( { state: qd }: { state: DashBoardData<S, S1> } ) {
   const { state } = qd
-  const knowledgeArticle: KnowledgeArticle|undefined = state.focusOn ( 'kas' ).optJson ()?.item
+  const knowledgeArticle: KnowledgeArticle | undefined = state.focusOn ( 'kas' ).optJson ()?.item
   const ticketState: NameAnd<boolean> = state.optJson ()?.ticketState || {}
-  const actionStatus = calcStatusForAll(ticketState, knowledgeArticle?.checklist || {})
+  const actionStatus = calcStatusForAll ( ticketState, knowledgeArticle?.checklist || {} )
   return <div>
     <p>The current knowledge article is <strong>{knowledgeArticle?.name || '<unknown>'}</strong>. Is that correct. If not change it in the 'KSA' tab above</p>
     <DisplayTodos state={state} actionStatus={actionStatus}/>
