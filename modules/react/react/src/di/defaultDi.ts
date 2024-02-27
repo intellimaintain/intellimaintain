@@ -1,6 +1,6 @@
 import { DI } from "./di";
 import { ChatState } from "../domain/domain";
-import { ChatEntryWorkspace, DashBoardData, DashboardWorkspace, dereferencePlugIn, emailDisplayPlugin, EmailWorkspace, LdapTempSpace, LdapWorkspace, QuickData, QuickWorkspace, sqlDataDisplayMessagePlugin, sqlDisplayMessagePlugin, SqlTempSpace, SqlWorkspace } from "@intellimaintain/react_conversation";
+import { ChatEntryWorkspace, DashBoardData, DashboardWorkspace, dereferencePlugIn, emailDisplayPlugin, EmailTempSpace, EmailWorkspace, LdapTempSpace, LdapWorkspace, QuickData, QuickWorkspace, sqlDataDisplayMessagePlugin, sqlDisplayMessagePlugin, SqlTempSpace, SqlWorkspace } from "@intellimaintain/react_conversation";
 import { LensState } from "@focuson/state";
 
 
@@ -22,15 +22,18 @@ export const defaultDi: DI<ChatState> = {
       return qd
     } ),
     ChatEntryWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'chatTempSpace' ).focus2On ( 'sideeffects' ) ),
-    SqlWorkspace<ChatState,ChatState> ( ( state: LensState<any, ChatState, any> ): SqlTempSpace<ChatState, ChatState> => {
+    SqlWorkspace<ChatState, ChatState> ( ( state: LensState<any, ChatState, any> ): SqlTempSpace<ChatState, ChatState> => {
       let qd: SqlTempSpace<ChatState, ChatState> = { state };
       return qd
-    }),
-    LdapWorkspace<ChatState,ChatState> ( ( state: LensState<any, ChatState, any> ): SqlTempSpace<ChatState, ChatState> => {
+    } ),
+    LdapWorkspace<ChatState, ChatState> ( ( state: LensState<any, ChatState, any> ): SqlTempSpace<ChatState, ChatState> => {
       let qd: LdapTempSpace<ChatState, ChatState> = { state };
       return qd
-    }),
-    EmailWorkspace<ChatState> ( s => s.doubleUp ().focus1On ( 'selectionState' ).focus1On ( 'emailTempSpace' ).focus2On ( 'sideeffects' ) ),
+    } ), EmailWorkspace<ChatState, ChatState> ( ( state: LensState<any, ChatState, any> ): EmailTempSpace<ChatState, ChatState> => {
+      let qd: EmailTempSpace<ChatState, ChatState> = { state };
+      return qd
+    } ),
+
   ]
 
 }

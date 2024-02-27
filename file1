@@ -6,14 +6,27 @@
 {"event":"setId","id":"sc:EPX","path":"scs.item","parser":"sc","context":{}}
 {"event":"setValue","path":"templates.selected","value":"template:delete.project.request.approval","context":{}}
 {"event":"setId","id":"template:delete.project.request.approval","path":"templates.item","parser":"template","context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"[CheckSql]","who":"from quick"},"context":{}}
 {"event":"setValue","path":"kas.selected","value":"ka:deleteproject","context":{}}
 {"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedUser to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".ticketState..checkedUser","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be false","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".ticketState..checkedApprover","value":false,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".ticketState..checkedApprover","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedIssueExists to be true","who":"phil@example.com"},"context":{}}
-{"event":"setValue","path":".ticketState..checkedIssueExists","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttoncheckedUser ","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkedUser","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttoncheckedApprover ","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkedApprover","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttoncheckedIssueExists ","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkedIssueExists","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonrequestedApproval ","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.requestedApproval","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set receivedApproval to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".ticketState..receivedApproval","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttoncheckedIssueStillExists ","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkedIssueStillExists","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonresolve ","who":"fake"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonresolve ","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.resolve","value":true,"context":{}}
+{"event":"setValue","path":"ticketState.resolve","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonvalidated ","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.validated","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Set by fake buttonresolve ","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.resolve","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set agreeClosure to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".ticketState..agreeClosure","value":true,"context":{}}

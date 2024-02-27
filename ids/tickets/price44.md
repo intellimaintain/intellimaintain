@@ -12,7 +12,8 @@ Please remove this project from the EPX production.
 # Variables
 * customer: a.customer@example.com
 * service: EPX
-* itemCode: 1234-44
+* itemId: 1234-44
+* itemName: discombobulator
 * oldPrice: 55.55
 * newPrice: 44.44
 * environment: Production

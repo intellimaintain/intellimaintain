@@ -9,12 +9,15 @@ variables:
 
 sql:
   check:
+    purpose: "Check the project ${projectId} exists"
     # we could specify a system but defaults to the variable 'system'
     sql: 'select * from projects where project_id = :projectId'
     correctWhen: atLeastOne
   resolve:
+    purpose: "Delete the project with id ${projectId}"
     sql: 'delete from projects where project_id = :projectId'
   validate:
+    purpose: "Check the project ${projectId} is not in the database"
     sql: 'select * from projects where project_id = :projectId'
     correctWhen: none
 
@@ -51,9 +54,15 @@ checklist:
   requestedApproval:
     hint: "Please request approval from ${approval.to}"
     by: email
+    to: approval.to
     template: "template:delete.project.request.approval"
   receivedApproval:
     by: manually
+  checkedIssueStillExists:
+    hint: "Please check the project ${projectId} exists"
+    safe: true
+    by: sql
+    type: "check"
   resolve:
     hint: "Please update the database by deleting the project with id ${projectId}"
     safe: true
@@ -69,6 +78,7 @@ checklist:
   requestClosure:
     hint: "Please ask the user to confirm the project ${projectId} is deleted"
     by: email
+    to: operator.email
     template: "template:delete.project.agreed.closed"
     waitingFor: validated
   agreeClosure:
@@ -80,6 +90,15 @@ checklist:
     template: "template:delete.project.closed"
     waitingFor: agreeClosure
 
+
+
+
+
+
+
+
+
+# old and not used any more
 
 buttons:
   CheckTicket:

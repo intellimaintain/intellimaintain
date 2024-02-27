@@ -1,7 +1,6 @@
 import { escapeSqlParameters, extractSqlString } from "@intellimaintain/utils";
 import { fromEntries, NameAnd } from "@laoban/utils";
-import { colonPrefixedVarDefn } from "@intellimaintain/react_conversation/dist/src/displayplugins/SqlData";
-import { derefence } from "@laoban/variables";
+import { derefence, VariableDefn } from "@laoban/variables";
 
 export interface SqlDataDetails {
   environment: string
@@ -15,7 +14,10 @@ export interface SqlDataDetails {
   sqlWithQuotes: string
   derefedSql: string
 }
-
+export const colonPrefixedVarDefn: VariableDefn = {
+  regex: /(:[a-zA-Z0-9._]+)/g,
+  removeStartEnd: ref => ref.slice ( 1 )
+};
 export function findSqlDataDetails ( sql: string, variables: any ): SqlDataDetails {
   const environment = variables?.environment?.toString () || '<No Environment>'
   const database = variables?.database

@@ -21,6 +21,69 @@ sql:
 
 
 
+# Belongs in the parent Knowledge Acticle
+# Delete as soon have that working
+
+
+checklist:
+  checkedUser:
+    hint: "Please check the ticket creator is in LDAP and a member of the group 'EPX-Project'"
+    safe: true
+    by: ldap
+    who: operator.email
+    success: "user should be a member of group 'EPX-Project'"
+  checkedApprover:
+    hint: "Please check the approver is in LDAP and a member of the group 'EPX-Project-Admin'"
+    safe: true
+    by: ldap
+    who: approval.to
+    success: "user should be a member of group 'EPX-Project-Admin'"
+  checkedIssueExists:
+    hint: "Please check the item ${itemName} with id ${itemId} exists"
+    safe: true
+    by: sql
+    type: "check"
+  requestedApproval:
+    hint: "Please request approval from ${approval.to}"
+    by: email
+    to: approval.to
+    template: "template:delete.project.request.approval"
+  receivedApproval:
+    by: manually
+  checkedIssueStillExists:
+    hint: "Please check the price is still ${oldPrice}"
+    safe: true
+    by: sql
+    type: "check"
+  resolve:
+    hint: "Please update the database by updating the price"
+    safe: true
+    by: sql
+    type: resolve
+    waitingFor: receivedApproval
+  validated:
+    hint: "Please check the price has changed to ${newPrice}"
+    safe: true
+    by: sql
+    type: validate
+    waitingFor: resolve
+  requestClosure:
+    hint: "Please ask the user to confirm the price has changed"
+    by: email
+    to: operator.email
+    template: "template:delete.project.agreed.closed"
+    waitingFor: validated
+  agreeClosure:
+    by: manually
+    waitingFor: requestClosure
+  closed:
+    hint: "Please close the ticket"
+    by: ticket
+    template: "template:delete.project.closed"
+    waitingFor: agreeClosure
+
+
+
 
 
 

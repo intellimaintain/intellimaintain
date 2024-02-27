@@ -6,7 +6,7 @@ export interface SelectionState extends WorkspaceSelectionState {
   topBottomSlider?: number
   chatTempSpace?: ChatTempSpace
   sqlTempSpace?: SqlTempSpace<any,any>
-  ldapTempSpace?: LdapTempSpace
-  emailTempSpace?: EmailTempSpace
+  ldapTempSpace?: LdapTempSpace<any,any>
+  emailTempSpace?: EmailTempSpace<any,any>
 }
 

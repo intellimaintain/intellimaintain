@@ -2,7 +2,7 @@ import { LensProps } from "@focuson/state";
 import { ChatState } from "../domain/domain";
 import { DI } from "../di/di";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "@intellimaintain/components/dist/src/theme/mytheme";
+import { theme } from "@intellimaintain/components";
 import { DisplayGui } from "./gui";
 import React from "react";
 import { TemplateFn } from "@intellimaintain/components";

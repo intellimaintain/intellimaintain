@@ -8,10 +8,7 @@ export interface SqlDataProps {
   variables: any
   children?: ReactNode
 }
-export const colonPrefixedVarDefn: VariableDefn = {
-  regex: /(:[a-zA-Z0-9._]+)/g,
-  removeStartEnd: ref => ref.slice ( 1 )
-};
+
 
 export interface SqlDataTableProps {
   details: SqlDataDetails

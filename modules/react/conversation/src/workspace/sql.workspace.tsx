@@ -15,6 +15,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TestIcon from '@mui/icons-material/SettingsEthernet'; // Example icon for "Test Connection"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { FakeSendButton } from "./fake.send.button";
 
 export interface SqlTempSpace<S, S1 extends CommonState> {
   state: LensState<S, S1, any>
@@ -30,12 +31,12 @@ export function SqlWorkspace<Mid, S1 extends CommonState> ( dataFn: WorkspaceSta
 
 export function DisplaySqlWorkbench<S, S1 extends CommonState> ( { state: qd }: { state: SqlTempSpace<S, S1> } ) {
   const { state } = qd
-  const { knowledgeArticle, action, variables, title } = calculateActionDetails ( state,  'sql' );
+  const { knowledgeArticle, action, variables, title, actionName } = calculateActionDetails ( state, 'sql' );
 
-  if ( action.by !== 'sql' ) return <div>Action is not a sql action it is {JSON.stringify ( action )}</div>
+  if ( action?.by !== 'sql' ) return <div>Action is not a sql action it is {JSON.stringify ( action )}</div>
   if ( !isAdjustDatabaseSqlKS ( knowledgeArticle ) ) return <div><p>Not a SQL knowledge article</p></div>
-  const type = (action as any)?.type || ''
-  const sqlData = knowledgeArticle?.sql?.[ type ]
+  const type : string = (action as any)?.type?.toString () || ''
+  const sqlData: any = (knowledgeArticle?.sql as any)?.[ type ]
   const sql = sqlData?.sql
   const correctWhen = sqlData?.correctWhen
   const details = findSqlDataDetails ( sql || '', variables )
@@ -49,7 +50,7 @@ export function DisplaySqlWorkbench<S, S1 extends CommonState> ( { state: qd }: 
       <Typography variant="subtitle1" gutterBottom>SQL to execute</Typography>
       <TextField fullWidth variant="outlined" value={details.derefedSql} multiline rows={4}/>
       <Box display="flex" flexDirection="row" flexWrap="wrap" gap={1}>
-        <Button variant="contained" color="primary" endIcon={<PlayArrowIcon/>}> Execute </Button>
+        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName}>Execute</FakeSendButton>
         <Button variant="contained" color="primary" endIcon={<TestIcon/>}> Test Connection </Button>
         <Button variant="contained" color="primary" endIcon={<RefreshIcon/>}> Reset</Button>
         <Button variant="contained" color="secondary" endIcon={<CancelIcon/>}> Cancel </Button>

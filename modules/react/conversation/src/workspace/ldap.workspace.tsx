@@ -10,8 +10,9 @@ import TestIcon from "@mui/icons-material/SettingsEthernet";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { SqlDataTable } from "../displayplugins/SqlData";
-import { replaceVar } from "@laoban/variables/dist/src/variables";
+import { replaceVar } from "@laoban/variables";
 import { dollarsBracesVarDefn } from "@laoban/variables";
+import { FakeSendButton } from "./fake.send.button";
 
 export interface LdapTempSpace<S, S1 extends CommonState> {
   state: LensState<S, S1, any>
@@ -30,8 +31,8 @@ export function LdapWorkspace<Mid, S1 extends CommonState> ( dataFn: WorkspaceSt
 // }
 export function DisplayLdapWorkbench<S, S1 extends CommonState> ( { state: qd }: { state: LdapTempSpace<S, S1> } ) {
   const { state } = qd
-  const { knowledgeArticle, action, variables, title } = calculateActionDetails ( state, 'ldap' );
-  if ( action.by !== 'ldap' ) return <div>Action is not a sql action it is {JSON.stringify ( action )}</div>
+  const { knowledgeArticle, action, variables, title,actionName } = calculateActionDetails ( state, 'ldap' );
+  if ( action?.by !== 'ldap' ) return <div>Action is not a ldap action it is {JSON.stringify ( action )}</div>
 
   const whoName = (action as any).who
   const who = whoName && replaceVar ( 'finding who', '${'+ whoName+'}', variables, { variableDefn: dollarsBracesVarDefn, emptyTemplateReturnsSelf: true } )
@@ -45,7 +46,7 @@ export function DisplayLdapWorkbench<S, S1 extends CommonState> ( { state: qd }:
       <Typography variant="subtitle1" gutterBottom>User name</Typography>
       <TextField fullWidth variant="outlined" value={who}/>
       <Box display="flex" flexDirection="row" flexWrap="wrap" gap={1}>
-        <Button variant="contained" color="primary" endIcon={<PlayArrowIcon/>}> Execute </Button>
+        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName}>Execute</FakeSendButton>
         <Button variant="contained" color="primary" endIcon={<TestIcon/>}> Test Connection </Button>
         <Button variant="contained" color="primary" endIcon={<RefreshIcon/>}> Reset</Button>
         <Button variant="contained" color="secondary" endIcon={<CancelIcon/>}> Cancel </Button>

@@ -8,7 +8,7 @@ import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, Table
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import SecurityIcon from '@mui/icons-material/Security';
 import { Ticket } from "@intellimaintain/tickets";
-import { makeSideeffectForMessage } from "@intellimaintain/components/dist/src/messages/messaging";
+import { makeSideeffectForMessage } from "@intellimaintain/components";
 
 export interface ChatButtonProps<S> extends LensProps2<S, NameAnd<Variables>, SideEffect[], any> {
 
