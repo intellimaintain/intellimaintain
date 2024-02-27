@@ -21,6 +21,7 @@ export interface BaseKnowledgeArticle extends IdAndName {
   approver?: string // e.g. specific email for POC. Might have dsl in future. If not here no approval needed
   variables?: NameAnd<string>
   buttons?: NameAnd<ButtonData>
+  checklist?: NameAnd<Action>
   state: NameAnd<Action>
 }
 

@@ -30,8 +30,8 @@ export function ChatArea<S, C extends HasDisplayPlugins & HasWorkspacePlugins<Ch
       <DisplayTemplates path='templates' state={state}/>}</TabWithSideEffects>
     <TabWithSideEffects title='Variables' state={state} focuson='variables'>{state =>
       <DisplayVariables state={state}/>}</TabWithSideEffects>
-    <SimpleTabPanel title='State'><DisplayDebug maxHeight='40vh' maxWidth='40vw' state={state}/></SimpleTabPanel>
-    <SimpleTabPanel title='Debug'><StateDisplay maxHeight='40vh' maxWidth='40vw' state={state}/></SimpleTabPanel>
+    <SimpleTabPanel title='State'><DisplayDebug maxHeight='75vh' maxWidth='40vw' state={state}/></SimpleTabPanel>
+    <SimpleTabPanel title='Debug'><StateDisplay maxHeight='75vh' maxWidth='40vw' state={state}/></SimpleTabPanel>
   </WorkspaceTabs>
 }
 

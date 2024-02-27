@@ -78,7 +78,7 @@ function SectionCard ( { title, variables }: VariablesCardProps ) {
 export function DisplayVariables<S> ( { state }: LensProps2<S, NameAnd<Variables>, SideEffect[], any> ) {
   const variables = state.state1 ().optJson () || {}
 
-  return <div style={{ display: 'flex', flexDirection: 'column', height: '35vh' }}>
+  return <div style={{ display: 'flex', flexDirection: 'column', height: '75vh' }}>
     <div style={{ flexGrow: 1, overflowY: 'scroll' }}>
       {Object.entries ( variables ).map ( ( [ title, variables ], index ) => (
         <SectionCard

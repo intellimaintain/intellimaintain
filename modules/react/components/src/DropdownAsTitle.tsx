@@ -38,7 +38,7 @@ export function DropdownAsTitle<S, T extends IdAndName> ( { state, children, pat
   console.log ( 'options', options )
 
   return <Card sx={{height: '100%' }} variant="outlined">
-    <CardContent sx={{ display: 'flex', flexDirection: 'column' , height: '25vh' }}>
+    <CardContent sx={{ display: 'flex', flexDirection: 'column' , height: '75vh' }}>
       <Select
         value={selected || ''}
         onChange={handleChange}

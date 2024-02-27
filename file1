@@ -13,3 +13,7 @@
 {"event":"setValue","path":".ticketState..checkedUser","value":true,"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be false","who":"phil@example.com"},"context":{}}
 {"event":"setValue","path":".ticketState..checkedApprover","value":false,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedApprover to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".ticketState..checkedApprover","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"message":"Manually set checkedIssueExists to be true","who":"phil@example.com"},"context":{}}
+{"event":"setValue","path":".ticketState..checkedIssueExists","value":true,"context":{}}

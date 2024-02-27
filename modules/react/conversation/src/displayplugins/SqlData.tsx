@@ -1,8 +1,7 @@
 import React, { ReactNode } from "react";
 import { AttributeTable } from "@intellimaintain/components";
-import { escapeSqlParameters, extractSqlString } from "@intellimaintain/utils";
-import { fromEntries } from "@laoban/utils";
-import { derefence, VariableDefn } from "@laoban/variables";
+import { VariableDefn } from "@laoban/variables";
+import { findSqlDataDetails, SqlDataDetails } from "@intellimaintain/defaultdomains";
 
 export interface SqlDataProps {
   sql?: string
@@ -14,18 +13,12 @@ export const colonPrefixedVarDefn: VariableDefn = {
   removeStartEnd: ref => ref.slice ( 1 )
 };
 
-export function SqlData ( { sql, variables, children }: SqlDataProps ) {
-  const environment = variables?.environment?.toString () || '<No Environment>'
-  const database = variables?.database
-  const type = database?.type?.toString () || '<No Type>'
-  const name = database?.name?.toString () || '<No Name>'
-  const user = database?.user?.toString () || '<No User>'
-  const password = database?.password?.toString () || '<No Password>'
-  const paramMetaData = database?.parameters
-  const params: [ string, any ][] = extractSqlString ( sql ).map ( p => [ p, variables[ p ] === true ] )
-  const paramsObj = fromEntries ( ...params )
-  const sqlWithQuotes = escapeSqlParameters ( sql || '', paramMetaData|| {} )
-  const derefedSql = derefence ( 'sql', variables, sqlWithQuotes, { variableDefn: colonPrefixedVarDefn, emptyTemplateReturnsSelf: true } )
+export interface SqlDataTableProps {
+  details: SqlDataDetails
+}
+export function SqlDataTable ( { details }: SqlDataTableProps ) {
+
+  const { environment, type, name, user, password, derefedSql, sql } = details
   return <AttributeTable rows={{
     "Environment": environment,
     "Database": `${type} ${name}`,
@@ -38,7 +31,8 @@ export function SqlData ( { sql, variables, children }: SqlDataProps ) {
 
 export function SqlDataAndTest ( props: SqlDataProps ) {
   const { sql, variables } = props
-  return <><SqlData {...props}/>
+  const details = findSqlDataDetails ( sql || '', variables )
+  return <><SqlDataTable details={details}/>
     <button>Test connection</button>
     {props.children}
   </>
