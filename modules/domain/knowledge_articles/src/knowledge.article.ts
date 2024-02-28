@@ -1,6 +1,6 @@
 import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { ParserStoreParser } from "@intellimaintain/parser";
-import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
+import { DomainPlugin, IdAndName, SelectedAndList } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
 import { transformKeysToCamelCase } from "@intellimaintain/utils";
 import { Action } from "@intellimaintain/actions";
@@ -53,7 +53,7 @@ export function isInService1NotInService2KS ( x: any ): x is InService1NotInServ
   return x.parent === 'katype:inService1NotInService2'
 }
 export type KnowledgeArticle = AdjustDatabaseSqlKS | InService1NotInService2KS
-
+export type KnowledgeArticles = SelectedAndList<KnowledgeArticle>
 
 export const kaArticleParser: ParserStoreParser = ( id, s ): ErrorsAnd<KnowledgeArticle> => {
   const doc = transformKeysToCamelCase<any> ( yaml.load ( s ) )

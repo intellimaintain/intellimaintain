@@ -1,17 +1,17 @@
 {
-  "template":    "typescript",
-  "name":        "@intellimaintain/react_core",
+  "template":    "react",
+  "name":        "@intellimaintain/react_sql",
   "description": "",
   "packageJson": {
     "files":        ["build/"],
     "dependencies": {
-      "@focuson/state": "1.44.3"
     }
   },
   "links":       [
-    "@intellimaintain/apiclienteventstore",
-    "@intellimaintain/events",
-    "@intellimaintain/eventstore"
+    "@intellimaintain/components",
+    "@intellimaintain/domain",
+    "@intellimaintain/react_core",
+    "@intellimaintain/variables"
   ],
   "guards":      {
     "compile": true,

@@ -1,10 +1,10 @@
 import React from "react";
-import { LensProps, LensProps2, LensState } from "@focuson/state";
-import { SelectedAndList, SideEffect } from '@intellimaintain/react_core';
-import { AdjustDatabaseSqlKS, isAdjustDatabaseSqlKS, KnowledgeArticle } from "@intellimaintain/knowledge_articles";
-import { DisplayDebug, DisplayYaml, DropdownAsTitle } from "@intellimaintain/components";
+import { LensProps, LensProps2 } from "@focuson/state";
+import { SideEffect } from '@intellimaintain/react_core';
+import { KnowledgeArticle, KnowledgeArticles } from "@intellimaintain/knowledge_articles";
+import { DisplayYaml, DropdownAsTitle } from "@intellimaintain/components";
 
-export type KnowledgeArticles = SelectedAndList<KnowledgeArticle>
+
 export function DisplayKnowledgeArticle<S> ( { state }: LensProps<S, KnowledgeArticle, any> ) {
   const ka = state.json ()
   return <DisplayYaml yamlContent={ka} />

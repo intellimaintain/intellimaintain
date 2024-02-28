@@ -3,10 +3,9 @@ import { LensProps, LensProps2 } from "@focuson/state";
 import { Box, Typography } from "@mui/material";
 import ReactMarkdown from 'react-markdown';
 import { DropdownAsTitle } from "@intellimaintain/components";
-import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
-import { Ticket } from "@intellimaintain/tickets";
+import { SideEffect } from "@intellimaintain/react_core";
+import { Ticket, Tickets } from "@intellimaintain/tickets";
 
-export type Tickets = SelectedAndList<Ticket>
 
 export function DisplayTicket<S> ( { state }: LensProps<S, Ticket, any> ) {
   let ticket: Ticket | undefined = state.optJson ()

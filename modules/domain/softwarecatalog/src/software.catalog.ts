@@ -1,15 +1,16 @@
 import { ParserStoreParser } from "@intellimaintain/parser";
-import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
+import { DomainPlugin, IdAndName, SelectedAndList } from "@intellimaintain/domain";
 import { ErrorsAnd, NameAnd } from "@laoban/utils";
-import { extractVariablesFromMarkdown, findRelevant, Variables } from "@intellimaintain/variables";
+import { findRelevant, Variables } from "@intellimaintain/variables";
 import { findIdKeyAndPath } from "@intellimaintain/idstore";
 import { transformKeysToCamelCase } from "@intellimaintain/utils";
+
 
 const yaml = require ( 'js-yaml' );
 
 export interface SoftwareCatalog extends IdAndName, NameAnd<any> {
 }
-
+export type SoftwareCatalogs = SelectedAndList<SoftwareCatalog>
 export function variablesFromSoftwareCatalog (soFar: NameAnd<any>, sc: SoftwareCatalog ): ErrorsAnd<Variables> {
   const variables =  findRelevant ( soFar, 'environments', 'environment', sc )
   return { variables, errors: [] }

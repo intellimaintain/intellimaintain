@@ -41,30 +41,34 @@ export function DisplayConversation<S, C extends HasDisplayPlugins> ( { state, f
   }, [ messages ] );
   return (
     <>
-    <Typography variant="h2" component="h2" gutterBottom>ITSM Workbench</Typography>
-    <Box sx={{ display: 'flex', flexDirection: 'row', height: '90vh', border: '1px solid #ccc' }}>
-      {children}
-      <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
-        <List sx={{
-          padding: '8px',
-          marginRight: '48px',
-        }}>
-          {messages.map ( ( message, index ) => (
-            <ListItem key={index}>
-              <Grid container spacing={2} alignItems="flex-start">
-                <Grid item xs={2}>
-                  <Typography variant="subtitle1" color="textSecondary">
-                    {message.who}:
-                  </Typography>
-                </Grid>
-                <Grid item xs={10}>{displayMessage ( plugins, summary, from, path + `message[${index}].`, state.state13 ().focus1On ( 'messages' ).chain1 ( Lenses.nth ( index ) ), template )}</Grid>
-              </Grid>
-            </ListItem>
-          ) )}
-        </List>
-        <div ref={endOfListRef}/>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '90vh', border: '1px solid #ccc' }}>
+        <Typography variant="h2" component="h2" gutterBottom>ITSM Workbench</Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'row', height: '90vh', border: '1px solid #ccc' }}>
+          {children}
+          <Box sx={{ flexGrow: 1, overflowY: 'auto' }}>
+            <List sx={{
+              padding: '8px',
+              marginRight: '48px',
+            }}>
+              {messages.map ( ( message, index ) => (
+                <ListItem key={index}>
+                  <Grid container spacing={2} alignItems="flex-start">
+                    <Grid item xs={2}>
+                      <Typography variant="subtitle1" color="textSecondary">
+                        {message.who}:
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={10}>{displayMessage ( plugins, summary, from, path + `message[${index}].`, state.state13 ().focus1On ( 'messages' ).chain1 ( Lenses.nth ( index ) ), template )}</Grid>
+                  </Grid>
+                </ListItem>
+              ) )}
+            </List>
+            <div ref={endOfListRef}/>
+          </Box>
+        </Box>
+          <UserTypingBox from='Operator' state={state.state13 ().focus1On ( 'message' )}/>
       </Box>
-    </Box></>
+    </>
   )
     ;
 }

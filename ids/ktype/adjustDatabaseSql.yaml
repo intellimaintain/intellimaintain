@@ -5,7 +5,64 @@ Name: Adjust Database Sql
 Required:
   system: string
   environment: "string and in the software catalog"
-  sql: NameAnd<Sql> [check, resolve, validate]
+  sql:
+     - check
+     - resolve
+     - validate
 
+stages:
+  checkTicket:
+    checkIssueExists:
+      safe: true
+      by: sql
+      type: "check"
+    checkUser:
+      safe: true
+      by: ldap
+      who: operator.email
+      success: "user should be a member of group 'EPX-Project'"
+    checkApprover:
+      safe: true
+      by: ldap
+      who: approval.to
+      success: "user should be a member of group 'EPX-Project-Admin'"
+  getApproval:
+    requestApproval:
+      by: email
+      to: approval.to
+      template: "template:delete.project.request.approval"
+      waitingFor: checkIssueExists,checkUser,checkApprover
+    receiveApproval:
+      by: receiveEmail
+      waitingFor: requestApproval
+  resolveIssue:
+    checkIssueStillExists:
+      safe: true
+      by: sql
+      type: "check"
+      waitingFor: receiveApproval
+    resolve:
+      safe: true
+      by: sql
+      type: resolve
+      waitingFor: receiveApproval
+    validateFixed:
+      safe: true
+      by: sql
+      type: validate
+      waitingFor: resolve
+  closeTicket:
+    requestClosure:
+      by: email
+      to: operator.email
+      template: "template:delete.project.agreed.closed"
+      waitingFor: validateFixed
+    agreeClosure:
+      by: receiveEmail
+      waitingFor: requestClosure
+    closed:
+      by: ticket
+      template: "template:delete.project.closed"
+      waitingFor: agreeClosure
 
 

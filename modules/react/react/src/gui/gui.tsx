@@ -1,6 +1,6 @@
 import { LensProps } from "@focuson/state";
 import { ChatState } from "../domain/domain";
-import { DisplayDebug, MainAppLayout, SimpleTabPanel, StateDisplay, TabsContainer, TabWithSideEffects, TemplateFn } from "@intellimaintain/components";
+import { DisplayDebug, SimpleTabPanel, StateDisplay, TabWithSideEffects, TemplateFn } from "@intellimaintain/components";
 import { DisplayTickets } from "@intellimaintain/react_ticket";
 import { DisplayKnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
 import { DisplaySoftwareCatalogs } from "@intellimaintain/react_softwarecatalog";

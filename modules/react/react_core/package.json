@@ -17,6 +17,7 @@
     ]
   },
   "dependencies": {
+    "@focuson/state": "1.44.3",
     "@intellimaintain/apiclienteventstore": "0.1.1",
     "@intellimaintain/events": "0.1.1",
     "@intellimaintain/eventstore": "0.1.1",

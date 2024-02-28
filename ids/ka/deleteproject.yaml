@@ -1,8 +1,18 @@
 parent: 'katype:adjustDatabaseSql'
 name: Delete Project
 required:
-  - projectId
-  - environment
+  - projectId:
+      question: "What is the id of the project mentioned in the ticket"
+  - system:
+      question: "What service is mentioned in the ticket"
+      validation: "${system} = 'EPX'"
+  - customer.id:
+      "what is the customer's full email"
+  - environment:
+      variables:
+         environment: ['acceptance', 'test', 'production']
+      question: 'What environment is the project in from the following list: ${environment}'
+      postProcess: 'extractEnvironment (${environment})'
 
 variables:
   system: EPX

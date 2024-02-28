@@ -3,9 +3,9 @@ import { Box, Card, CardContent, MenuItem, Select, SelectChangeEvent, Theme, use
 import { LensProps, LensProps2, LensState } from "@focuson/state";
 
 import { SetIdEvent, SetValueEvent } from "@intellimaintain/events";
-import { IdAndName } from "@intellimaintain/domain";
+import { IdAndName, SelectedAndList } from "@intellimaintain/domain";
 import { Loading, WizardOfOz } from "@intellimaintain/components";
-import { SelectedAndList, SideEffect } from "@intellimaintain/react_core";
+import {  SideEffect } from "@intellimaintain/react_core";
 
 
 //observations... it will take time to load the selected item

@@ -1,9 +1,9 @@
 import { blankChatState, ChatState } from "./domain";
-import { IdAndName } from "@intellimaintain/domain";
-import { KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
-import { Tickets } from "@intellimaintain/react_ticket";
-import { SoftwareCatalogs } from "@intellimaintain/react_softwarecatalog"
-import { Templates } from "@intellimaintain/react_templates";
+import { KnowledgeArticles } from "@intellimaintain/knowledge_articles";
+import { SoftwareCatalogs } from "@intellimaintain/softwarecatalog";
+import { Templates } from "@intellimaintain/templates";
+import { Tickets } from "@intellimaintain/tickets";
+
 
 // export const ticket1: IdAndName = { id: 'ticket:pa123', name: 'Ticket PA123' };
 // export const ticket2: IdAndName = { id: 'ticket:pa124', name: 'Ticket PA124' };

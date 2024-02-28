@@ -2,13 +2,6 @@ required:
   - environment
 
 
-state:
-  checkedIssue: boolean
-  checkedUser: boolean
-  checkedApprover: boolean
-  approval: boolean
-  validated: boolean
-  sentApprovalEmail: boolean
 
 buttons:
   CheckTicket:

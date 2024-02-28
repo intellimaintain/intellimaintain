@@ -1,7 +1,7 @@
 import { LensState } from "@focuson/state";
 import { WorkSpacePlugin, WorkspaceStateFn } from "./workspace";
 import React from "react";
-import { calculateActionDetails, CommonState } from "./common.state";
+import { calculateActionDetails, CommonState } from "@intellimaintain/react_core";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -27,7 +27,7 @@ export function ReceiveEmailWorkspace<Mid, S1 extends CommonState> ( dataFn: Wor
 
 export function DisplayReceiveEmailWorkbench<S, S1 extends CommonState> ( { state: qd }: { state: ReceiveEmailWorkspace<S, S1> } ) {
   const { state } = qd
-  const { knowledgeArticle, action, variables, title , actionName} = calculateActionDetails ( state, 'receiveEmail' );
+  const { action, title, actionName } = calculateActionDetails ( state, 'receiveEmail' );
   if ( action?.by !== 'receiveEmail' ) return <div>Action is not a receive email action it is {JSON.stringify ( action )}</div>
 
   return <Container maxWidth="md">
@@ -36,9 +36,9 @@ export function DisplayReceiveEmailWorkbench<S, S1 extends CommonState> ( { stat
     </Typography>
     <Box marginBottom={2}>
       <Typography variant="subtitle1" gutterBottom>Paste email here</Typography>
-      <TextField fullWidth variant="outlined"   multiline rows={10}/>
+      <TextField fullWidth variant="outlined" multiline rows={10}/>
       <Box display="flex" flexDirection="row" flexWrap="wrap" gap={1}>
-        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName} message={`Need to make pretty gui still... received an email`}>Receive</FakeSendButton>
+        <FakeSendButton state={state} icon={<PlayArrowIcon/>} actionName={actionName} message={`Need to make pretty gui still... received an email`} value={true}>Receive</FakeSendButton>
         <Button variant="contained" color="secondary" endIcon={<CancelIcon/>}> Cancel </Button>
       </Box>
     </Box>

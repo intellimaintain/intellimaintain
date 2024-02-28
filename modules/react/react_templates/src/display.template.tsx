@@ -1,10 +1,10 @@
 import React from "react";
 import { LensProps, LensProps2 } from "@focuson/state";
-import { SelectedAndList, SideEffect } from '@intellimaintain/react_core';
-import { DisplayText, DisplayYaml, DropdownAsTitle } from "@intellimaintain/components";
-import { Template } from "@intellimaintain/templates";
+import { SideEffect } from '@intellimaintain/react_core';
+import { DisplayText, DropdownAsTitle } from "@intellimaintain/components";
+import { Template, Templates } from "@intellimaintain/templates";
 
-export type Templates = SelectedAndList<Template>
+
 export function DisplayTemplate<S> ( { state }: LensProps<S, Template, any> ) {
   const template = state.json ()
   return <DisplayText text={template.template}/>

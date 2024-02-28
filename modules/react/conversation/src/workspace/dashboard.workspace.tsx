@@ -7,10 +7,11 @@ import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableH
 import { ActionStatus, calcStatusForAll } from "@intellimaintain/actions";
 import { derefence, dollarsBracesVarDefn } from "@laoban/variables";
 import { extractPathFromDescription, splitAndCapitalize } from "@intellimaintain/utils";
-import { CommonState, onClickAction } from "./common.state";
+
 import { StatusIndicator } from "./status.indicator";
 import ErrorIcon from '@mui/icons-material/Error';
 import { InPlaceMenu } from "./inPlaceMenu";
+import { CommonState, onClickAction } from "@intellimaintain/react_core";
 
 export interface DashBoardData<S, S1 extends CommonState> {
   state: LensState<S, S1, any>
@@ -119,6 +120,9 @@ export function DisplayDashboard<S, S1 extends CommonState> ( { state: qd }: { s
   const knowledgeArticle: KnowledgeArticle | undefined = state.focusOn ( 'kas' ).optJson ()?.item
   const ticketState: NameAnd<boolean> = state.optJson ()?.ticketState || {}
   const actionStatus = calcStatusForAll ( ticketState, knowledgeArticle?.checklist || {} )
+  const raw = extractPathFromDescription ( state.optional.description )
+  const ticketPath = raw + '.tickets.selected'
+  const ksaPath = raw + '.kas.selected'
   return <div>
     <p>The current knowledge article is <strong>{knowledgeArticle?.name || '<unknown>'}</strong>. Is that correct. If not change it in the 'KSA' tab above</p>
     <DisplayTodos state={state} actionStatus={actionStatus}/>

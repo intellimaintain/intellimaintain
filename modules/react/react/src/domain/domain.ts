@@ -2,13 +2,12 @@ import { SelectionState } from "../state/selection.state";
 import { Conversation } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
-import { SideEffect, SideeffectResult } from "@intellimaintain/react_core";
-import { KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
-import { SoftwareCatalogs } from "@intellimaintain/react_softwarecatalog"
-import { Tickets } from "@intellimaintain/react_ticket";
+import { CommonState, SideEffect, SideeffectResult } from "@intellimaintain/react_core";
 import { Lenses } from "@focuson/lens";
-import { Templates } from "@intellimaintain/react_templates";
-import { CommonState } from "@intellimaintain/react_conversation";
+import { KnowledgeArticles } from "@intellimaintain/knowledge_articles";
+import { SoftwareCatalogs } from "@intellimaintain/softwarecatalog";
+import { Templates } from "@intellimaintain/templates";
+import { Tickets } from "@intellimaintain/tickets";
 
 
 export interface ChatState extends CommonState {

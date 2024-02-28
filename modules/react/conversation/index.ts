@@ -5,7 +5,7 @@ export * from './src/displayplugins/sql.plugin';
 export * from './src/displayplugins/deref.plugin';
 export * from './src/displayplugins/sql.data.plugin';
 export * from './src/workspace/chat.workbench';
-export * from './src/workspace/common.state';
+
 export * from './src/workspace/dashboard.workspace';
 export * from './src/workspace/email.workspace';
 export * from './src/workspace/ldap.workspace';

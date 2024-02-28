@@ -1,4 +1,4 @@
-import { DomainPlugin, IdAndName } from "@intellimaintain/domain";
+import { DomainPlugin, IdAndName, SelectedAndList } from "@intellimaintain/domain";
 import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { extractVariablesFromMarkdown, Variables } from "@intellimaintain/variables";
 import { addVariables } from "@intellimaintain/defaultdomains";
@@ -8,6 +8,8 @@ export interface Ticket extends IdAndName {
   severity: string
   description: string
 }
+export type Tickets = SelectedAndList<Ticket>
+
 
 export function variablesFromTicket (sofar: NameAnd<any>, t: Ticket ): ErrorsAnd<Variables> {
   return addVariables ( extractVariablesFromMarkdown ( t.description ), { ticketId: t.id, severity: t.severity } )

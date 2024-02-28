@@ -6,12 +6,15 @@ import { theme } from "@intellimaintain/components";
 import { DisplayGui } from "./gui";
 import React from "react";
 import { TemplateFn } from "@intellimaintain/components";
+import { UserTypingBox } from "@intellimaintain/react_conversation";
 
 export interface AppProps<S> extends LensProps<S, ChatState, DI<S>> {
   templateFn: TemplateFn<S>
 }
 export function App<S> ( { state, templateFn }: AppProps<S> ) {
   return <ThemeProvider theme={theme}>
+
     <DisplayGui from='Operator' tabsHeight='45vh' path='chatState1.' template={templateFn} state={state}/>
+
   </ThemeProvider>
 }

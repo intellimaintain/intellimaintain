@@ -15,7 +15,7 @@ export * from './src/messages/messaging';
 export * from './src/theme/mytheme';
 export * from './src/layouts/TabPanel';
 export * from './src/layouts/TwoColumnLayout';
-export * from './src/layouts/main.app.layout';
+export * from './src/layouts/query.response.layout';
 export * from './src/layouts/TwoRowLayout';
 export * from './src/layouts/WithTitle';
 

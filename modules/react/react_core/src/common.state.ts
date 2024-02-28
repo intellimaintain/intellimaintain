@@ -1,29 +1,33 @@
-import { KnowledgeArticles } from "@intellimaintain/react_knowledge_articles";
-import { SideEffect } from "@intellimaintain/react_core";
 import { Conversation } from "@intellimaintain/domain";
 import { NameAnd } from "@laoban/utils";
 import { Variables } from "@intellimaintain/variables";
-import { Tickets } from "@intellimaintain/react_ticket";
+
 import { Action, ActionStatus, calcStatusForWithBy } from "@intellimaintain/actions";
 import { LensState } from "@focuson/state";
-import { KnowledgeArticle } from "@intellimaintain/knowledge_articles";
+import { KnowledgeArticle, KnowledgeArticles } from "@intellimaintain/knowledge_articles";
 import { derefence, dollarsBracesVarDefn } from "@laoban/variables";
-import { Templates } from "@intellimaintain/react_templates";
+
 import { uppercaseFirstLetter } from "@intellimaintain/utils";
+import { Tickets } from "@intellimaintain/tickets";
+import { Templates } from "@intellimaintain/templates";
+import { SideEffect } from "./sideeffects";
 
 export interface WorkspaceSelectionState {
   workspaceTab?: string
   actionName?: string
 }
-
-export interface CommonState {
+export interface CommonStateForActionDetails {
+  kas: KnowledgeArticles
+  ticketState: NameAnd<boolean>
   selectionState: WorkspaceSelectionState
+  variables: NameAnd<Variables>
+}
+
+export interface CommonState extends CommonStateForActionDetails {
   sideeffects: SideEffect[]
   conversation: Conversation
-  kas: KnowledgeArticles
   variables: NameAnd<Variables>
   tickets: Tickets
-  ticketState: NameAnd<boolean>
   templates: Templates
 }
 
@@ -33,10 +37,9 @@ export interface ActionDetails {
   action: Action | undefined
   variables: any
   title: string
-
 }
 
-export function calculateActionDetails<S, S1 extends CommonState >( state: LensState<S, S1, any> , by: string): ActionDetails {
+export function calculateActionDetails<S, S1 extends CommonStateForActionDetails> ( state: LensState<S, S1, any>, by: string ): ActionDetails {
   let commonState = state.optJson ();
   const knowledgeArticle: KnowledgeArticle | undefined = commonState?.kas?.item
   const ticketState: NameAnd<boolean> = commonState?.ticketState || {}
@@ -47,7 +50,7 @@ export function calculateActionDetails<S, S1 extends CommonState >( state: LensS
   const hint = action?.hint || ''
   const variables = commonState?.variables?.Summary?.variables || {}
   const title = derefence ( 'Title', variables, hint, { variableDefn: dollarsBracesVarDefn, emptyTemplateReturnsSelf: true } )
-  return { knowledgeArticle, action, variables, title,actionName: actionStatus.actionName };
+  return { knowledgeArticle, action, variables, title, actionName: actionStatus?.actionName };
 }
 export function onClickAction<S, S1 extends CommonState> ( state: LensState<S, S1, any>, actionStatus: ActionStatus ) {
   return () => state.focusOn ( 'selectionState' ).doubleUp ()
