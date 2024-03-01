@@ -46,3 +46,7 @@
 {"event":"setValue","path":"ticketState.receiveApproval","value":true,"context":{}}
 {"event":"append","path":"conversation.messages","value":{"message":"[checkSql]","who":"fake"},"context":{}}
 {"event":"setValue","path":"ticketState.checkIssueStillExists","value":true,"context":{}}
+{"event":"setId","id":"ticket:price44","path":"tickets.item","parser":"ticket","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:price44","context":{}}
+{"event":"setValue","path":"tickets.selected","value":"ticket:pa123","context":{}}
+{"event":"setId","id":"ticket:pa123","path":"tickets.item","parser":"ticket","context":{}}

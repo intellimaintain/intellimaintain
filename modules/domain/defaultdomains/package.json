@@ -23,10 +23,12 @@
     "node": "^v14.4.0",
     "@laoban/utils": "1.4.45",
     "@intellimaintain/domain": "0.1.1",
+    "@intellimaintain/git": "0.1.1",
     "@intellimaintain/knowledge_articles": "0.1.1",
-    "@intellimaintain/tickets": "0.1.1",
+    "@intellimaintain/organisation": "0.1.1",
     "@intellimaintain/softwarecatalog": "0.1.1",
     "@intellimaintain/templates": "0.1.1",
+    "@intellimaintain/tickets": "0.1.1",
     "@intellimaintain/utils": "0.1.1",
     "debug": "^4.3.4"
   },

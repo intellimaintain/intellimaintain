@@ -1,0 +1,18 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/phase",
+  "description": "The lifecycle of a ticket: it goes through phases",
+  "packageJson": {
+    "dependencies":    {},
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       ["@intellimaintain/domain"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

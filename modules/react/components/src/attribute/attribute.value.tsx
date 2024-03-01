@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography } from '@mui/material';
-import CopyToClipboardButton from './buttons/copy.clipboard.button';
+import CopyToClipboardButton from '../buttons/copy.clipboard.button';
 import Paper from "@mui/material/Paper";
 import { NameAnd } from "@laoban/utils";
 

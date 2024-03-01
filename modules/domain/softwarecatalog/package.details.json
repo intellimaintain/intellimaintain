@@ -3,7 +3,7 @@
   "name":        "@intellimaintain/softwarecatalog",
   "description": "The softwarecatalog plugin. Everything except react",
   "packageJson": {
-    "dependencies":    {},
+    "dependencies":    { "@laoban/utils": "1.4.45"},
     "devDependencies": {},
     "browser":         {
       "child_process": false

@@ -4,12 +4,14 @@ import { calculateActionDetails, CommonStateForActionDetails } from "./common.st
 
 export interface RawSqlWorkbenchState {
   sql: string
+  response: string
 }
 export function isRawSqlWorkbenchState ( state: SqlWorkbenchState ): state is RawSqlWorkbenchState {
   return (state as any).purpose === undefined
 }
 export interface ActionSqlWorkbenchState {
   sql: string
+  response: string
   purpose: string
   actionName?: string
 }
@@ -18,6 +20,8 @@ export function isActionSqlWorkbenchState ( state: SqlWorkbenchState ): state is
 }
 
 export type SqlWorkbenchState = RawSqlWorkbenchState | ActionSqlWorkbenchState
+
+
 export interface HasSqlWorkbenchState {
   sqlWorkbench: SqlWorkbenchState
 }
@@ -38,8 +42,5 @@ function getSqlPrefiledDetailsIfExist<S, S1 extends CommonStateForActionDetails>
   const sql = sqlData?.sql
   const correctWhen = sqlData?.correctWhen
   return { sql, variables, type, correctWhen, title, actionName }
-
-}
-export function actionSqlWorkbenchState ( actionStatus: ActionStatus ) {
 
 }

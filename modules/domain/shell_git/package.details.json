@@ -1,0 +1,22 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/shell_git",
+  "description": "git operations. This implements git by calling out to the shell",
+  "packageJson": {
+    "dependencies":    {
+      "@laoban/utils":         "1.4.45",
+      "@laoban/fileops":       "1.4.45",
+      "@laoban/filesops-node": "1.4.45"
+    },
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       ["@intellimaintain/domain", "@intellimaintain/git"],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

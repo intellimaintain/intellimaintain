@@ -1,0 +1,22 @@
+{
+  "template":    "react_library",
+  "name":        "@intellimaintain/update_value_in_database_ticket_type",
+  "description": "The code needed for the update value in database ticket type",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+      "@laoban/variables": "1.4.45"
+    },
+    "scripts":      {"start": "react-scripts start"}
+  },
+  "links":       [
+    "@intellimaintain/components",
+    "@intellimaintain/react_core"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

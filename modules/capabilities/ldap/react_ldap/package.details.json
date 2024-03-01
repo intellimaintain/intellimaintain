@@ -1,6 +1,6 @@
 {
   "template":    "react",
-  "name":        "@intellimaintain/react_sql",
+  "name":        "@intellimaintain/react_ldap",
   "description": "",
   "packageJson": {
     "files":        ["build/"],
@@ -11,7 +11,8 @@
     "@intellimaintain/components",
     "@intellimaintain/domain",
     "@intellimaintain/react_core",
-    "@intellimaintain/variables"
+    "@intellimaintain/variables",
+    "@intellimaintain/react_softwarecatalog"
   ],
   "guards":      {
     "compile": true,

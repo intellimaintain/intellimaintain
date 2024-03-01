@@ -14,11 +14,11 @@ export interface QueryResponseLayoutProps {
 }
 
 export function QueryResponseLayout ( { requestTitle, requestText, request, requestButtons, responseTitle, responseText, response, responseButtons }: QueryResponseLayoutProps ) {
-  return  <Box>
-    <Box mb={4}>
+  return  <Box style={{width:'100%'}}>
+    <Box mb={4} >
       <Typography variant="h6">{requestTitle}</Typography>
       <Typography>{requestText}</Typography>
-      <Box my={2}>{request}</Box>
+      <Box my={2}style={{ width: '100%' }}>{request}</Box>
       <Grid container spacing={1}>
         {requestButtons.map((button, index) => (
           <Grid item key={index}>

@@ -1,6 +1,6 @@
 {
-  "name": "@intellimaintain/react_sql",
-  "description": "",
+  "name": "@intellimaintain/update_value_in_database_ticket_type",
+  "description": "The code needed for the update value in database ticket type",
   "version": "0.1.1",
   "browserslist": {
     "development": [
@@ -15,10 +15,9 @@
     ]
   },
   "dependencies": {
+    "@laoban/variables": "1.4.45",
     "@intellimaintain/components": "0.1.1",
-    "@intellimaintain/domain": "0.1.1",
     "@intellimaintain/react_core": "0.1.1",
-    "@intellimaintain/variables": "0.1.1",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -26,9 +25,7 @@
     "@focuson/state": "1.44.3",
     "@laoban/utils": "1.4.45",
     "@mui/material": "^5.15.10",
-    "@mui/icons-material": "^5.15.10",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@mui/icons-material": "^5.15.10"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
@@ -65,7 +62,10 @@
     "runbook"
   ],
   "license": "MIT",
-  "peerDependencies": {},
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "repository": "git@github.com:intellimaintain/intellimaintain.git",
   "scripts": {
     "start": "parcel src/index.html",

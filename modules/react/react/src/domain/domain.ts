@@ -5,9 +5,10 @@ import { NameAnd } from "@laoban/utils";
 import { CommonState, SideEffect, SideeffectResult } from "@intellimaintain/react_core";
 import { Lenses } from "@focuson/lens";
 import { KnowledgeArticles } from "@intellimaintain/knowledge_articles";
-import { SoftwareCatalogs } from "@intellimaintain/softwarecatalog";
+import { DatabaseAndEnvironments, DatabaseConfig, SoftwareCatalogs } from "@intellimaintain/softwarecatalog";
 import { Templates } from "@intellimaintain/templates";
 import { Tickets } from "@intellimaintain/tickets";
+import { DatabaseConfigAndEnvironment } from "@intellimaintain/react_softwarecatalog";
 
 
 export interface ChatState extends CommonState {

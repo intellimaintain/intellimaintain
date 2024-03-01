@@ -9,6 +9,8 @@ build/
 .package.details.test.json
 .laoban.test.json
 
+tests/git/org/.git
+
 .parcel-cache/
 
 node_modules/

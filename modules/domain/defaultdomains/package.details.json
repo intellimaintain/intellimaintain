@@ -14,10 +14,12 @@
   },
   "links":       [
     "@intellimaintain/domain",
+    "@intellimaintain/git",
     "@intellimaintain/knowledge_articles",
-    "@intellimaintain/tickets",
+    "@intellimaintain/organisation",
     "@intellimaintain/softwarecatalog",
     "@intellimaintain/templates",
+    "@intellimaintain/tickets",
     "@intellimaintain/utils"
   ],
   "guards":      {

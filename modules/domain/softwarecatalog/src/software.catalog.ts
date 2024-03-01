@@ -4,11 +4,12 @@ import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { findRelevant, Variables } from "@intellimaintain/variables";
 import { findIdKeyAndPath } from "@intellimaintain/idstore";
 import { transformKeysToCamelCase } from "@intellimaintain/utils";
+import { DatabaseAndEnvironments } from "./database.config";
 
 
 const yaml = require ( 'js-yaml' );
 
-export interface SoftwareCatalog extends IdAndName, NameAnd<any> {
+export interface SoftwareCatalog extends IdAndName, NameAnd<any> ,DatabaseAndEnvironments{
 }
 export type SoftwareCatalogs = SelectedAndList<SoftwareCatalog>
 export function variablesFromSoftwareCatalog (soFar: NameAnd<any>, sc: SoftwareCatalog ): ErrorsAnd<Variables> {

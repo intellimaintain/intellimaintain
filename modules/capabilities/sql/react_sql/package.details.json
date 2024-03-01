@@ -1,0 +1,23 @@
+{
+  "template":    "react",
+  "name":        "@intellimaintain/react_sql",
+  "description": "",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+    }
+  },
+  "links":       [
+    "@intellimaintain/components",
+    "@intellimaintain/domain",
+    "@intellimaintain/react_core",
+    "@intellimaintain/variables",
+    "@intellimaintain/react_softwarecatalog"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

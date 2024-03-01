@@ -7,6 +7,9 @@ import { DisplaySoftwareCatalogs } from "@intellimaintain/react_softwarecatalog"
 import { DisplayConversation, HasDisplayPlugins, HasWorkspacePlugins, WorkspaceTabs } from "@intellimaintain/react_conversation";
 import { DisplayVariables } from "../variables/variables";
 import { DisplayTemplates } from "@intellimaintain/react_templates/";
+import { DisplaySqlWorkbench } from "@intellimaintain/react_sql/dist/src/sql.workbench";
+import { DisplaySqlConfig } from "@intellimaintain/react_softwarecatalog/dist/src/display.sqlconfig";
+import { ExampleWelcome } from "./example.welcome";
 
 export interface TopPartProps<S, C> extends LensProps<S, ChatState, C> {
   label: string
@@ -30,8 +33,11 @@ export function ChatArea<S, C extends HasDisplayPlugins & HasWorkspacePlugins<Ch
       <DisplayTemplates path='templates' state={state}/>}</TabWithSideEffects>
     <TabWithSideEffects title='Variables' state={state} focuson='variables'>{state =>
       <DisplayVariables state={state}/>}</TabWithSideEffects>
+    <SimpleTabPanel title='Sql2'><DisplaySqlWorkbench maxHeight='75vh' maxWidth='40vw' state={state.focusOn('selectionState').focusOn('sql')}/></SimpleTabPanel>
+    <SimpleTabPanel title='SqlConfig'><DisplaySqlConfig state={state.focusOn('selectionState').focusOn('sqlConfig')}/></SimpleTabPanel>
     <SimpleTabPanel title='State'><DisplayDebug maxHeight='75vh' maxWidth='40vw' state={state}/></SimpleTabPanel>
     <SimpleTabPanel title='Debug'><StateDisplay maxHeight='75vh' maxWidth='40vw' state={state}/></SimpleTabPanel>
+    <SimpleTabPanel title='Welcome'><ExampleWelcome /></SimpleTabPanel>
   </WorkspaceTabs>
 }
 
