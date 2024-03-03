@@ -5,16 +5,15 @@ import { lensState } from "@focuson/state";
 import { addEventStoreListener, addEventStoreModifier, eventStore, polling, setEventStoreValue, startPolling, stringToEvents } from "@intellimaintain/eventstore";
 import { apiIdStore, apiLoading, ApiLoading, apiLoadingFromBrowser, idStoreFromApi, listidsFromFetch, sendEvents, SendEvents, } from "@intellimaintain/apiclienteventstore";
 import { defaultEventProcessor, processEvents } from "@intellimaintain/events";
-import { startAppState } from "./domain/sample";
+
 import { eventSideeffectProcessor, processSideEffect, processSideEffectsInState } from '@intellimaintain/react_core';
 import { TemplateFn } from '@intellimaintain/components';
 import { IdStore } from "@intellimaintain/idstore";
-import { extractVariablesAndAddToState } from "./variables/variables";
 import { ListIds } from "@intellimaintain/listids";
-import { defaultDi } from './di/defaultDi';
-import { loadInitialIds } from "./state/load.initial";
 import { App } from './gui/app';
-import { ChatState, logsL, sideEffectsL } from "./domain/domain";
+import { defaultVariablesExtractor, extractVariablesForAllDomain, InitialLoadResult, loadInitialIds } from "@intellimaintain/defaultdomains";
+import { ItsmState, logsL, sideEffectsL, startAppState } from "./state/itsm.state";
+
 
 const templateFn: TemplateFn<any> = ( state, templateName ) => {
   return state?.templates?.item?.template || ''
@@ -30,12 +29,12 @@ const idStoreDetails = apiIdStore ( "http://localhost:1235" )
 const idStore: IdStore = idStoreFromApi ( idStoreDetails )
 const listIds: ListIds = listidsFromFetch ( idStoreDetails )
 
-const container = eventStore<ChatState> ()
+const container = eventStore<ItsmState> ()
 const setJson = setEventStoreValue ( container );
-const sep1 = defaultEventProcessor<ChatState> ( '', startAppState, idStore )
+const sep1 = defaultEventProcessor<ItsmState> ( '', startAppState, idStore )
 
 addEventStoreListener ( container, (( oldS, s, setJson ) =>
-  root.render ( <App state={lensState ( s, setJson, 'Container', defaultDi )} templateFn={templateFn}/> )) );
+  root.render ( <App state={lensState ( s, setJson, 'Container', {} )}/> )) );
 
 const pollingDetails = polling ( 1000, async s => {
   console.log ( 'polling', typeof s, s )
@@ -45,17 +44,23 @@ const pollingDetails = polling ( 1000, async s => {
   console.log ( 'errors', errors )
   console.log ( 'state', state )
   if ( state ) {
-    const result: ChatState = extractVariablesAndAddToState ( state )
+    const result = extractVariablesForAllDomain ( defaultVariablesExtractor,
+      { name: 'Phil', email: 'phil@example.com' },
+      state.tickets, state.kas, state.scs )
+    const newState = { ...state, variables: result }
     console.log ( 'result with variables', result )
-    setJson ( result )
+    setJson ( newState )
   }
 } )
 
 
-addEventStoreModifier ( container, processSideEffectsInState<ChatState> ( processSideEffect (
-  [ eventSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ), sideEffectsL, logsL ) )
+addEventStoreModifier ( container,
+  processSideEffectsInState<ItsmState> (
+    processSideEffect ( [ eventSideeffectProcessor ( saveDetails, 'conversation.messages' ) ] ),
+    sideEffectsL, logsL ) )
 
-loadInitialIds ( listIds, startAppState ).then ( () => {
+loadInitialIds ( listIds ).then ( ( res: InitialLoadResult ) => {
+  const newState = { ...startAppState, ...res }
+  setJson ( newState )
   startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
-  setJson ( startAppState )
 } )

@@ -1,7 +1,7 @@
 {
   "template":    "react",
-  "name":        "@intellimaintain/react_welcome",
-  "description": "A second go at the react application",
+  "name":        "@intellimaintain/react_old",
+  "description": "",
   "packageJson": {
     "files":        ["build/"],
     "dependencies": {
@@ -21,7 +21,6 @@
     "@intellimaintain/react_softwarecatalog",
     "@intellimaintain/react_templates",
     "@intellimaintain/react_ticket",
-    "@intellimaintain/react_variables",
     "@intellimaintain/react_sql",
     "@intellimaintain/variables",
     "@intellimaintain/update_value_in_database_ticket_type"
