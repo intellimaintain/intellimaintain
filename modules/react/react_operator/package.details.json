@@ -9,7 +9,8 @@
     "scripts":      {"start": "react-scripts start"}
   },
   "links":       [
-    "@intellimaintain/components"
+    "@intellimaintain/components",
+    "@intellimaintain/react_conversation"
   ],
   "guards":      {
     "compile": true,

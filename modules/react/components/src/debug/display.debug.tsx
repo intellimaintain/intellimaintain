@@ -3,8 +3,8 @@ import { LensProps } from "@focuson/state";
 import { DisplayJson } from "../displayRaw/display.json";
 
 export interface DisplayDebugProps<S> extends LensProps<S, any, any> {
-  maxHeight: string
-  maxWidth: string
+  maxHeight?: string
+  maxWidth?: string
 }
 
 

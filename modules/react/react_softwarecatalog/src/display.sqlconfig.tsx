@@ -19,7 +19,7 @@ export function DisplaySqlConfig<S> ( { state }: DisplaySqlConfigProps<S> ) {
     <Typography>The type is probably 'Oracle'</Typography>
     <Typography>The schema should be the actual schema for that environment</Typography>
     <Typography>The password is the name of the environment variable that holds the password</Typography>
-    <EditAttributesTable state={state} attributes={[ 'system', 'environment', 'type', 'schema', 'user', 'password' ]}>{
+    <EditAttributesTable state={state} attributes={{'system':{}, 'environment':{}, 'type':{}, 'schema':{}, 'user':{}, 'password':{}}}>{
       ( key, state ) =>
         [ <p>{key}</p>, <FocusedTextInput fullWidth state={state as LensState<S, any, any>}/> ]
     }</EditAttributesTable>

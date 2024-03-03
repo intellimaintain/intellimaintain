@@ -1,36 +1,15 @@
 import React, { ReactNode } from 'react';
 import { AppBar, Box, CssBaseline, Drawer, IconButton, Toolbar, Typography } from '@mui/material';
-import { LensProps } from "@focuson/state";
 import MenuIcon from '@mui/icons-material/Menu';
+import { calcDrawer, ColumnLeftRowBottomProps } from "./column.left.main.bottom";
 
-interface CLRMBLayoutProps {
-  height?: string;
-  drawerWidth?: string;
-}
 
-export interface ColumnLeftMainRowBottomProps<S> extends LensProps<S, ColumnLeftMainState, any> {
-  title: string
-  Nav: ReactNode;
-  Main: ReactNode;
+export interface ColumnLeftMainRowBottomProps<S> extends ColumnLeftRowBottomProps<S> {
   Typing: ReactNode;
-  layout?: CLRMBLayoutProps;
 }
 
-export interface ColumnLeftMainState {
-  drawerOpen?: boolean;
-}
-interface LayoutProps {
-  Nav: React.ReactNode;
-  Main: React.ReactNode;
-  Typing: React.ReactNode;
-  layout: CLRMBLayoutProps;
-}
-
-export function ColumnLeftMainRowBottom<S> ( { state,title, Nav, Main, Typing, layout }: ColumnLeftMainRowBottomProps<S> ) {
-  const drawerOpenState = state.focusOn ( 'drawerOpen' )
-  const drawerOpen = drawerOpenState.optJson () === undefined ? true : drawerOpenState.optJson ();
-  const targetDrawerWidth = layout?.drawerWidth || '240px';
-  const drawerWidth = drawerOpen ? targetDrawerWidth : '100px';
+export function ColumnLeftMainRowBottom<S> ( { state, title, Nav, children, Typing, layout }: ColumnLeftMainRowBottomProps<S> ) {
+  const { drawerOpenState, drawerOpen, drawerWidth } = calcDrawer ( state, layout );
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -70,9 +49,9 @@ export function ColumnLeftMainRowBottom<S> ( { state,title, Nav, Main, Typing, l
            }}>
         <Box sx={{ overflowY: 'auto', flexGrow: 1, }}>
           <Toolbar/> {/* Ensures alignment and can be used for additional top padding if needed */}
-          {Main}
+          {children}
         </Box>
-        <Box component="footer" sx={{mt: 'auto', bgcolor: 'background.paper', }}>
+        <Box component="footer" sx={{ mt: 'auto', bgcolor: 'background.paper', }}>
           {Typing}
         </Box>
       </Box>

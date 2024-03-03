@@ -9,8 +9,5 @@
 {"event":"setValue","path":"kas.selected","value":"ka:deleteproject","context":{}}
 {"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
 
-{"event":"append","path":"conversation.messages","value":{"who":"me","message":"Hello"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"type":"message","message":"[checkSql]","who":"fake"},"context":{}}
-{"event":"setValue","path":"ticketState.checkIssueExists","value":true,"context":{}}
-{"event":"append","path":"conversation.messages","value":{"type":"message","who":"me","message":"asd"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"type":"message","who":"me","message":"asd"},"context":{}}
+{"event":"setValue","path":"operator","value":{"name":"Phil","email":"phil"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"type":"operatorDetails","operator":{"name":"Phil","email":"phil"},"who":"Phil"},"context":{}}

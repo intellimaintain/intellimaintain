@@ -1,1 +1,1 @@
-export * from './src/display.template';
+export * from './src/display.operator';

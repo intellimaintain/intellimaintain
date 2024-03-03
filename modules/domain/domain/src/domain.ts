@@ -18,8 +18,8 @@ export type ChatDisplayData<T> = {
 }
 export type Conversation = {
   messages: BaseMessage[]
-  chat?: ChatDisplayData<any>
-  message?: string //TODO legacy get rid of when remove old react gui
+  chat: ChatDisplayData<any>
+  message?: string
 }
 
 export type QuestionPFK<S> = PartialFunctionK<S, ChatDisplayData<any>>

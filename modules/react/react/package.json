@@ -19,6 +19,7 @@
     "@intellimaintain/components": "0.1.1",
     "@intellimaintain/domain": "0.1.1",
     "@intellimaintain/events": "0.1.1",
+    "@intellimaintain/questions": "0.1.1",
     "@intellimaintain/react_knowledge_articles": "0.1.1",
     "@intellimaintain/eventstore": "0.1.1",
     "@intellimaintain/react_core": "0.1.1",
