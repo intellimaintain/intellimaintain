@@ -8,7 +8,9 @@ import { HasSideeffects, SideEffect } from '@intellimaintain/react_core';
 export interface TabPanelDetails {
   title: string
 }
-
+export interface SimpleTabPanelProps extends TabPanelDetails {
+  children: ReactElement;
+}
 export interface TabPanelProps<S, M, K extends keyof M, C> extends LensProps2<S, M, number, C>, TabPanelDetails {
   children: ( state: LensState<S, M[K], C> ) => ReactElement;
   focuson: K
@@ -20,10 +22,7 @@ export function TabPanel<S, M, K extends keyof M, C> ( { state, focuson, childre
     {children ( childState )}
   </Box>
 }
-export interface SimpleTabPanelProps extends TabPanelDetails {
-  children: ReactElement;
 
-}
 export function SimpleTabPanel<S, M, C> ( { title, children }: SimpleTabPanelProps ) {
   return <Box sx={{}}>
     {children}

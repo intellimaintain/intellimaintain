@@ -11,3 +11,7 @@
 
 {"event":"setValue","path":"operator","value":{"name":"Phil","email":"phil"},"context":{}}
 {"event":"append","path":"conversation.messages","value":{"type":"operatorDetails","operator":{"name":"Phil","email":"phil"},"who":"Phil"},"context":{}}
+{"event":"setValue","path":"operator","value":{"name":"Phil","email":"phil"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"type":"operatorDetails","operator":{"name":"Phil","email":"phil"},"who":"Phil"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"type":"message","who":"me","message":"fdg"},"context":{}}
+{"event":"append","path":"conversation.messages","value":{"type":"message","who":"me","message":"dfg"},"context":{}}
