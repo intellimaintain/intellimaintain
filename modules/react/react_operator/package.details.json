@@ -1,0 +1,20 @@
+{
+  "template":    "react_library",
+  "name":        "@intellimaintain/react_operator",
+  "description": "The react plugin for the operator details",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+    },
+    "scripts":      {"start": "react-scripts start"}
+  },
+  "links":       [
+    "@intellimaintain/components"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

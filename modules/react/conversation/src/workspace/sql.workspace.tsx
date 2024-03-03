@@ -10,7 +10,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TestIcon from '@mui/icons-material/SettingsEthernet'; // Example icon for "Test Connection"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { FakeSendButton } from "./fake.send.button";
+import { FakeSendButton } from "@intellimaintain/components";
 
 export interface SqlTempSpace<S, S1> {
   state: LensState<S, S1, any>

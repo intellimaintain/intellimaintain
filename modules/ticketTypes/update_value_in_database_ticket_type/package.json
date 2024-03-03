@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@laoban/variables": "1.4.45",
+    "@intellimaintain/domain": "0.1.1",
     "@intellimaintain/components": "0.1.1",
     "@intellimaintain/react_core": "0.1.1",
     "debug": "^4.3.4",

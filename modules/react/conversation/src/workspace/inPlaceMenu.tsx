@@ -3,11 +3,11 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { CommonState, onClickAction } from "@intellimaintain/react_core";
+import { CommonState, onClickAction, SideEffect } from "@intellimaintain/react_core";
 import { LensProps, LensState } from "@focuson/state";
 import { ActionStatus } from "@intellimaintain/actions";
-import { SideEffect } from "@intellimaintain/react_core";
 import { makeSideeffectForMessage } from "@intellimaintain/components";
+import { Message } from '@intellimaintain/domain';
 
 export interface InPlaceMenuProps<S, S1 extends CommonState> extends LensProps<S, S1, any> {
   actionStatus: ActionStatus
@@ -17,8 +17,9 @@ export interface InPlaceMenuProps<S, S1 extends CommonState> extends LensProps<S
 
 function setAction<S> ( state: LensState<S, SideEffect[], any>, rootPath: string, actionName: string, who: string, value: boolean ) {
   const path = rootPath + '.' + actionName
+  let message: Message = { type: 'message', message: `Manually set ${actionName} to be ${value}`, who };
   state.transform ( old => [ ...(old || []),
-    makeSideeffectForMessage ( { message: `Manually set ${actionName} to be ${value}`, who } ),
+    makeSideeffectForMessage ( message ),
     { command: 'event', event: { event: 'setValue', path, value, context: {} } }
   ], '' )
 }
@@ -27,7 +28,7 @@ export function InPlaceMenu<S, S1 extends CommonState> ( { state, actionStatus, 
   const [ anchorEl, setAnchorEl ] = useState ( null );
   const open = Boolean ( anchorEl );
 
-  const handleClick = ( event: any) => {
+  const handleClick = ( event: any ) => {
     setAnchorEl ( event.currentTarget );
   };
 
@@ -36,7 +37,7 @@ export function InPlaceMenu<S, S1 extends CommonState> ( { state, actionStatus, 
   };
 
   // You can define your own handler functions here
-  const handleMenuClick = ( action : any) => {
+  const handleMenuClick = ( action: any ) => {
     console.log ( action ); // Placeholder for your action handling logic
     handleClose (); // Close the menu after action
   };

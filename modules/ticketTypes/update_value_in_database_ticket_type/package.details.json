@@ -10,6 +10,7 @@
     "scripts":      {"start": "react-scripts start"}
   },
   "links":       [
+    "@intellimaintain/domain",
     "@intellimaintain/components",
     "@intellimaintain/react_core"
   ],

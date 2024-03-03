@@ -1,6 +1,5 @@
-import { Variables, VariablesExtractor } from "@intellimaintain/variables";
-import { ErrorsAnd, mapErrors, NameAnd } from "@laoban/utils";
-import { DomainPlugin } from "@intellimaintain/domain";
+import { VariablesExtractor } from "@intellimaintain/variables";
+import { DomainPlugin,Operator, operatorPlugin  } from "@intellimaintain/domain";
 import { ParserStore } from "@intellimaintain/parser";
 import { kaPlugin, KnowledgeArticle } from "@intellimaintain/knowledge_articles";
 import { Ticket, ticketsPlugin } from "@intellimaintain/tickets";
@@ -9,17 +8,14 @@ import { SoftwareCatalog, softwareCatalogPlugin } from "@intellimaintain/softwar
 import { Template, templatePlugin } from "@intellimaintain/templates";
 
 
-export function addVariables ( v: ErrorsAnd<Variables>, toAdd: NameAnd<string> ) {
-  return mapErrors ( v, v => ({ variables: { ...v.variables, ...toAdd }, errors: v.errors }) )
-}
-
-
+const operatorP: DomainPlugin<Operator> = operatorPlugin ( 'operator' )
 const kaP: DomainPlugin<KnowledgeArticle> = kaPlugin ( 'ka' )
 const ticketP: DomainPlugin<Ticket> = ticketsPlugin ( 'tickets' )
 const scP: DomainPlugin<SoftwareCatalog> = softwareCatalogPlugin ( 'scs' )
-const templateP: DomainPlugin<Template> = templatePlugin( 'templates' )
+const templateP: DomainPlugin<Template> = templatePlugin ( 'templates' )
 
 export const defaultVariablesExtractor: VariablesExtractor = {
+  operator: operatorP.variablesExtractor,
   ka: kaP.variablesExtractor,
   ticket: ticketP.variablesExtractor,
   sc: scP.variablesExtractor,
@@ -29,6 +25,7 @@ export const defaultVariablesExtractor: VariablesExtractor = {
 export const defaultParserStore: ParserStore = {
   json: ( id, s ) => JSON.parse ( s ),
   string: ( id, s ) => s,
+  operator: operatorP.parser,
   ticket: ticketP.parser,
   sc: scP.parser,
   ka: kaP.parser,
@@ -37,9 +34,10 @@ export const defaultParserStore: ParserStore = {
 export function defaultIdStoreDetails ( root: string, parserStore: ParserStore ): AllIdStoreDetails {
   return {
     parserStore, details: {
+      operator: { ...operatorP.idStoreDetails, rootPath: root + '/' + operatorP.idStoreDetails.rootPath },
       ka: { ...kaP.idStoreDetails, rootPath: root + '/' + kaP.idStoreDetails.rootPath },
       sc: { ...scP.idStoreDetails, rootPath: root + '/' + scP.idStoreDetails.rootPath },
-      ticket: { ...ticketP.idStoreDetails, rootPath:  root + '/' +ticketP.idStoreDetails.rootPath },
+      ticket: { ...ticketP.idStoreDetails, rootPath: root + '/' + ticketP.idStoreDetails.rootPath },
       template: { ...templateP.idStoreDetails, rootPath: root + '/' + templateP.idStoreDetails.rootPath }
     }
   }

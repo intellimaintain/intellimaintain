@@ -58,7 +58,7 @@ function ActionTable<S> ( { buttons, state, who }: ActionTableProps<S> ) {
               {/*<MessageButton key={index} disabled={disabled} state={state.state3 ()} message={{ message: buttonData.message, who }} label={text}/>*/}
               <Button startIcon={<FastForwardIcon/>} onClick={() => {
                 state.state2 ().transform (
-                  old => [ ...(old ?? []), makeSideeffectForMessage ( { message: buttonData.message, who } ) ], '' )
+                  old => [ ...(old ?? []), makeSideeffectForMessage ( { type: 'message',message: buttonData.message, who } ) ], '' )
               }}> Quickly </Button>
               <Button startIcon={<SecurityIcon/>} onClick={() => {}} color="secondary"> Carefully </Button>
             </TableCell>

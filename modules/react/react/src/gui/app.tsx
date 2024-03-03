@@ -2,11 +2,9 @@ import { LensProps } from "@focuson/state";
 import { ChatState } from "../domain/domain";
 import { DI } from "../di/di";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "@intellimaintain/components";
+import { TemplateFn, theme } from "@intellimaintain/components";
 import { DisplayGui } from "./gui";
 import React from "react";
-import { TemplateFn } from "@intellimaintain/components";
-import { UserTypingBox } from "@intellimaintain/react_conversation";
 
 export interface AppProps<S> extends LensProps<S, ChatState, DI<S>> {
   templateFn: TemplateFn<S>

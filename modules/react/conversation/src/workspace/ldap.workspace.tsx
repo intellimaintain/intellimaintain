@@ -8,7 +8,7 @@ import TestIcon from "@mui/icons-material/SettingsEthernet";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { dollarsBracesVarDefn, replaceVar } from "@laoban/variables";
-import { FakeSendButton } from "./fake.send.button";
+import { FakeSendButton } from "@intellimaintain/components";
 
 export interface LdapTempSpace<S, S1 extends CommonState> {
   state: LensState<S, S1, any>

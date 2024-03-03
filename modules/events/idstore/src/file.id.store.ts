@@ -1,7 +1,8 @@
 import { NameAnd } from "@laoban/utils";
 import { promises } from "fs";
-import { findIdKeyAndPath, IdStore, IdStoreResult } from "./id.store";
+import { IdStore, IdStoreResult } from "./id.store";
 import { ParserStore, parseUsingStore } from "@intellimaintain/parser";
+import { findIdKeyAndPath } from "@intellimaintain/utils";
 
 export interface IdStoreDetails {
   extension: string
@@ -23,10 +24,7 @@ export type PathAndMimeType = {
   mimeType: string
 
 }
-export type KeyAndPath = {
-  key: string
-  path: string
-}
+
 
 export function idPathToFilePathAndMimeType ( details: NameAnd<IdStoreDetails>, s: string ): PathAndMimeType {
   const { key, path } = findIdKeyAndPath ( s );

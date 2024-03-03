@@ -1,4 +1,4 @@
-import { Message } from "@intellimaintain/domain";
+import { BaseMessage, Message } from "@intellimaintain/domain";
 import { Event } from "@intellimaintain/events";
 
 export interface SendEvents {
@@ -19,6 +19,6 @@ export async function sendEvent ( save: SendEvents, event: Event ) {
   if ( response.status < 400 ) return;
   throw new Error ( `Error sending message ${response.status}` )
 }
-export async function sendMessage ( save: SendEvents, msg: Message, path: string ) {
+export async function sendMessage ( save: SendEvents, msg: BaseMessage, path: string ) {
   return sendEvent ( save, { event: 'append', path, value: msg, context: {} } )
 }

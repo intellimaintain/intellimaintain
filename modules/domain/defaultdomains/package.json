@@ -25,7 +25,6 @@
     "@intellimaintain/domain": "0.1.1",
     "@intellimaintain/git": "0.1.1",
     "@intellimaintain/knowledge_articles": "0.1.1",
-    "@intellimaintain/organisation": "0.1.1",
     "@intellimaintain/softwarecatalog": "0.1.1",
     "@intellimaintain/templates": "0.1.1",
     "@intellimaintain/tickets": "0.1.1",

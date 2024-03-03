@@ -8,8 +8,9 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import TestIcon from "@mui/icons-material/SettingsEthernet";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { FakeSendButton } from "./fake.send.button";
+
 import { calculateActionDetails, CommonState } from "@intellimaintain/react_core";
+import { FakeSendButton } from "@intellimaintain/components";
 
 
 export interface EmailTempSpace<S, S1 extends CommonState> {

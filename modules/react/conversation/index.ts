@@ -1,5 +1,8 @@
 export * from './src/chatbuttons/chatbuttons';
-export * from './src/conversation.component';
+export * from './src/conversation/conversation.component';
+export * from './src/conversation/conversation2';
+export * from './src/conversation/conversation.history';
+export * from './src/conversation/userTypingBox';
 export * from './src/displayplugins/email.plugin';
 export * from './src/displayplugins/sql.plugin';
 export * from './src/displayplugins/deref.plugin';
@@ -15,4 +18,4 @@ export * from './src/workspace/sql.workspace';
 export * from './src/workspace/status.indicator';
 export * from './src/workspace/workspace';
 export * from './src/workspace/workspace.tabs';
-export * from './src/userTypingBox';
+

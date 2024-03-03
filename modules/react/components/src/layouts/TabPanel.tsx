@@ -39,7 +39,7 @@ export function TabWithSideEffects<S, M extends HasSideeffects, K extends keyof 
     {children ( childState )}
   </Box>
 }
-export interface TabsContainerProps<S, M, C> extends LensProps2<S, M, string, C> {
+export interface TabsContainerProps<S, M, C> extends LensProps2<S, M, string|undefined, C> {
   label: string
   height?: string
   children: React.ReactElement<TabPanelDetails>[] | React.ReactElement<TabPanelDetails>;

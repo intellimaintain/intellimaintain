@@ -1,0 +1,20 @@
+{
+  "template":    "react_library",
+  "name":        "@intellimaintain/react_variables",
+  "description": "The react plugin for displaying the variables",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+    },
+    "scripts":      {"start": "react-scripts start"}
+  },
+  "links":       [
+    "@intellimaintain/components"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

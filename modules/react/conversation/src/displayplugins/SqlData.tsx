@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import { AttributeTable } from "@intellimaintain/components";
-import { VariableDefn } from "@laoban/variables";
 import { findSqlDataDetails, SqlDataDetails } from "@intellimaintain/defaultdomains";
 
 export interface SqlDataProps {

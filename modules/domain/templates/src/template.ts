@@ -1,7 +1,8 @@
 import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { ParserStoreParser } from "@intellimaintain/parser";
-import { DomainPlugin, IdAndName, SelectedAndList } from "@intellimaintain/domain";
+import { DomainPlugin } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
+import { IdAndName, SelectedAndList } from "@intellimaintain/utils";
 
 
 export interface Template extends IdAndName {
@@ -14,7 +15,7 @@ export const templateParser: ParserStoreParser = ( id, template ): ErrorsAnd<Tem
 }
 
 export function variablesFromTemplate ( sofar: NameAnd<any>, template: Template ): ErrorsAnd<Variables> {
-  let variables: NameAnd<any> = {id: template.id}
+  let variables: NameAnd<any> = { id: template.id }
   return { variables, errors: [] }
 }
 

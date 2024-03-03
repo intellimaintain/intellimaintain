@@ -1,7 +1,5 @@
-import { deepCombineTwoObjects, ErrorsAnd, hasErrors, NameAnd } from "@laoban/utils";
-import { findIdKeyAndPath } from "@intellimaintain/idstore";
-import { isJsonPrimitive, JSONObject, transformKeysToCamelCase } from "@intellimaintain/utils";
-import { toCamelCase } from "@intellimaintain/utils";
+import { deepCombineTwoObjects, ErrorsAnd, hasErrors, mapErrors, NameAnd, safeArray } from "@laoban/utils";
+import { findIdKeyAndPath, IdAndName, JSONObject, SelectedAndList, toCamelCase } from "@intellimaintain/utils";
 
 export type Variables = {
   variables: JSONObject
@@ -12,6 +10,9 @@ export type ExtractVariablesFn<T> = ( soFar: JSONObject, t: T ) => ErrorsAnd<Var
 
 export type VariablesExtractor = NameAnd<ExtractVariablesFn<any>>
 
+export function addVariables ( v: ErrorsAnd<Variables>, toAdd: NameAnd<string> ) {
+  return mapErrors ( v, v => ({ variables: { ...v.variables, ...toAdd }, errors: v.errors }) )
+}
 
 export function extractVariablesFrom ( ve: VariablesExtractor, id: string, soFar: JSONObject, t: any ): Variables {
   try {
@@ -27,8 +28,41 @@ export function extractVariablesFrom ( ve: VariablesExtractor, id: string, soFar
   }
 }
 
+export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, soFar: JSONObject, se: SelectedAndList<T> ): Variables {
+  function error ( msg: string ) {return { variables: {}, errors: [ msg ] } }
+  if ( se.selected === undefined ) return error ( `No ${context} selected` )
+  if ( se.item === undefined ) return error ( `No ${context} loaded (id is ${se.selected})` )
+  console.log ( 'extractVariablesFromSelectedAndList', 'selected', se.selected, 'item', se.item )
+  return extractVariablesFrom ( ve, se.selected, soFar, se.item )
+}
 
-//This is mostly used for 'environment'. It gets all the name/values and then combines it with the child indexed by the key (e.g. environemnt)
+
+export type ResultAccAndErrors = {
+  result: NameAnd<Variables>
+  acc: JSONObject
+  errors: string[]
+
+}
+export function addManyVariablesFromSelectedAndList ( ve: VariablesExtractor, start: NameAnd<Variables>, toAdd: NameAnd<SelectedAndList<any>> ): ResultAccAndErrors {
+  const errors: string[] = []
+  let acc = {}
+  Object.values ( start ).forEach ( v => {
+    errors.push ( ...v.errors )
+    acc = deepCombineTwoObjects ( acc, v.variables )
+  } )
+
+  const result: NameAnd<Variables> = { ...start }
+  for ( let key in toAdd ) {
+    let vars = extractVariablesFromSelectedAndList ( ve, key, acc, toAdd[ key ] );
+    result[ key ] = vars
+    errors.push ( ...safeArray ( vars.errors ) )
+    acc = deepCombineTwoObjects ( acc, vars.variables )
+  }
+  return { result, acc, errors }
+}
+
+
+//This is mostly used for 'environment'. It gets all the name/values and then combines it with the child indexed by the key (e.g. environment)
 //In this example section would be 'Environments' and key would be 'environment'
 export function findRelevant ( soFar: NameAnd<string>, section: string, key: string, t: any ): NameAnd<string> {
   const foundKey = soFar[ key ] // now do we know what the environment is?

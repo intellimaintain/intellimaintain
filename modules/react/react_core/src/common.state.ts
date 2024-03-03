@@ -11,6 +11,7 @@ import { uppercaseFirstLetter } from "@intellimaintain/utils";
 import { Tickets } from "@intellimaintain/tickets";
 import { Templates } from "@intellimaintain/templates";
 import { SideEffect } from "./sideeffects";
+import { SoftwareCatalogs } from "@intellimaintain/softwarecatalog";
 
 export interface WorkspaceSelectionState {
   workspaceTab?: string
@@ -29,6 +30,9 @@ export interface CommonState extends CommonStateForActionDetails {
   variables: NameAnd<Variables>
   tickets: Tickets
   templates: Templates
+  scs: SoftwareCatalogs
+  kas: KnowledgeArticles
+
 }
 
 export interface ActionDetails {

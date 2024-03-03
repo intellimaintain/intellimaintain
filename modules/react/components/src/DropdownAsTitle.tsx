@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
-import { Box, Card, CardContent, MenuItem, Select, SelectChangeEvent, Theme, useTheme } from "@mui/material";
+import { Box, Card, CardContent, MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import { LensProps, LensProps2, LensState } from "@focuson/state";
 
 import { SetIdEvent, SetValueEvent } from "@intellimaintain/events";
-import { IdAndName, SelectedAndList } from "@intellimaintain/domain";
-import { Loading, WizardOfOz } from "@intellimaintain/components";
-import {  SideEffect } from "@intellimaintain/react_core";
+import { Loading } from "@intellimaintain/components";
+import { SideEffect } from "@intellimaintain/react_core";
+import { IdAndName, SelectedAndList } from "@intellimaintain/utils";
 
 
 //observations... it will take time to load the selected item
@@ -62,7 +62,6 @@ export interface LoadingOrProps<S, T extends IdAndName> extends LensProps<S, Sel
 export function LoadingOr<S, T extends IdAndName> ( { state, children }: LoadingOrProps<S, T> ) {
   const item = state.optJson ();
   if ( item === undefined || item.selected === undefined ) return <></>
-  const newState: LensState<S, T | undefined, any> = state.focusOn ( 'item' )
-  const castState = newState as LensState<S, T, any>;
-  return item.item === undefined ? <Loading/> : children ( castState );
+  const newState: LensState<S, T , any> = state.focusOn ( 'item' )
+  return item.item === undefined ? <Loading/> : children ( newState );
 }

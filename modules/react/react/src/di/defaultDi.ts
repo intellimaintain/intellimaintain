@@ -2,9 +2,6 @@ import { DI } from "./di";
 import { ChatState } from "../domain/domain";
 import { ChatEntryWorkspace, DashBoardData, DashboardWorkspace, dereferencePlugIn, emailDisplayPlugin, EmailTempSpace, EmailWorkspace, LdapTempSpace, LdapWorkspace, QuickData, QuickWorkspace, ReceiveEmailWorkspace, sqlDataDisplayMessagePlugin, sqlDisplayMessagePlugin, SqlTempSpace, SqlWorkspace } from "@intellimaintain/react_conversation";
 import { LensState } from "@focuson/state";
-
-
-
 export const defaultDi: DI<ChatState> = {
   displayPlugins: [ sqlDisplayMessagePlugin,
     emailDisplayPlugin, dereferencePlugIn,

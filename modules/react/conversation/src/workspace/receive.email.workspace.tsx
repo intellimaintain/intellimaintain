@@ -5,7 +5,7 @@ import { calculateActionDetails, CommonState } from "@intellimaintain/react_core
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { FakeSendButton } from "./fake.send.button";
+import { FakeSendButton } from "@intellimaintain/components";
 
 
 export interface ReceiveEmailWorkspace<S, S1 extends CommonState> {

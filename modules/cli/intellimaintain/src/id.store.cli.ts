@@ -1,8 +1,9 @@
 import { defaultEventProcessor } from "@intellimaintain/events";
 import { SubCommandDetails } from "@intellimaintain/cli";
 import { defaultIdStoreDetails, defaultParserStore } from "@intellimaintain/defaultdomains";
-import { findIdKeyAndPath, isBadIdStoreResult, loadFromIdStore } from "@intellimaintain/idstore";
+import { isBadIdStoreResult, loadFromIdStore } from "@intellimaintain/idstore";
 import { findListIds } from "@intellimaintain/listids";
+import { findIdKeyAndPath } from "@intellimaintain/utils";
 
 
 function getDetails ( root: string ) {
@@ -28,13 +29,13 @@ export function idStoreCommands<Commander, Context, Config> (): SubCommandDetail
       },
       action: async ( commander, opts, id ) => {
         const store = idStore ( opts.id.toString () )
-        const {key} = findIdKeyAndPath ( id )
+        const { key } = findIdKeyAndPath ( id )
         let parser = opts?.parser?.toString () || key;
         const result = await store ( id, parser )
         if ( isBadIdStoreResult ( (result) ) )
           console.log ( `Error ${result.error}` )
         else
-          console.log ( JSON.stringify(result.result ,null,2))
+          console.log ( JSON.stringify ( result.result, null, 2 ) )
       }
     },
       {
@@ -54,7 +55,7 @@ export function idStoreCommands<Commander, Context, Config> (): SubCommandDetail
         },
         action: async ( commander, opts, idtype ) => {
           const all = listIds ( opts.id.toString () )
-          const ids =await all( idtype )
+          const ids = await all ( idtype )
           ids.forEach ( l => console.log ( l ) )
         }
       }

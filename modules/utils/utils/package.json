@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "node": "^v14.4.0",
+    "@focuson/lens": "1.44.3",
     "debug": "^4.3.4"
   },
   "devDependencies": {

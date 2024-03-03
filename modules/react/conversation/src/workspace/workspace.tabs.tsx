@@ -16,12 +16,13 @@ export function WorkspaceTab<S, Mid, WSLens> ( { height, state, plugin }: Worksp
   </Box>
 }
 
-export interface WorkspaceTabsProps<S, Mid, C> extends LensProps2<S, Mid, string, C> {
+export interface WorkspaceTabsProps<S, Mid, C> extends LensProps2<S, Mid, string|undefined, C> {
   height?: string
   children?: React.ReactElement<TabPanelDetails>[] | React.ReactElement<TabPanelDetails>
 }
 
-export function WorkspaceTabs<S, Mid, C extends HasWorkspacePlugins<Mid>> ( { state, children, height }: WorkspaceTabsProps<S, Mid, C> ) {
+
+export function WorkspaceTabsWithPlugins<S, Mid, C extends HasWorkspacePlugins<Mid>> ( { state, children, height }: WorkspaceTabsProps<S, Mid, C> ) {
   const defaultPlugin: WorkSpacePlugin<Mid, any> = state.context.defaultPlugin
   const workspacePlugins: WorkSpacePlugin<Mid, any>[] = state.context.workspacePlugins || []
   console.log ( 'WorkspaceTabs', 'workspacePlugins', workspacePlugins )

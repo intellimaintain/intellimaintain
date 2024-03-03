@@ -1,1 +1,0 @@
-export * from './src/ticket_type.domain';

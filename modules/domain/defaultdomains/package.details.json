@@ -16,7 +16,6 @@
     "@intellimaintain/domain",
     "@intellimaintain/git",
     "@intellimaintain/knowledge_articles",
-    "@intellimaintain/organisation",
     "@intellimaintain/softwarecatalog",
     "@intellimaintain/templates",
     "@intellimaintain/tickets",

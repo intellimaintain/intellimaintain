@@ -3,7 +3,7 @@
   "name":        "@intellimaintain/utils",
   "description": "The usual utility functions",
   "packageJson": {
-    "dependencies":    {"node": "^v14.4.0"},
+    "dependencies":    {"node": "^v14.4.0", "@focuson/lens": "1.44.3"},
     "devDependencies": {},
     "browser":         {
       "child_process": false

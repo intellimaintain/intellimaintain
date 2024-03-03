@@ -1,4 +1,4 @@
-import { TicketType } from "@intellimaintain/ticket_type";
+import { TicketType } from "@intellimaintain/domain";
 
 export const updateValueInDatabase: TicketType = {
   name: 'UpdateValueInDatabase',

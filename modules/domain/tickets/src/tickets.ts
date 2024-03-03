@@ -1,8 +1,8 @@
-import { DomainPlugin, IdAndName, SelectedAndList } from "@intellimaintain/domain";
+import { DomainPlugin } from "@intellimaintain/domain";
 import { ErrorsAnd, NameAnd } from "@laoban/utils";
-import { extractVariablesFromMarkdown, Variables } from "@intellimaintain/variables";
-import { addVariables } from "@intellimaintain/defaultdomains";
+import { addVariables, extractVariablesFromMarkdown, Variables } from "@intellimaintain/variables";
 import { ParserStoreParser } from "@intellimaintain/parser";
+import { IdAndName, SelectedAndList } from "@intellimaintain/utils";
 
 export interface Ticket extends IdAndName {
   severity: string
@@ -11,7 +11,7 @@ export interface Ticket extends IdAndName {
 export type Tickets = SelectedAndList<Ticket>
 
 
-export function variablesFromTicket (sofar: NameAnd<any>, t: Ticket ): ErrorsAnd<Variables> {
+export function variablesFromTicket ( sofar: NameAnd<any>, t: Ticket ): ErrorsAnd<Variables> {
   return addVariables ( extractVariablesFromMarkdown ( t.description ), { ticketId: t.id, severity: t.severity } )
 }
 
@@ -20,9 +20,9 @@ export const ticketParser: ParserStoreParser = ( id, s ) => {
   if ( index1 < 0 ) return { error: 'No newline found' }
   const index2 = s.indexOf ( '\n', index1 + 1 )
   if ( index2 < 0 ) return { error: 'No second newline found' }
-  const name = s.slice ( 0, index1 )
-  const priority = s.slice ( index1 + 1, index2 )
-  const description = s.slice ( index2 + 1 )
+  const name = s.slice ( 0, index1 ).trim()
+  const priority = s.slice ( index1 + 1, index2 ).trim()
+  const description = s.slice ( index2 + 1 ).trim()
   let ticket: Ticket = { id, name, severity: priority, description }
   return ticket
 }

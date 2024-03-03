@@ -1,25 +1,23 @@
 import { ParserStoreParser } from "@intellimaintain/parser";
-import { DomainPlugin, IdAndName, SelectedAndList } from "@intellimaintain/domain";
+import { DomainPlugin, } from "@intellimaintain/domain";
 import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { findRelevant, Variables } from "@intellimaintain/variables";
-import { findIdKeyAndPath } from "@intellimaintain/idstore";
-import { transformKeysToCamelCase } from "@intellimaintain/utils";
+import { findIdKeyAndPath, IdAndName, SelectedAndList, transformKeysToCamelCase } from "@intellimaintain/utils";
 import { DatabaseAndEnvironments } from "./database.config";
-
 
 const yaml = require ( 'js-yaml' );
 
-export interface SoftwareCatalog extends IdAndName, NameAnd<any> ,DatabaseAndEnvironments{
+export interface SoftwareCatalog extends IdAndName, NameAnd<any>, DatabaseAndEnvironments {
 }
 export type SoftwareCatalogs = SelectedAndList<SoftwareCatalog>
-export function variablesFromSoftwareCatalog (soFar: NameAnd<any>, sc: SoftwareCatalog ): ErrorsAnd<Variables> {
-  const variables =  findRelevant ( soFar, 'environments', 'environment', sc )
+export function variablesFromSoftwareCatalog ( soFar: NameAnd<any>, sc: SoftwareCatalog ): ErrorsAnd<Variables> {
+  const variables = findRelevant ( soFar, 'environments', 'environment', sc )
   return { variables, errors: [] }
 }
 
 export const scParser: ParserStoreParser = ( id, s ) => {
   let input = yaml.load ( s );
-  const doc = transformKeysToCamelCase<any>(input)
+  const doc = transformKeysToCamelCase<any> ( input )
   const { key, path: name } = findIdKeyAndPath ( id );
   return { id, name, ...doc }
 }

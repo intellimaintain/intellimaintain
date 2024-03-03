@@ -1,13 +1,13 @@
 import { ErrorsAnd, NameAnd } from "@laoban/utils";
 import { ParserStoreParser } from "@intellimaintain/parser";
-import { DomainPlugin, IdAndName, SelectedAndList } from "@intellimaintain/domain";
+import { DomainPlugin, } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
-import { transformKeysToCamelCase } from "@intellimaintain/utils";
+import { IdAndName, SelectedAndList, transformKeysToCamelCase } from "@intellimaintain/utils";
 import { Action } from "@intellimaintain/actions";
 
 const yaml = require ( 'js-yaml' );
 
-export interface ButtonData{
+export interface ButtonData {
   text?: string
   message: string
   when?: string

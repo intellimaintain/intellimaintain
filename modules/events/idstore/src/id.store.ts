@@ -1,13 +1,5 @@
 import { JSONValue } from "@intellimaintain/utils";
-import { KeyAndPath } from "./file.id.store";
 
-export function findIdKeyAndPath ( s: string ):KeyAndPath {
-  const index = s.indexOf ( ':' )
-  if ( index === -1 ) throw Error ( `Invalid id no ':' in ${s}]` )
-  const key = s.slice ( 0, index )
-  const path = s.slice ( index + 1 ).replace ( /:/g, '/' )
-  return { key, path };
-}
 
 export type  IdStore = ( id: string , parser: string) => Promise<IdStoreResult>
 
