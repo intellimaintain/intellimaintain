@@ -1,4 +1,4 @@
-import { CommonState, SideEffect, SideeffectResult, WorkspaceSelectionState } from "@intellimaintain/react_core";
+import { CommonState, DebugState, SideEffect, SideeffectResult, WorkspaceSelectionState } from "@intellimaintain/react_core";
 import { Lens, Lenses } from "@focuson/lens";
 import { ColumnLeftMainState } from "@intellimaintain/components";
 import { Ticket } from "@intellimaintain/tickets";
@@ -12,9 +12,7 @@ export interface ItsmState extends CommonState {
   operator: Operator
   log: SideeffectResult<any>[],
   selectionState: ItsmSelectionState
-  debug?:{
-    showDevMode?: boolean
-  }
+  debug?:DebugState
 }
 
 export const startAppState: ItsmState = {

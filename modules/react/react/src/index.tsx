@@ -11,7 +11,7 @@ import { TemplateFn } from '@intellimaintain/components';
 import { IdStore } from "@intellimaintain/idstore";
 import { ListIds } from "@intellimaintain/listids";
 import { App } from './gui/app';
-import { defaultVariablesExtractor, extractVariablesForAllDomain, InitialLoadResult, loadInitialIds } from "@intellimaintain/defaultdomains";
+import { defaultVariablesExtractor, extractVariablesForAllDomain, InitialLoadIdResult, loadInitialData, loadInitialIds } from "@intellimaintain/defaultdomains";
 import { chatDataL, ItsmState, logsL, operatorL, sideEffectsL, startAppState, ticketL } from "./state/itsm.state";
 import { initialQuestions } from "@intellimaintain/questions";
 import { ChatDisplayData } from "@intellimaintain/domain";
@@ -66,12 +66,15 @@ addEventStoreModifier ( container,
     sideEffectsL, logsL ) )
 
 
-loadInitialIds ( listIds ).then ( async ( res: InitialLoadResult ) => {
-  const newState = { ...startAppState, ...res }
-  const cdd: ChatDisplayData<any> | undefined = await initialQuestions ( operatorL, ticketL ) ( newState )
-  console.log ( 'initial questions cdd', cdd )
-  const s = cdd === undefined ? newState : chatDataL.set ( newState, cdd )
+loadInitialData ( idStore ).then ( async ( initialDataResult ) => {
+  const withInitialData = { ...startAppState, ...initialDataResult }
+  loadInitialIds ( listIds ).then ( async ( res: InitialLoadIdResult ) => {
+    const newState = { ...withInitialData, ...res }
+    const cdd: ChatDisplayData<any> | undefined = await initialQuestions ( operatorL, ticketL ) ( newState )
+    console.log ( 'initial questions cdd', cdd )
+    const s = cdd === undefined ? newState : chatDataL.set ( newState, cdd )
 
-  setJson ( s )
-  startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
+    setJson ( s )
+    startPolling ( pollingDetails, apiLoadingFromBrowser ( apiDetails ) )
+  } )
 } )

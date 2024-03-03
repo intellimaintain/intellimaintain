@@ -8,10 +8,3 @@
 {"event":"setId","id":"template:delete.project.request.approval","path":"templates.item","parser":"template","context":{}}
 {"event":"setValue","path":"kas.selected","value":"ka:deleteproject","context":{}}
 {"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
-
-{"event":"setValue","path":"operator","value":{"name":"Phil","email":"phil"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"type":"operatorDetails","operator":{"name":"Phil","email":"phil"},"who":"Phil"},"context":{}}
-{"event":"setValue","path":"operator","value":{"name":"Phil","email":"phil"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"type":"operatorDetails","operator":{"name":"Phil","email":"phil"},"who":"Phil"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"type":"message","who":"me","message":"fdg"},"context":{}}
-{"event":"append","path":"conversation.messages","value":{"type":"message","who":"me","message":"dfg"},"context":{}}

@@ -2,10 +2,18 @@ import { LensProps } from "@focuson/state";
 import { ThemeProvider, Toolbar } from "@mui/material";
 import { ColumnLeftMainBottom, DisplayDebug, SilentTabsContainer, SimpleTabPanel, theme } from "@intellimaintain/components";
 import React from "react";
-import { CommonState } from "@intellimaintain/react_core";
+import { CommonState, SideEffect } from "@intellimaintain/react_core";
 import { ItsmState } from "../state/itsm.state";
 import { ConversationHistoryAndChat, ConversationPlugin } from "@intellimaintain/react_conversation";
 import { GuiNav } from "./gui.nav";
+import { DevMode } from "@intellimaintain/react_devmode/dist/src/dev.mode";
+import { Conversation } from "@intellimaintain/domain";
+import { NameAnd } from "@laoban/utils";
+import { Variables } from "@intellimaintain/variables";
+import { Tickets } from "@intellimaintain/tickets";
+import { Templates } from "@intellimaintain/templates";
+import { SoftwareCatalogs } from "@intellimaintain/softwarecatalog";
+import { KnowledgeArticles } from "@intellimaintain/knowledge_articles";
 
 export interface AppProps<S, CS extends CommonState> extends LensProps<S, CS, any> {
   plugins: ConversationPlugin<S>[]
@@ -30,7 +38,7 @@ export function App<S> ( { state, plugins }: AppProps<S, ItsmState> ) {
           </div>
         </SimpleTabPanel>
       </SilentTabsContainer>
-      {showDevMode && <DisplayDebug state={state}/>}
+      {showDevMode && <DevMode maxWidth='95vw' state={state.focusOn ( 'debug' )} titles={[ 'selectionState', "conversation", "variables", "tickets", "templates", 'kas', 'scs', 'log', 'operator' ]}/>}
     </ColumnLeftMainBottom>
   </ThemeProvider>
   </>

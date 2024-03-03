@@ -4,8 +4,8 @@ import { Box } from "@mui/material";
 
 export interface DisplayJsonProps {
   json: any
-  maxHeight: string
-  maxWidth: string
+  maxHeight?: string
+  maxWidth?: string
 }
 export function DisplayJson ( { json, maxHeight,maxWidth }: DisplayJsonProps ) {
   // Style object for the Box component

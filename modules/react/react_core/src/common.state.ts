@@ -23,7 +23,11 @@ export interface CommonStateForActionDetails {
   selectionState: WorkspaceSelectionState
   variables: NameAnd<Variables>
 }
+export interface DebugState {
+  showDevMode?: boolean
+  selectedDebugTab?: string
 
+}
 export interface CommonState extends CommonStateForActionDetails {
   sideeffects: SideEffect[]
   conversation: Conversation

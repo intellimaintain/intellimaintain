@@ -4,15 +4,31 @@ import { SoftwareCatalog, SoftwareCatalogs } from "@intellimaintain/softwarecata
 import { Ticket, Tickets } from "@intellimaintain/tickets";
 import { Template, Templates } from "@intellimaintain/templates";
 import { IdAndName, SelectedAndList } from "@intellimaintain/utils";
+import { AllIdStoreDetails, IdStore, isGoodIdStoreResult } from "@intellimaintain/idstore";
+import { Operator } from "@intellimaintain/domain";
+import { idStore } from "itsm-workbench/dist/src/id.store.cli";
 
-export type InitialLoadResult = {
+export type InitialLoadDataResult = {
+  operator?: Operator
+  error?: string[]
+}
+export async function loadInitialData ( idStore: IdStore ): Promise<InitialLoadDataResult> {
+  const operator = await idStore ( 'operator:me', 'operator' )
+  if ( isGoodIdStoreResult ( operator ) ) {
+    return { operator: operator.result as any }
+  } else {
+    return { error: [ operator.error ] }
+  }
+}
+export type InitialLoadIdResult = {
   kas: KnowledgeArticles
   scs: SoftwareCatalogs
   tickets: Tickets
   templates: Templates
 }
 
-export async function loadInitialIds ( listIds: ListIds ): Promise<InitialLoadResult> {
+export async function loadInitialIds ( listIds: ListIds ): Promise<InitialLoadIdResult> {
+
   const kaIds = await listIds ( 'ka' )
   console.log ( 'kaIds', kaIds )
   const scIds = await listIds ( 'sc' )

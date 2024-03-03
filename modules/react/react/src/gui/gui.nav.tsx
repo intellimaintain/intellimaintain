@@ -1,6 +1,6 @@
 import { LensProps } from "@focuson/state";
 import { ItsmState } from "../state/itsm.state";
-import { FocusOnSetStringButton, FocusOnToggleButton } from "@intellimaintain/components";
+import { FocusOnSetValueButton, FocusOnToggleButton } from "@intellimaintain/components";
 import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 import SettingsIcon from '@mui/icons-material/Settings';
 import React from "react";
@@ -23,8 +23,8 @@ export function GuiNav<S> ( { state }: LensProps<S, ItsmState, any> ) {
     }}
   >
     <div>Settings/tickets</div>
-    <FocusOnSetStringButton aria-label='Resolve Tickets' startIcon={<ChatIcon/>} value='chat' state={state.focusOn ( 'selectionState' ).focusOn ( 'workspaceTab' )} sx={buttonSx}>Resolve Tickets</FocusOnSetStringButton>
-    <FocusOnSetStringButton aria-label='Show settings' startIcon={<SettingsIcon/>} value='settings' state={state.focusOn ( 'selectionState' ).focusOn ( 'workspaceTab' )} sx={buttonSx}>Settings</FocusOnSetStringButton>
+    <FocusOnSetValueButton aria-label='Resolve Tickets' startIcon={<ChatIcon/>} valueToSet='chat' state={state.focusOn ( 'selectionState' ).focusOn ( 'workspaceTab' )} sx={buttonSx}>Resolve Tickets</FocusOnSetValueButton>
+    <FocusOnSetValueButton aria-label='Show settings' startIcon={<SettingsIcon/>} valueToSet='settings' state={state.focusOn ( 'selectionState' ).focusOn ( 'workspaceTab' )} sx={buttonSx}>Settings</FocusOnSetValueButton>
     <FocusOnToggleButton aria-label='Toggle Developer Mode' startIcon={<DeveloperModeIcon/>} state={state.focusOn ( 'debug' ).focusOn ( 'showDevMode' )} sx={buttonSx}>Developer Mode</FocusOnToggleButton>
   </Box>
 }

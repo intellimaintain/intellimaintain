@@ -18,7 +18,7 @@ export interface ColumnLeftRowBottomProps<S> extends LensProps<S, ColumnLeftMain
 export interface ColumnLeftMainState {
   drawerOpen?: boolean;
 }
-export function calcDrawer<S> ( state: LensState<S, ColumnLeftMainState, any>, layout: SideDrawerLayoutProps ) {
+export function calcDrawer<S> ( state: LensState<S, ColumnLeftMainState, any>, layout: SideDrawerLayoutProps |undefined){
   const drawerOpenState = state.focusOn ( 'drawerOpen' )
   const drawerOpen = drawerOpenState.optJson () === undefined ? true : drawerOpenState.optJson ();
   const targetDrawerWidth = layout?.drawerWidth || '240px';

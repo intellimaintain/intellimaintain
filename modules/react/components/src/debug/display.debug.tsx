@@ -9,8 +9,8 @@ export interface DisplayDebugProps<S> extends LensProps<S, any, any> {
 
 
 export function DisplayDebug<S> ( { state, maxHeight, maxWidth }: DisplayDebugProps<S> ) {
-  return <DisplayJson maxWidth={maxWidth} maxHeight={maxHeight} json={state.optJson ()}/>
+  return <DisplayJson maxWidth={maxWidth} maxHeight={maxHeight} json={state.optJson () || ''}/>
 }
 export function StateDisplay<S> ( { state, maxHeight, maxWidth }: DisplayDebugProps<S> ) {
-  return <DisplayJson maxWidth={maxWidth} maxHeight={maxHeight} json={state.main}/>
+  return <DisplayJson maxWidth={maxWidth} maxHeight={maxHeight} json={state.main || ''}/>
 }
