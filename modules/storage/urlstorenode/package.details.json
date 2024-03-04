@@ -1,0 +1,26 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/urlstorenode",
+  "description": "loads and saves itsm schema urls used with intellimaintain using node",
+  "packageJson": {
+    "dependencies":    {
+      "@laoban/utils":   "1.4.45",
+      "@laoban/fileops": "1.4.45",
+      "node":            "^v14.4.0"
+    },
+    "devDependencies": {},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       [
+    "@intellimaintain/domain",
+    "@intellimaintain/url",
+    "@intellimaintain/git"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}
