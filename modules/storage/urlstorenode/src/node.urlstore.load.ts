@@ -1,8 +1,8 @@
-import { ErrorsAnd, hasErrors, mapErrors, mapErrorsK } from "@laoban/utils";
-import { IdentityUrl, isIdentityUrl, isNamedUrl, NamedOrIdentityUrl, NamedUrl, parseIdentityUrl, parseUrl, UrlLoadFn, UrlLoadResult } from "@intellimaintain/url";
+import { ErrorsAnd, hasErrors, mapErrorsK } from "@laoban/utils";
+import { IdentityUrl, isIdentityUrl, isNamedUrl, NamedUrl, parseUrl, UrlLoadFn, UrlLoadResult } from "@intellimaintain/url";
 import * as fs from "fs";
 import { GitOps } from "@intellimaintain/git";
-import { namedUrlToPath, OrgAndNameSpaceDetails, OrganisationToNameSpaceToDetails, PathAndDetails, urlToOrgAndNamdDetails } from "./node.urlstore";
+import { namedUrlToPath, OrganisationToNameSpaceToDetails, urlToOrgAndNamdDetails } from "@intellimaintain/url";
 
 
 export const loadFromNamedUrl = ( gitOps: GitOps, config: OrganisationToNameSpaceToDetails ) => ( named: NamedUrl ): Promise<ErrorsAnd<UrlLoadResult>> => {

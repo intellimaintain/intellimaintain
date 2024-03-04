@@ -1,0 +1,25 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/urlstoreapi",
+  "description": "loads and saves itsm schema urls used with intellimaintain using an api",
+  "packageJson": {
+    "dependencies":    {
+      "@laoban/utils":   "1.4.45",
+      "@laoban/fileops": "1.4.45"
+    },
+    "devDependencies": {"jest-fetch-mock": "^3.0.3"},
+    "browser":         {
+      "child_process": false
+    }
+  },
+  "links":       [
+    "@intellimaintain/domain",
+    "@intellimaintain/url",
+    "@intellimaintain/git"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": true,
+    "test":    false
+  }
+}

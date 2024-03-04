@@ -34,11 +34,11 @@ export function ExampleWelcome () {
     <div>
       <h1>Welcome to the Example</h1>
       <p>This feels like an accordion!</p>
-      <AccordionExplicitList name='profile' list={['name', 'email']} state={state.focusOn ( 'selectionData' ).doubleUp ().focus1On ( 'accordion' ).focus2On ( 'profile' )} title={<div>Profile</div>}>
+      <AccordionExplicitList name='profile' list={[ 'name', 'email' ]} state={state.focusOn ( 'selectionData' ).doubleUp ().focus1On ( 'accordion' ).focus2On ( 'profile' )} title={<div>Profile</div>}>
         {s => <div>{uppercaseFirstLetter ( s )}</div>}
       </AccordionExplicitList>
       <EditAttributesTable state={state.focusOn ( 'data' )} children={
-        ( key, state ) => [ <div>{splitAndCapitalize ( key )}</div>, <div>{state.optJson ()}</div> ]
+        ( key, ad, state ) => [ <div>{ad.name}</div>, <div>{state.optJson ()}</div> ]
       }/>
       <div>Organisation data goes here: like the git repo locally and remotely</div>
       <div>Current environments database config goes here (schema/user/pass) and test config</div>

@@ -1,6 +1,5 @@
-import { NamedUrl, parseNamedUrl } from "@intellimaintain/url";
+import { NamedUrl, namedUrlToPath, nameSpaceDetails, OrganisationToNameSpaceToDetails, parseNamedUrl } from "@intellimaintain/url";
 import { ns1, org1, orgToDetails } from "./integration.fixture";
-import { namedUrlToPath, nameSpaceDetails, OrganisationToNameSpaceToDetails } from "./node.urlstore";
 
 
 describe ( "nameSpaceDetails", () => {

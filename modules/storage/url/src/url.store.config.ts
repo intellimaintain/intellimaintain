@@ -1,5 +1,6 @@
 import { ErrorsAnd, mapErrors, NameAnd } from "@laoban/utils";
-import { isNamedUrl, NamedOrIdentityUrl, NamedUrl } from "@intellimaintain/url";
+import { isNamedUrl, NamedOrIdentityUrl, NamedUrl, parseUrl } from "./identity.and.name.url";
+
 
 export type UrlStoreParser = ( id: string, s: string ) => any
 export type UrlStoreWriter = ( content: any ) => ErrorsAnd<string>
@@ -30,12 +31,27 @@ export type OrganisationToNameSpaceToDetails = {
   baseDir: string
   orgToDetails: NameAnd<OrganisationStoreDetails>
 }
+
+/** Sets them all the same with sensible defaults */
+export function orgToNameSpaceToDetails ( baseDir: string, organisations: string[], nameSpaceToDetails: NameAnd<NameSpaceDetails> ): OrganisationToNameSpaceToDetails {
+  const orgToDetails: NameAnd<OrganisationStoreDetails> = {};
+  organisations.forEach ( org => orgToDetails[ org ] = { gitRepoPath: org, nameSpaceToDetails } );
+  return { baseDir, orgToDetails };
+}
+
+
 export type OrgAndNameSpaceDetails = {
   orgDetails: OrganisationStoreDetails
   details: NameSpaceDetails
 }
 export type PathAndDetails = OrgAndNameSpaceDetails & { path: string }
 
+export type UrlAndOrgAndNameSpaceDetails = { url: NamedOrIdentityUrl, details: OrgAndNameSpaceDetails }
+export function parseToDetailsAndUrl ( config: OrganisationToNameSpaceToDetails, urlAsString: string ): ErrorsAnd<UrlAndOrgAndNameSpaceDetails> {
+  return mapErrors ( parseUrl ( urlAsString ), url =>
+    mapErrors ( urlToOrgAndNamdDetails ( config, url ), details =>
+      ({ url, details }) ) )
+}
 export function urlToOrgAndNamdDetails ( config: OrganisationToNameSpaceToDetails, url: NamedOrIdentityUrl ): ErrorsAnd<OrgAndNameSpaceDetails> {
   const orgDetails = config.orgToDetails[ url.organisation ];
   if ( !orgDetails ) return [ `Don't know how to handle organisation ${url.organisation}. Legal organisations are ${Object.keys ( config.orgToDetails )}` ];

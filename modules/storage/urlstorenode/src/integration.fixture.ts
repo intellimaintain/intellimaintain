@@ -1,6 +1,6 @@
 import { findFileUp } from "@laoban/fileops";
 import fs from "fs";
-import { NameSpaceDetails, OrganisationStoreDetails, OrganisationToNameSpaceToDetails } from "./node.urlstore";
+import { NameSpaceDetails, OrganisationStoreDetails, OrganisationToNameSpaceToDetails } from "@intellimaintain/url";
 
 const laobanDir = findFileUp ( process.cwd (), async f => {
   // console.log ( 'checking', f )
