@@ -36,7 +36,7 @@ export function blankChatState ( chatter: string, tickets: Tickets, kas: Knowled
     selectionState: {},
     sideeffects: [],
     log: [],
-    conversation: { messages: [] },
+    conversation: { messages: [], chat: { type: '' } },
     sql: [],
     kas,
     scs,

@@ -1,21 +1,23 @@
 import { NamedUrl, parseNamedUrl } from "@intellimaintain/url";
-import { namedUrlToPath, nameSpaceDetails, OrganisationToNameSpaceToDetails } from "./urlstorenode";
 import { ns1, org1, orgToDetails } from "./integration.fixture";
+import { namedUrlToPath, nameSpaceDetails, OrganisationToNameSpaceToDetails } from "./node.urlstore";
 
 
 describe ( "nameSpaceDetails", () => {
-  const mockParser = ( id: string, s: string ) => {};
+  const parser = ( id: string, s: string ) => {};
+  const writer = ( s: string ) => s + "_written";
 
   // Test that required fields must be provided and default values are used
   it ( 'fills in default values for optional properties if they are not provided', () => {
     const name = 'testName';
-    const result = nameSpaceDetails ( name, { parser: mockParser } );
+    const result = nameSpaceDetails ( name, { parser, writer } );
 
     expect ( result ).toEqual ( {
       pathInGitRepo: name, // Default to the name provided
       extension: 'yaml', // Default value
       mimeType: 'text/yaml', // Default value
-      parser: mockParser, // Provided parser
+      parser,
+      writer,
       encoding: 'utf8' // Default value
     } );
   } );
@@ -27,7 +29,8 @@ describe ( "nameSpaceDetails", () => {
       pathInGitRepo: 'custom/path',
       extension: 'json',
       mimeType: 'application/json',
-      parser: mockParser,
+      parser,
+      writer,
       encoding: 'utf16le'
     } );
 
@@ -35,7 +38,8 @@ describe ( "nameSpaceDetails", () => {
       pathInGitRepo: 'custom/path',
       extension: 'json',
       mimeType: 'application/json',
-      parser: mockParser,
+      parser,
+      writer,
       encoding: 'utf16le'
     } );
   } );

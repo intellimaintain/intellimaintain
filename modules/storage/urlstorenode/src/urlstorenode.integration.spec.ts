@@ -2,11 +2,12 @@ import fs from "fs";
 import { GitOps } from "@intellimaintain/git";
 import { shellGitsops } from "@intellimaintain/shell_git";
 import { findFileUp } from "@laoban/fileops";
-import { loadFromIdentityUrl, loadFromNamedUrl, OrganisationToNameSpaceToDetails } from "./urlstorenode";
+import {  OrganisationToNameSpaceToDetails } from "./node.urlstore";
 import { orThrow, parseIdentityUrl, parseNamedUrl } from "@intellimaintain/url";
 import { orgToDetails, testDir } from "./integration.fixture";
+import { loadFromIdentityUrl, loadFromNamedUrl } from "./node.urlstore.load";
 
-describe ( "namedUrlToResult", () => {
+describe ( "loadFromNamedUrl and loadFromIdentityUrl integration test", () => {
   beforeEach ( async () =>
     fs.promises.rm ( await testDir, { recursive: true } ).catch ( e => console.log ( 'ignore error', e ) ) )
 
@@ -36,7 +37,7 @@ describe ( "namedUrlToResult", () => {
     expect ( loaded1 ).toEqual ( {
       "url": "itsm:org1:ns1:file1",
       "result": "goodbye_parsed",
-      "count": 7,
+      "fileSize": 7,
       "mimeType": "text/plain",
       "id": "itsmid:org1:ns1:a21e91b14c870770cf612020a0619a90d987df4c",
     } )
@@ -44,13 +45,13 @@ describe ( "namedUrlToResult", () => {
     expect ( loaded2 ).toEqual ( {
       "url": "itsmid:org1:ns1:a21e91b14c870770cf612020a0619a90d987df4c",
       "result": "goodbye_parsed",
-      "count": 7,
+      "fileSize": 7,
       "mimeType": "text/plain",
       "id": "itsmid:org1:ns1:a21e91b14c870770cf612020a0619a90d987df4c",
     } )
     const loaded3 = orThrow ( await loadFromIdentityUrl ( gitOps, config ) ( parseIdentityUrl ( "itsmid:org1:ns1:" + helloHash ) ) )
     expect ( loaded3 ).toEqual ( {
-      "count": 5,
+      "fileSize": 5,
       "id": "itsmid:org1:ns1:b6fc4c620b67d95f953a5c1c1230aaab5db5a1b0",
       "mimeType": "text/plain",
       "result": "hello_parsed",
