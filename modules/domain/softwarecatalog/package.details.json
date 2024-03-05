@@ -3,13 +3,13 @@
   "name":        "@intellimaintain/softwarecatalog",
   "description": "The softwarecatalog plugin. Everything except react",
   "packageJson": {
-    "dependencies":    { "@laoban/utils": "1.4.45"},
+    "dependencies":    {"@laoban/utils": "1.4.45"},
     "devDependencies": {},
     "browser":         {
       "child_process": false
     }
   },
-  "links":       ["@intellimaintain/domain"],
+  "links":       ["@intellimaintain/domain", "@intellimaintain/yaml"],
   "guards":      {
     "compile": true,
     "publish": true,

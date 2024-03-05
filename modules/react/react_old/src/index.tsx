@@ -15,7 +15,11 @@ import { defaultDi } from './di/defaultDi';
 import { loadInitialIds } from "./state/load.initial";
 import { App } from './gui/app';
 import { ChatState, logsL, sideEffectsL } from "./domain/domain";
+import { jsYaml } from  "@intellimaintain/jsyaml";
+import { defaultParserStore, defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
+import { YamlCapability } from "@intellimaintain/yaml";
 
+const yaml: YamlCapability = jsYaml()
 const templateFn: TemplateFn<any> = ( state, templateName ) => {
   return state?.templates?.item?.template || ''
 }
@@ -26,7 +30,7 @@ const root = ReactDOM.createRoot ( rootElement );
 
 const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
 const saveDetails: SendEvents = sendEvents ( "http://localhost:1235/file1" )
-const idStoreDetails = apiIdStore ( "http://localhost:1235" )
+const idStoreDetails = apiIdStore ( "http://localhost:1235", defaultParserStore ( yaml ) )
 const idStore: IdStore = idStoreFromApi ( idStoreDetails )
 const listIds: ListIds = listidsFromFetch ( idStoreDetails )
 
@@ -36,7 +40,7 @@ const sep1 = defaultEventProcessor<ChatState> ( '', startAppState, idStore )
 
 addEventStoreListener ( container, (( oldS, s, setJson ) =>
   root.render ( <App state={lensState ( s, setJson, 'Container', defaultDi )} templateFn={templateFn}/> )) );
-
+const ve = defaultVariablesExtractor ( yaml )
 const pollingDetails = polling ( 1000, async s => {
   console.log ( 'polling', typeof s, s )
   const events = stringToEvents ( {}, s );
@@ -45,7 +49,7 @@ const pollingDetails = polling ( 1000, async s => {
   console.log ( 'errors', errors )
   console.log ( 'state', state )
   if ( state ) {
-    const result: ChatState = extractVariablesAndAddToState ( state )
+    const result: ChatState = extractVariablesAndAddToState ( ve, state )
     console.log ( 'result with variables', result )
     setJson ( result )
   }

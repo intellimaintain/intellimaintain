@@ -1,0 +1,20 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/yaml",
+  "description": "",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+      "@laoban/utils":   "1.4.45"
+    }
+  },
+  "links":       [
+
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

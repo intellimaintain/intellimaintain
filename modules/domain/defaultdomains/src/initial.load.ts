@@ -4,9 +4,8 @@ import { SoftwareCatalog, SoftwareCatalogs } from "@intellimaintain/softwarecata
 import { Ticket, Tickets } from "@intellimaintain/tickets";
 import { Template, Templates } from "@intellimaintain/templates";
 import { IdAndName, SelectedAndList } from "@intellimaintain/utils";
-import { AllIdStoreDetails, IdStore, isGoodIdStoreResult } from "@intellimaintain/idstore";
+import { IdStore, isGoodIdStoreResult } from "@intellimaintain/idstore";
 import { Operator } from "@intellimaintain/domain";
-import { idStore } from "itsm-workbench/dist/src/id.store.cli";
 
 export type InitialLoadDataResult = {
   operator?: Operator

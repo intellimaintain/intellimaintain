@@ -4,6 +4,3 @@ export interface Organisation {
   gitRepo?: string
 }
 
-export function gitRepoFor ( configDir: string, org: Organisation ): string {
-  return org.gitRepo || `${configDir}/${org.name}`
-}

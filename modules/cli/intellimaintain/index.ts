@@ -6,9 +6,12 @@ import { fileOpsNode } from "@laoban/filesops-node";
 import { CleanConfig, Config, configCommands } from "@intellimaintain/config";
 import { hasErrors, reportErrors } from "@laoban/utils";
 import { eventStoreCommands } from "./src/event.store.cli";
+
 import { apiCommand } from "@intellimaintain/api";
 import { idStoreCommands } from "./src/id.store.cli";
 import { addVariableCommands } from "./src/variables.cli";
+import { YamlCapability } from "@intellimaintain/yaml";
+import { jsYaml } from "@intellimaintain/jsyaml";
 
 
 export function findVersion () {
@@ -26,16 +29,17 @@ const configFinder: CliTcFinder<Config, CleanConfig> = fileConfig<CliContext, Co
   ( c: any ) => c,
   defaultTo ( {}, 'NotFound' ) )
 
+const yaml: YamlCapability = jsYaml ()
 makeCli<Commander12, CliContext, Config, CleanConfig> ( context, configFinder, cliTc ).then ( async ( commander ) => {
   if ( hasErrors ( commander ) ) {
     reportErrors ( commander )
     process.exit ( 1 )
   }
   cliTc.addSubCommand ( commander, configCommands ( commander ) )
-  cliTc.addSubCommand ( commander, eventStoreCommands<Commander12, CliContext, CleanConfig> () )
-  cliTc.addSubCommand ( commander, idStoreCommands<Commander12, CliContext, CleanConfig> () )
-  cliTc.addSubCommand ( commander, addVariableCommands<Commander12, CliContext, CleanConfig> () )
-  cliTc.addCommands ( commander, [ apiCommand () ] )
+  cliTc.addSubCommand ( commander, eventStoreCommands<Commander12, CliContext, CleanConfig> ( yaml ) )
+  cliTc.addSubCommand ( commander, idStoreCommands<Commander12, CliContext, CleanConfig> ( yaml ) )
+  cliTc.addSubCommand ( commander, addVariableCommands<Commander12, CliContext, CleanConfig> ( yaml ) )
+  cliTc.addCommands ( commander, [ apiCommand ( yaml ) ] )
   return await cliTc.execute ( commander.commander, context.args )
 } )
 

@@ -1,14 +1,6 @@
-import React from "react";
-import { LensProps2 } from "@focuson/state";
 import { extractVariablesFrom, Variables, VariablesExtractor } from "@intellimaintain/variables";
 import { NameAnd } from "@laoban/utils";
-import { SideEffect } from "@intellimaintain/react_core";
-import { Card, CardContent, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import ErrorIcon from '@mui/icons-material/Error';
-
-import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
 import { ChatState } from "../domain/domain";
-import { DisplayYaml } from "@intellimaintain/components";
 import { IdAndName, JSONObject, SelectedAndList } from "@intellimaintain/utils";
 
 export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: VariablesExtractor, context: string, soFar: JSONObject, se: SelectedAndList<T> ): Variables {
@@ -19,8 +11,7 @@ export function extractVariablesFromSelectedAndList<T extends IdAndName> ( ve: V
   return extractVariablesFrom ( ve, se.selected, soFar, se.item )
 }
 
-export function extractVariablesAndAddToState ( chat: ChatState ): ChatState {
-  const ve = defaultVariablesExtractor
+export function extractVariablesAndAddToState ( ve: VariablesExtractor, chat: ChatState ): ChatState {
   const operator: Variables = { variables: { 'operator': { email: chat.who, name: 'phil' } }, errors: [] }
   let ticket: Variables = extractVariablesFromSelectedAndList ( ve, 'Ticket', operator.variables, chat.tickets );
   const soFar: JSONObject = { ...operator.variables, ...ticket.variables }

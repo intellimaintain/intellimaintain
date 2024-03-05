@@ -1,2 +1,1 @@
-export * from './src/node.urlstore.load'
-export * from './src/node.urlstore.save'
+export * from './src/url.store.api.client'

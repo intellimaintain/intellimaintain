@@ -1,11 +1,10 @@
 import { ErrorsAnd, NameAnd } from "@laoban/utils";
-import { ParserStoreParser } from "@intellimaintain/parser";
-import { DomainPlugin, } from "@intellimaintain/domain";
+import { camelCaseAndIdYamlParser, DomainPlugin, } from "@intellimaintain/domain";
 import { Variables } from "@intellimaintain/variables";
-import { IdAndName, SelectedAndList, transformKeysToCamelCase } from "@intellimaintain/utils";
+import { IdAndName, SelectedAndList } from "@intellimaintain/utils";
 import { Action } from "@intellimaintain/actions";
+import { YamlCapability } from "@intellimaintain/yaml";
 
-const yaml = require ( 'js-yaml' );
 
 export interface ButtonData {
   text?: string
@@ -55,10 +54,10 @@ export function isInService1NotInService2KS ( x: any ): x is InService1NotInServ
 export type KnowledgeArticle = AdjustDatabaseSqlKS | InService1NotInService2KS
 export type KnowledgeArticles = SelectedAndList<KnowledgeArticle>
 
-export const kaArticleParser: ParserStoreParser = ( id, s ): ErrorsAnd<KnowledgeArticle> => {
-  const doc = transformKeysToCamelCase<any> ( yaml.load ( s ) )
-  return { id, ...doc }
-}
+// export const kaArticleParser = ( yaml: YamlCapability ): ParserStoreParser => ( id, s ): ErrorsAnd<KnowledgeArticle> => {
+//   const doc = transformKeysToCamelCase<any> ( yaml.load ( s ) )
+//   return { id, ...doc }
+// }
 
 export function variablesFromKnowledgeArticle ( sofar: NameAnd<any>, ka: KnowledgeArticle ): ErrorsAnd<Variables> {
   let variables: NameAnd<any> = {
@@ -69,10 +68,11 @@ export function variablesFromKnowledgeArticle ( sofar: NameAnd<any>, ka: Knowled
   return { variables, errors: [] }
 }
 
-export function kaPlugin ( rootPath: string ): DomainPlugin<KnowledgeArticle> {
+export function kaPlugin ( yaml: YamlCapability, rootPath: string ): DomainPlugin<KnowledgeArticle> {
   return {
     prefix: 'ka',
-    parser: kaArticleParser,
+    parser: camelCaseAndIdYamlParser ( yaml ),
+    writer: yaml.writer,
     variablesExtractor: variablesFromKnowledgeArticle,
     idStoreDetails: { extension: 'yaml', rootPath, mimeType: 'text/markdown; charset=UTF-8' }
   }

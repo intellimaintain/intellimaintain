@@ -9,7 +9,7 @@
       "child_process": false
     }
   },
-  "links":       ["@intellimaintain/domain"],
+  "links":       ["@intellimaintain/domain", "@intellimaintain/yaml"],
   "guards":      {
     "compile": true,
     "publish": true,

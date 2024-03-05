@@ -11,11 +11,14 @@ import { TemplateFn } from '@intellimaintain/components';
 import { IdStore } from "@intellimaintain/idstore";
 import { ListIds } from "@intellimaintain/listids";
 import { App } from './gui/app';
-import { defaultVariablesExtractor, extractVariablesForAllDomain, InitialLoadIdResult, loadInitialData, loadInitialIds } from "@intellimaintain/defaultdomains";
+import { defaultParserStore, defaultVariablesExtractor, extractVariablesForAllDomain, InitialLoadIdResult, loadInitialData, loadInitialIds } from "@intellimaintain/defaultdomains";
 import { chatDataL, ItsmState, logsL, operatorL, sideEffectsL, startAppState, ticketL } from "./state/itsm.state";
 import { initialQuestions } from "@intellimaintain/questions";
 import { ChatDisplayData } from "@intellimaintain/domain";
 import { operatorConversationPlugin } from "@intellimaintain/react_operator";
+
+import { YamlCapability } from '@intellimaintain/yaml';
+import { jsYaml } from '@intellimaintain/jsyaml';
 
 
 const templateFn: TemplateFn<any> = ( state, templateName ) => {
@@ -26,16 +29,16 @@ const rootElement = document.getElementById ( 'root' );
 if ( !rootElement ) throw new Error ( 'Failed to find the root element' );
 const root = ReactDOM.createRoot ( rootElement );
 
+const yaml : YamlCapability= jsYaml()
 const apiDetails: ApiLoading = apiLoading ( "http://localhost:1235/file1" )
 const saveDetails: SendEvents = sendEvents ( "http://localhost:1235/file1" )
-const idStoreDetails = apiIdStore ( "http://localhost:1235" )
+const idStoreDetails = apiIdStore ( "http://localhost:1235", defaultParserStore ( yaml ) )
 const idStore: IdStore = idStoreFromApi ( idStoreDetails )
 const listIds: ListIds = listidsFromFetch ( idStoreDetails )
 
 const container = eventStore<ItsmState> ()
 const setJson = setEventStoreValue ( container );
 const sep1 = defaultEventProcessor<ItsmState> ( '', startAppState, idStore )
-
 addEventStoreListener ( container, (( oldS, s, setJson ) =>
   root.render ( <App
     state={lensState ( s, setJson, 'Container', {} )}
@@ -50,7 +53,7 @@ const pollingDetails = polling ( 1000, async s => {
   console.log ( 'errors', errors )
   console.log ( 'state', state )
   if ( state ) {
-    const result = extractVariablesForAllDomain ( defaultVariablesExtractor,
+    const result = extractVariablesForAllDomain ( defaultVariablesExtractor ( yaml ),
       { name: 'Phil', email: 'phil@example.com' },
       state.tickets, state.kas, state.scs )
     const newState = { ...state, variables: result }

@@ -23,6 +23,7 @@ export function templatePlugin ( rootPath: string ): DomainPlugin<Template> {
   return {
     prefix: 'template',
     parser: templateParser,
+    writer: ( template: Template ) => template.template,
     variablesExtractor: variablesFromTemplate,
     idStoreDetails: { extension: 'txt', rootPath, mimeType: 'text/plain; charset=UTF-8' }
   }

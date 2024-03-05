@@ -1,37 +1,44 @@
 import { VariablesExtractor } from "@intellimaintain/variables";
-import { DomainPlugin,Operator, operatorPlugin  } from "@intellimaintain/domain";
+import { DomainPlugin, operatorPlugin } from "@intellimaintain/domain";
 import { ParserStore } from "@intellimaintain/parser";
-import { kaPlugin, KnowledgeArticle } from "@intellimaintain/knowledge_articles";
+import { kaPlugin } from "@intellimaintain/knowledge_articles";
 import { Ticket, ticketsPlugin } from "@intellimaintain/tickets";
 import { AllIdStoreDetails } from "@intellimaintain/idstore";
-import { SoftwareCatalog, softwareCatalogPlugin } from "@intellimaintain/softwarecatalog";
+import { softwareCatalogPlugin } from "@intellimaintain/softwarecatalog";
 import { Template, templatePlugin } from "@intellimaintain/templates";
+import { YamlCapability } from "@intellimaintain/yaml";
 
 
-const operatorP: DomainPlugin<Operator> = operatorPlugin ( 'operator' )
-const kaP: DomainPlugin<KnowledgeArticle> = kaPlugin ( 'ka' )
+// const operatorP: DomainPlugin<Operator> = operatorPlugin ( 'operator' )
 const ticketP: DomainPlugin<Ticket> = ticketsPlugin ( 'tickets' )
-const scP: DomainPlugin<SoftwareCatalog> = softwareCatalogPlugin ( 'scs' )
+// const scP: DomainPlugin<SoftwareCatalog> = softwareCatalogPlugin ( 'scs' )
 const templateP: DomainPlugin<Template> = templatePlugin ( 'templates' )
 
-export const defaultVariablesExtractor: VariablesExtractor = {
-  operator: operatorP.variablesExtractor,
-  ka: kaP.variablesExtractor,
-  ticket: ticketP.variablesExtractor,
-  sc: scP.variablesExtractor,
-  template: templateP.variablesExtractor
+export function defaultVariablesExtractor ( yaml: YamlCapability ): VariablesExtractor {
+  return {
+    operator: operatorPlugin ( yaml, 'operator' ).variablesExtractor,
+    ka: kaPlugin ( yaml, 'ka' ).variablesExtractor,
+    ticket: ticketP.variablesExtractor,
+    sc: softwareCatalogPlugin ( yaml, 'scs' ).variablesExtractor,
+    template: templateP.variablesExtractor
+  }
 }
 
-export const defaultParserStore: ParserStore = {
-  json: ( id, s ) => JSON.parse ( s ),
-  string: ( id, s ) => s,
-  operator: operatorP.parser,
-  ticket: ticketP.parser,
-  sc: scP.parser,
-  ka: kaP.parser,
-  template: templateP.parser
+export function defaultParserStore ( yaml: YamlCapability ): ParserStore {
+  return {
+    json: ( id, s ) => JSON.parse ( s ),
+    string: ( id, s ) => s,
+    operator: operatorPlugin ( yaml, 'operator' ).parser,
+    ticket: ticketP.parser,
+    sc: softwareCatalogPlugin ( yaml, 'scs' ).parser,
+    ka: kaPlugin ( yaml, 'ka' ).parser,
+    template: templateP.parser
+  }
 }
-export function defaultIdStoreDetails ( root: string, parserStore: ParserStore ): AllIdStoreDetails {
+export function defaultIdStoreDetails ( root: string, yaml: YamlCapability, parserStore: ParserStore ): AllIdStoreDetails {
+  const operatorP = operatorPlugin ( yaml, 'operator' )
+  const scP = softwareCatalogPlugin ( yaml, 'scs' )
+  const kaP = kaPlugin ( yaml, 'ka' )
   return {
     parserStore, details: {
       operator: { ...operatorP.idStoreDetails, rootPath: root + '/' + operatorP.idStoreDetails.rootPath },

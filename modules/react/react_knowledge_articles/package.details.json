@@ -10,7 +10,8 @@
   },
   "links":       [
     "@intellimaintain/components",
-    "@intellimaintain/knowledge_articles"
+    "@intellimaintain/knowledge_articles",
+    "@intellimaintain/yaml"
   ],
   "guards":      {
     "compile": true,

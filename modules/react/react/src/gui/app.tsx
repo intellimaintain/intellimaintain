@@ -6,7 +6,7 @@ import { CommonState, SideEffect } from "@intellimaintain/react_core";
 import { ItsmState } from "../state/itsm.state";
 import { ConversationHistoryAndChat, ConversationPlugin } from "@intellimaintain/react_conversation";
 import { GuiNav } from "./gui.nav";
-import { DevMode } from "@intellimaintain/react_devmode/dist/src/dev.mode";
+import { DevMode } from "@intellimaintain/react_devmode";
 import { Conversation } from "@intellimaintain/domain";
 import { NameAnd } from "@laoban/utils";
 import { Variables } from "@intellimaintain/variables";

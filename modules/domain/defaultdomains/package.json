@@ -29,6 +29,7 @@
     "@intellimaintain/templates": "0.1.1",
     "@intellimaintain/tickets": "0.1.1",
     "@intellimaintain/utils": "0.1.1",
+    "@intellimaintain/yaml": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

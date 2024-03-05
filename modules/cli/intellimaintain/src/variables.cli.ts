@@ -3,9 +3,10 @@ import { SubCommandDetails } from "@intellimaintain/cli";
 import { idStore } from "./id.store.cli";
 import { defaultVariablesExtractor } from "@intellimaintain/defaultdomains";
 import { extractVariablesFrom } from "@intellimaintain/variables";
+import { YamlCapability } from "@intellimaintain/yaml";
 
 
-export function addVariableCommands<Commander, Context, Config> (): SubCommandDetails<Commander, Context, Config> {
+export function addVariableCommands<Commander, Context, Config> ( yaml: YamlCapability ): SubCommandDetails<Commander, Context, Config> {
   return {
     cmd: 'variables',
     description: 'Allows checking how variables are extracted from artifacts',
@@ -19,12 +20,12 @@ export function addVariableCommands<Commander, Context, Config> (): SubCommandDe
         console.log ( `getting id  ${id} ${JSON.stringify ( opts )}` )
         let root = opts.id.toString ();
 
-        const store = idStore ( root )
+        const store = idStore ( root, yaml )
         const result = await store ( id, opts.parser.toString () )
         if ( isBadIdStoreResult ( (result) ) )
           console.log ( `Error ${result.error}` )
         else {
-          const variables = extractVariablesFrom ( defaultVariablesExtractor, id, {},result.result )
+          const variables = extractVariablesFrom ( defaultVariablesExtractor ( yaml ), id, {}, result.result )
           console.log ( variables )
         }
       }

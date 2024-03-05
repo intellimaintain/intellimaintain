@@ -19,7 +19,8 @@
     "@intellimaintain/softwarecatalog",
     "@intellimaintain/templates",
     "@intellimaintain/tickets",
-    "@intellimaintain/utils"
+    "@intellimaintain/utils",
+    "@intellimaintain/yaml"
   ],
   "guards":      {
     "compile": true,

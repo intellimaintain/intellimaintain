@@ -8,3 +8,9 @@
 {"event":"setId","id":"template:delete.project.request.approval","path":"templates.item","parser":"template","context":{}}
 {"event":"setValue","path":"kas.selected","value":"ka:deleteproject","context":{}}
 {"event":"setId","id":"ka:deleteproject","path":"kas.item","parser":"ka","context":{}}
+{{"event":"append","path":"conversation.messages","value":{"type":"message","message":"[checkSql]","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkIssueExists","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"type":"message","message":"Need to make pretty gui... Checked phil@example.com","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkUser","value":true,"context":{}}
+{"event":"append","path":"conversation.messages","value":{"type":"message","message":"Need to make pretty gui... Checked mr.approver@example.com","who":"fake"},"context":{}}
+{"event":"setValue","path":"ticketState.checkApprover","value":true,"context":{}}

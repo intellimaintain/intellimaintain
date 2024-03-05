@@ -23,47 +23,28 @@ export function nameSpaceDetails ( name: string, partial: Partial<NameSpaceDetai
   }
 }
 
-export interface OrganisationStoreDetails {
-  gitRepoPath: string
-  nameSpaceToDetails: NameAnd<NameSpaceDetails>
-}
-export type OrganisationToNameSpaceToDetails = {
+export type AllNamespaceDetails = NameAnd<NameSpaceDetails>
+
+export type OrganisationUrlStoreConfig = {
   baseDir: string
-  orgToDetails: NameAnd<OrganisationStoreDetails>
+  nameSpaceDetails: AllNamespaceDetails
 }
 
-/** Sets them all the same with sensible defaults */
-export function orgToNameSpaceToDetails ( baseDir: string, organisations: string[], nameSpaceToDetails: NameAnd<NameSpaceDetails> ): OrganisationToNameSpaceToDetails {
-  const orgToDetails: NameAnd<OrganisationStoreDetails> = {};
-  organisations.forEach ( org => orgToDetails[ org ] = { gitRepoPath: org, nameSpaceToDetails } );
-  return { baseDir, orgToDetails };
+export type PathAndDetails = {path: string, details: NameSpaceDetails }
+export function repoFrom ( config: OrganisationUrlStoreConfig, url: NamedOrIdentityUrl ): string {
+  return config.baseDir + '/' + url.organisation;
 }
-
-
-export type OrgAndNameSpaceDetails = {
-  orgDetails: OrganisationStoreDetails
-  details: NameSpaceDetails
+export function urlToDetails ( config: OrganisationUrlStoreConfig, url: NamedOrIdentityUrl ): ErrorsAnd<NameSpaceDetails> {
+  const nsLookup = config.nameSpaceDetails
+  const details = nsLookup[ url.namespace ];
+  if ( !details ) return [ `Don't know how to handle namespace ${url.namespace}. Legal namespaces are ${Object.keys ( nsLookup )}` ];
+  return details
 }
-export type PathAndDetails = OrgAndNameSpaceDetails & { path: string }
-
-export type UrlAndOrgAndNameSpaceDetails = { url: NamedOrIdentityUrl, details: OrgAndNameSpaceDetails }
-export function parseToDetailsAndUrl ( config: OrganisationToNameSpaceToDetails, urlAsString: string ): ErrorsAnd<UrlAndOrgAndNameSpaceDetails> {
-  return mapErrors ( parseUrl ( urlAsString ), url =>
-    mapErrors ( urlToOrgAndNamdDetails ( config, url ), details =>
-      ({ url, details }) ) )
-}
-export function urlToOrgAndNamdDetails ( config: OrganisationToNameSpaceToDetails, url: NamedOrIdentityUrl ): ErrorsAnd<OrgAndNameSpaceDetails> {
-  const orgDetails = config.orgToDetails[ url.organisation ];
-  if ( !orgDetails ) return [ `Don't know how to handle organisation ${url.organisation}. Legal organisations are ${Object.keys ( config.orgToDetails )}` ];
-
-  const details = orgDetails.nameSpaceToDetails[ url.namespace ];
-  if ( !details ) return [ `Don't know how to handle namespace ${url.namespace}. Legal namespaces are ${Object.keys ( orgDetails.nameSpaceToDetails )}` ];
-  return { orgDetails, details };
-}
-export const namedUrlToPath = ( config: OrganisationToNameSpaceToDetails ) => ( named: NamedUrl ): ErrorsAnd<PathAndDetails> => {
+export const namedUrlToPathAndDetails = ( config: OrganisationUrlStoreConfig ) => ( named: NamedUrl ): ErrorsAnd<PathAndDetails> => {
   if ( !isNamedUrl ( named ) ) return [ `${JSON.stringify ( named )} is not a NamedUrl` ]
-  return mapErrors ( urlToOrgAndNamdDetails ( config, named ), ( { orgDetails, details } ) => {
-    const path = `${config.baseDir}/${orgDetails.gitRepoPath}/${named.namespace}/${named.name}.${details.extension}`;
-    return { path, orgDetails, details };
-  } )
+  const nsLookup = config.nameSpaceDetails
+  const details = nsLookup[ named.namespace ];
+  if ( !details ) return [ `Don't know how to handle namespace ${named.namespace}. Legal namespaces are ${Object.keys ( nsLookup )}` ];
+  const path = `${config.baseDir}/${named.organisation}/${details.pathInGitRepo}/${named.name}.${details.extension}`;
+  return { path, details }
 }

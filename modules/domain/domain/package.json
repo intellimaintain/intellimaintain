@@ -23,12 +23,12 @@
     "@laoban/utils": "1.4.45",
     "@focuson/lens": "1.44.3",
     "@focuson/state": "1.44.3",
-    "js-yaml": "^4.1.0",
     "@intellimaintain/utils": "0.1.1",
     "@intellimaintain/events": "0.1.1",
     "@intellimaintain/eventstore": "0.1.1",
     "@intellimaintain/parser": "0.1.1",
     "@intellimaintain/variables": "0.1.1",
+    "@intellimaintain/yaml": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

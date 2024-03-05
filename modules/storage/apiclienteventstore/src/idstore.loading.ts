@@ -1,13 +1,12 @@
 import { IdStore } from "@intellimaintain/idstore";
 import { ParserStore, parseUsingStore } from "@intellimaintain/parser";
-import { defaultParserStore } from "@intellimaintain/defaultdomains";
 
 export interface ApiIdStore {
   url: string;
   parserStore: ParserStore
 
 }
-export function apiIdStore ( url: string, parserStore: ParserStore = defaultParserStore ): ApiIdStore {
+export function apiIdStore ( url: string, parserStore: ParserStore ): ApiIdStore {
   return { url, parserStore }
 
 }

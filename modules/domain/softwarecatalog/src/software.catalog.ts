@@ -1,9 +1,12 @@
 import { ParserStoreParser } from "@intellimaintain/parser";
-import { DomainPlugin, } from "@intellimaintain/domain";
-import { ErrorsAnd, NameAnd } from "@laoban/utils";
+import { camelCaseAndIdAndNameParser, DomainPlugin, } from "@intellimaintain/domain";
+import { ErrorsAnd, mapErrors, NameAnd } from "@laoban/utils";
 import { findRelevant, Variables } from "@intellimaintain/variables";
 import { findIdKeyAndPath, IdAndName, SelectedAndList, transformKeysToCamelCase } from "@intellimaintain/utils";
 import { DatabaseAndEnvironments } from "./database.config";
+import { YamlCapability } from "@intellimaintain/yaml";
+import { Simulate } from "react-dom/test-utils";
+import input = Simulate.input;
 
 const yaml = require ( 'js-yaml' );
 
@@ -15,16 +18,18 @@ export function variablesFromSoftwareCatalog ( soFar: NameAnd<any>, sc: Software
   return { variables, errors: [] }
 }
 
-export const scParser: ParserStoreParser = ( id, s ) => {
-  let input = yaml.load ( s );
-  const doc = transformKeysToCamelCase<any> ( input )
-  const { key, path: name } = findIdKeyAndPath ( id );
-  return { id, name, ...doc }
-}
-export function softwareCatalogPlugin ( rootPath: string ): DomainPlugin<SoftwareCatalog> {
+// export const scParser = ( yaml: YamlCapability ): ParserStoreParser => ( id, s ) => {
+//   return mapErrors ( yaml.parser ( s ), input => {
+//     const doc = transformKeysToCamelCase<any> ( input )
+//     const { key, path: name } = findIdKeyAndPath ( id );
+//     return { id, name, ...doc }
+//   } )
+// }
+export function softwareCatalogPlugin ( yaml: YamlCapability, rootPath: string ): DomainPlugin<SoftwareCatalog> {
   return {
     prefix: 'sc',
-    parser: scParser,
+    parser: camelCaseAndIdAndNameParser ( yaml ),
+    writer: yaml.writer,
     variablesExtractor: variablesFromSoftwareCatalog,
     idStoreDetails: { extension: 'yaml', rootPath, mimeType: 'text/markdown; charset=UTF-8' }
   }

@@ -4,6 +4,8 @@ import { fileLoading, fileLocking, loadStringIncrementally, withFileLock } from 
 import { promises as fs } from 'fs';
 import { IdStore, IdStoreResult, isBadIdStoreResult } from "@intellimaintain/idstore";
 import { ListIds } from "@intellimaintain/listids";
+import { getUrls, putUrls } from "./api.for.url.store";
+import { UrlLoadFn, UrlSaveFn } from "@intellimaintain/url";
 
 
 export const ids = ( idstore: IdStore, debug: boolean ): KoaPartialFunction => ({
@@ -80,11 +82,13 @@ export const appendPostPF: KoaPartialFunction = {
   }
 }
 
-export const wizardOfOzApiHandlers = ( idStore: IdStore, getIds: ListIds, debug: boolean, ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats ) => Promise<void> =>
+export const wizardOfOzApiHandlers = ( idStore: IdStore, getIds: ListIds, debug: boolean, load: UrlLoadFn, save: UrlSaveFn, ...handlers: KoaPartialFunction[] ): ( from: ContextAndStats ) => Promise<void> =>
   chainOfResponsibility ( defaultShowsError, //called if no matches
     ids ( idStore, debug ),
     eventsPF,
     getIdsPF ( getIds ),
+    getUrls ( load ),
+    putUrls ( save ),
     appendPostPF,
     ...handlers,
     notFoundIs404,

@@ -7,7 +7,7 @@ import { DisplaySoftwareCatalogs, DisplaySqlConfig } from "@intellimaintain/reac
 import { DisplayConversation, HasDisplayPlugins, HasWorkspacePlugins, WorkspaceTabsWithPlugins } from "@intellimaintain/react_conversation";
 
 import { DisplayTemplates } from "@intellimaintain/react_templates/";
-import { DisplaySqlWorkbench } from "@intellimaintain/react_sql/dist/src/sql.workbench";
+import { DisplaySqlWorkbench } from "@intellimaintain/react_sql";
 import { DisplayVariables } from "@intellimaintain/react_variables";
 
 export interface TopPartProps<S, C> extends LensProps<S, ChatState, C> {

@@ -4,20 +4,21 @@ import { defaultIdStoreDetails, defaultParserStore } from "@intellimaintain/defa
 import { isBadIdStoreResult, loadFromIdStore } from "@intellimaintain/idstore";
 import { findListIds } from "@intellimaintain/listids";
 import { findIdKeyAndPath } from "@intellimaintain/utils";
+import { YamlCapability } from "@intellimaintain/yaml";
 
 
-function getDetails ( root: string ) {
-  return defaultIdStoreDetails ( root, defaultParserStore );
+function getDetails ( root: string, yaml: YamlCapability ) {
+  return defaultIdStoreDetails ( root, yaml, defaultParserStore ( yaml ) );
 }
-export const idStore = ( root: string ) => loadFromIdStore ( getDetails ( root ) )
+export const idStore = ( root: string, yaml: YamlCapability ) => loadFromIdStore ( getDetails ( root, yaml ) )
 
-export const listIds = ( root: string ) => findListIds ( getDetails ( root ) )
-
-
-export const sep = ( root: string ) => defaultEventProcessor ( 'start.', {}, idStore ( root ) )
+export const listIds = ( root: string, yaml: YamlCapability ) => findListIds ( getDetails ( root, yaml ) )
 
 
-export function idStoreCommands<Commander, Context, Config> (): SubCommandDetails<Commander, Context, Config> {
+export const sep = ( root: string, yaml: YamlCapability ) => defaultEventProcessor ( 'start.', {}, idStore ( root, yaml ) )
+
+
+export function idStoreCommands<Commander, Context, Config> ( yaml: YamlCapability ): SubCommandDetails<Commander, Context, Config> {
   return {
     cmd: 'id',
     description: 'CId store commands',
@@ -28,7 +29,7 @@ export function idStoreCommands<Commander, Context, Config> (): SubCommandDetail
         '-p,--parser <parser>': { description: "What parser to use. 'json' and 'string' are common. Default is defined by id tyoe" }
       },
       action: async ( commander, opts, id ) => {
-        const store = idStore ( opts.id.toString () )
+        const store = idStore ( opts.id.toString (), yaml )
         const { key } = findIdKeyAndPath ( id )
         let parser = opts?.parser?.toString () || key;
         const result = await store ( id, parser )
@@ -44,7 +45,7 @@ export function idStoreCommands<Commander, Context, Config> (): SubCommandDetail
           '-i,--id <idroot>': { description: "The root of the id store", default: "ids" }
         },
         action: async ( commander, opts ) => {
-          const store = getDetails ( opts.id.toString () )
+          const store = getDetails ( opts.id.toString (), yaml )
           console.log ( Object.keys ( store.details ) )
         }
       },
@@ -54,7 +55,7 @@ export function idStoreCommands<Commander, Context, Config> (): SubCommandDetail
           '-i,--id <idroot>': { description: "The root of the id store", default: "ids" }
         },
         action: async ( commander, opts, idtype ) => {
-          const all = listIds ( opts.id.toString () )
+          const all = listIds ( opts.id.toString (), yaml )
           const ids = await all ( idtype )
           ids.forEach ( l => console.log ( l ) )
         }

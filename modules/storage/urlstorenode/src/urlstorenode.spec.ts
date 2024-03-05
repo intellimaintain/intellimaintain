@@ -1,5 +1,5 @@
-import { NamedUrl, namedUrlToPath, nameSpaceDetails, OrganisationToNameSpaceToDetails, parseNamedUrl } from "@intellimaintain/url";
-import { ns1, org1, orgToDetails } from "./integration.fixture";
+import { NamedUrl, namedUrlToPathAndDetails, nameSpaceDetails, OrganisationUrlStoreConfig, parseNamedUrl } from "@intellimaintain/url";
+import { ns1,  orgToDetails } from "./integration.fixture";
 
 
 describe ( "nameSpaceDetails", () => {
@@ -45,30 +45,21 @@ describe ( "nameSpaceDetails", () => {
 } )
 
 describe ( 'namedUrlToPath', () => {
-  const mockOrgToDetails: OrganisationToNameSpaceToDetails = orgToDetails ( '/repo' );
+  const mockOrgToDetails: OrganisationUrlStoreConfig = orgToDetails ( '/repo' );
 
 
   it ( 'returns the correct path for a valid NamedUrl', () => {
     const namedUrl: NamedUrl = parseNamedUrl ( 'itsm:org1:ns1:file1' )
-    const result = namedUrlToPath ( mockOrgToDetails ) ( namedUrl );
+    const result = namedUrlToPathAndDetails ( mockOrgToDetails ) ( namedUrl );
     expect ( result ).toEqual ( {
       "details": ns1,
-      "orgDetails": org1,
-      "path": "/repo/org1Repo/ns1/file1.txt"
+      "path":  "/repo/org1/namespace/path/file1.txt",
     } );
   } );
 
-  // Test for an unknown organisation
-  it ( 'returns an error for an unknown organisation', () => {
-    const namedUrl: NamedUrl = parseNamedUrl ( 'itsm:1unknownOrg:space1:file1' )
-    const result = namedUrlToPath ( mockOrgToDetails ) ( namedUrl );
-    expect ( result ).toEqual ( [ "Don't know how to handle organisation 1unknownOrg. Legal organisations are org1" ] );
-  } );
-
-  // Test for an unknown namespace
   it ( 'returns an error for an unknown namespace', () => {
     const namedUrl: NamedUrl = parseNamedUrl ( 'itsm:org1:unknownSpace:file1' );
-    const result = namedUrlToPath ( mockOrgToDetails ) ( namedUrl );
+    const result = namedUrlToPathAndDetails ( mockOrgToDetails ) ( namedUrl );
     expect ( result ).toEqual ( [ "Don't know how to handle namespace unknownSpace. Legal namespaces are ns1" ] );
   } );
 } );

@@ -5,7 +5,8 @@
   "packageJson": {
     "dependencies":    {
       "@runbook/koa":   "0.3.14",
-      "@runbook/utils": "0.3.14"
+      "@runbook/utils": "0.3.14",
+      "@laoban/utils": "1.4.45"
     },
     "devDependencies": {},
     "browser":         {
@@ -15,6 +16,7 @@
   "links":       [
     "@intellimaintain/utils",
     "@intellimaintain/cli",
+    "@intellimaintain/url",
     "@intellimaintain/domain",
     "@intellimaintain/defaultdomains",
     "@intellimaintain/fileeventstore"

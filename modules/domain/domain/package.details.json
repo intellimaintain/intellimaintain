@@ -4,11 +4,9 @@
   "description": "A event source library for node.js backed with a file",
   "packageJson": {
     "dependencies":    {
-
-      "@laoban/utils": "1.4.45",
-      "@focuson/lens": "1.44.3",
-      "@focuson/state": "1.44.3",
-      "js-yaml":       "^4.1.0"
+      "@laoban/utils":  "1.4.45",
+      "@focuson/lens":  "1.44.3",
+      "@focuson/state": "1.44.3"
     },
     "devDependencies": {},
     "browser":         {
@@ -20,7 +18,8 @@
     "@intellimaintain/events",
     "@intellimaintain/eventstore",
     "@intellimaintain/parser",
-    "@intellimaintain/variables"
+    "@intellimaintain/variables",
+    "@intellimaintain/yaml"
   ],
   "guards":      {
     "compile": true,

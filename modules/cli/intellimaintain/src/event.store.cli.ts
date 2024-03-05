@@ -3,8 +3,9 @@ import { eventStore, polling, setEventStoreValue, startPolling, stringToEvents }
 import { processEvents } from "@intellimaintain/events";
 import { fileLoading, loadStringIncrementally } from "@intellimaintain/fileeventstore";
 import { sep } from "./id.store.cli";
+import { YamlCapability } from "@intellimaintain/yaml";
 
-export function eventStoreCommands<Commander, Context, Config> (): SubCommandDetails<Commander, Context, Config> {
+export function eventStoreCommands<Commander, Context, Config> (yaml: YamlCapability): SubCommandDetails<Commander, Context, Config> {
   return {
     cmd: 'polling',
     description: 'File messaging commands',
@@ -43,7 +44,7 @@ export function eventStoreCommands<Commander, Context, Config> (): SubCommandDet
           const pollingDetails = polling ( parseInt ( opts.poll.toString () ), async s => {
             const events = await stringToEvents ( { file }, s )
             if ( store.debug ) console.log ( 'events', JSON.stringify ( events ) )
-            const { state, errors } = await processEvents ( sep ( opts.idstore.toString () ), store.state, events )
+            const { state, errors } = await processEvents ( sep ( opts.idstore.toString () , yaml), store.state, events )
             errors.forEach ( e => console.log ( e ) )
             setEventStoreValue ( store ) ( state )
             console.log ( JSON.stringify ( store.state ) )

@@ -6,11 +6,12 @@ describe ( 'parseUrl', () => {
     const urlString = 'itsm:org1:space1:name1';
     const result = parseUrl ( urlString );
     expect ( result ).toEqual ( {
-      scheme: 'itsm',
-      organisation: 'org1',
-      namespace: 'space1',
-      name: 'name1',
-    } );
+      "name": "name1",
+      "namespace": "space1",
+      "organisation": "org1",
+      "scheme": "itsm",
+      "url": "itsm:org1:space1:name1"
+    });
   } );
 
   // Test for a valid IdentityUrl
@@ -18,11 +19,12 @@ describe ( 'parseUrl', () => {
     const urlString = 'itsmid:org2:id:identifier1';
     const result = parseUrl ( urlString );
     expect ( result ).toEqual ( {
-      scheme: 'itsmid',
-      organisation: 'org2',
-      namespace: 'id',
-      id: 'identifier1',
-    } );
+      "id": "identifier1",
+      "namespace": "id",
+      "organisation": "org2",
+      "scheme": "itsmid",
+      "url": "itsmid:org2:id:identifier1"
+    });
   } );
 
   it ( 'returns an error for URLs with invalid scheme', () => {

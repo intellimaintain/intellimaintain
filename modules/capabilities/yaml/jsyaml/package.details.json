@@ -1,0 +1,20 @@
+{
+  "template":    "typescript",
+  "name":        "@intellimaintain/jsyaml",
+  "description": "",
+  "packageJson": {
+    "files":        ["build/"],
+    "dependencies": {
+      "js-yaml": "^4.1.0"
+    }
+  },
+  "links":       [
+    "@intellimaintain/yaml"
+  ],
+  "guards":      {
+    "compile": true,
+    "publish": false,
+    "test":    false,
+    "react":   true
+  }
+}

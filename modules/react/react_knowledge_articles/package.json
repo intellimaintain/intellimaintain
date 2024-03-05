@@ -17,6 +17,7 @@
   "dependencies": {
     "@intellimaintain/components": "0.1.1",
     "@intellimaintain/knowledge_articles": "0.1.1",
+    "@intellimaintain/yaml": "0.1.1",
     "debug": "^4.3.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",

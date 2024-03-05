@@ -36,8 +36,10 @@
     "@intellimaintain/eventstore": "0.1.1",
     "@intellimaintain/fileeventstore": "0.1.1",
     "@intellimaintain/idstore": "0.1.1",
+    "@intellimaintain/jsyaml": "0.1.1",
     "@intellimaintain/listids": "0.1.1",
     "@intellimaintain/utils": "0.1.1",
+    "@intellimaintain/yaml": "0.1.1",
     "debug": "^4.3.4"
   },
   "devDependencies": {

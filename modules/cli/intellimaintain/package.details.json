@@ -27,8 +27,10 @@
     "@intellimaintain/eventstore",
     "@intellimaintain/fileeventstore",
     "@intellimaintain/idstore",
+    "@intellimaintain/jsyaml",
     "@intellimaintain/listids",
-    "@intellimaintain/utils"
+    "@intellimaintain/utils",
+    "@intellimaintain/yaml"
   ],
   "guards":      {
     "compile": true,

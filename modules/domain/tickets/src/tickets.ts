@@ -20,9 +20,9 @@ export const ticketParser: ParserStoreParser = ( id, s ) => {
   if ( index1 < 0 ) return { error: 'No newline found' }
   const index2 = s.indexOf ( '\n', index1 + 1 )
   if ( index2 < 0 ) return { error: 'No second newline found' }
-  const name = s.slice ( 0, index1 ).trim()
-  const priority = s.slice ( index1 + 1, index2 ).trim()
-  const description = s.slice ( index2 + 1 ).trim()
+  const name = s.slice ( 0, index1 ).trim ()
+  const priority = s.slice ( index1 + 1, index2 ).trim ()
+  const description = s.slice ( index2 + 1 ).trim ()
   let ticket: Ticket = { id, name, severity: priority, description }
   return ticket
 }
@@ -30,6 +30,7 @@ export function ticketsPlugin ( rootPath: string ): DomainPlugin<Ticket> {
   return {
     prefix: 'ticket',
     parser: ticketParser,
+    writer: ( ticket: Ticket ) => `${ticket.name}\n${ticket.severity}\n${ticket.description}`,
     variablesExtractor: variablesFromTicket,
     idStoreDetails: { extension: 'md', rootPath, mimeType: 'text/markdown; charset=UTF-8' }
   }

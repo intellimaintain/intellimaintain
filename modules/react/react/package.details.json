@@ -15,7 +15,7 @@
     "@intellimaintain/events",
     "@intellimaintain/questions",
     "@intellimaintain/eventstore",
-    "@intellimaintain/variables",
+     "@intellimaintain/jsyaml",
     "@intellimaintain/react_core",
     "@intellimaintain/react_conversation",
     "@intellimaintain/react_devmode",
@@ -26,7 +26,8 @@
     "@intellimaintain/react_templates",
     "@intellimaintain/react_ticket",
     "@intellimaintain/react_variables",
-    "@intellimaintain/update_value_in_database_ticket_type"
+    "@intellimaintain/update_value_in_database_ticket_type",
+    "@intellimaintain/variables"
   ],
   "guards":      {
     "compile": true,

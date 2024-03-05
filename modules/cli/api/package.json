@@ -22,8 +22,10 @@
   "dependencies": {
     "@runbook/koa": "0.3.14",
     "@runbook/utils": "0.3.14",
+    "@laoban/utils": "1.4.45",
     "@intellimaintain/utils": "0.1.1",
     "@intellimaintain/cli": "0.1.1",
+    "@intellimaintain/url": "0.1.1",
     "@intellimaintain/domain": "0.1.1",
     "@intellimaintain/defaultdomains": "0.1.1",
     "@intellimaintain/fileeventstore": "0.1.1",

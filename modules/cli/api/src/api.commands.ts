@@ -4,9 +4,11 @@ import { wizardOfOzApiHandlers } from "./api";
 import { loadFromIdStore } from "@intellimaintain/idstore";
 import { defaultIdStoreDetails, defaultParserStore } from "@intellimaintain/defaultdomains";
 import { findListIds } from "@intellimaintain/listids";
+import { UrlLoadFn, UrlSaveFn } from "@intellimaintain/url";
+import { YamlCapability } from "@intellimaintain/yaml";
 
 
-export function apiCommand<Commander, Context extends HasCurrentDirectory, Config> (): CommandFn<Commander, Context, Config> {
+export function apiCommand<Commander, Context extends HasCurrentDirectory, Config> ( yaml: YamlCapability ): CommandFn<Commander, Context, Config> {
   return ( context, config ) => ({
     cmd: 'api ',
     description: 'Runs the api that supports the Wizard Of Oz',
@@ -18,10 +20,14 @@ export function apiCommand<Commander, Context extends HasCurrentDirectory, Confi
     },
     action: async ( commander, opts ) => {
       const { port, debug, directory } = opts
-      let details = defaultIdStoreDetails ( opts.id.toString (), defaultParserStore );
+      let details = defaultIdStoreDetails ( opts.id.toString (), yaml, defaultParserStore ( yaml ) );
       const idStore = loadFromIdStore ( details )
       const allIds = findListIds ( details )
-      startKoa ( directory.toString (), Number.parseInt ( port.toString () ), debug === true, wizardOfOzApiHandlers ( idStore, allIds, opts.debug === true ) )
+      const loadFn: UrlLoadFn = async ( id ) => ({ url: id, mimeType: "text", result: "hello", fileSize: 5, id: id })
+      const saveFn: UrlSaveFn = async ( id ) => ({ url: id, fileSize: 5, id: id })
+
+      startKoa ( directory.toString (), Number.parseInt ( port.toString () ), debug === true,
+        wizardOfOzApiHandlers ( idStore, allIds, opts.debug === true, loadFn, saveFn ) )
     }
   })
 
