@@ -15,7 +15,7 @@ export const saveNamedUrl = ( gitOps: GitOps, config: OrganisationUrlStoreConfig
             await fs.promises.mkdir ( path.dirname ( thePath ), { recursive: true } )
             await fs.promises.writeFile ( thePath, string, { encoding: details.encoding } )
             const repo = repoFrom ( config, named )
-            const hash = await gitOps.hashFor ( repo, thePath )
+            const hash = await gitOps.hashFor ( repo, path.relative(repo, thePath ) )
             const id = `itsmid:${named.organisation}:${named.namespace}:${hash}`
             await gitOps.init ( repo ) // creates a new repo if needed including the directory.
             await gitOps.commit ( repo, `Saving ${named.name} as ${id}` )

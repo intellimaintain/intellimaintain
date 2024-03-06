@@ -20,6 +20,7 @@ export function scNs ( yaml: YamlCapability ) {
 
 export function ticketNs () {
   return nameSpaceDetails ( 'ticket', {
+    extension: 'md',
     parser: ticketParser,
     writer: ticketWriter,
   } );
