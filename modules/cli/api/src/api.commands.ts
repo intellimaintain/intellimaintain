@@ -6,6 +6,9 @@ import { defaultIdStoreDetails, defaultParserStore } from "@intellimaintain/defa
 import { findListIds } from "@intellimaintain/listids";
 import { UrlLoadFn, UrlSaveFn } from "@intellimaintain/url";
 import { YamlCapability } from "@intellimaintain/yaml";
+import { defaultOrganisationUrlStoreConfig } from "@intellimaintain/defaultdomains/dist/src/organisation.default.domains";
+import { loadFromNamedUrl, loadFromUrlStore, saveNamedUrl } from "@intellimaintain/urlstorenode";
+import { shellGitsops } from "@intellimaintain/shell_git";
 
 
 export function apiCommand<Commander, Context extends HasCurrentDirectory, Config> ( yaml: YamlCapability ): CommandFn<Commander, Context, Config> {
@@ -23,8 +26,10 @@ export function apiCommand<Commander, Context extends HasCurrentDirectory, Confi
       let details = defaultIdStoreDetails ( opts.id.toString (), yaml, defaultParserStore ( yaml ) );
       const idStore = loadFromIdStore ( details )
       const allIds = findListIds ( details )
-      const loadFn: UrlLoadFn = async ( id ) => ({ url: id, mimeType: "text", result: "hello", fileSize: 5, id: id })
-      const saveFn: UrlSaveFn = async ( id ) => ({ url: id, fileSize: 5, id: id })
+      const orgs = defaultOrganisationUrlStoreConfig ( yaml )
+      const gitOps = shellGitsops ( false )
+      const loadFn: UrlLoadFn = loadFromUrlStore ( gitOps, orgs )
+      const saveFn: UrlSaveFn = saveNamedUrl ( gitOps, orgs )
 
       startKoa ( directory.toString (), Number.parseInt ( port.toString () ), debug === true,
         wizardOfOzApiHandlers ( idStore, allIds, opts.debug === true, loadFn, saveFn ) )

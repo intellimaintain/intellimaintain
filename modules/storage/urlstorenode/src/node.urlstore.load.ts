@@ -2,18 +2,19 @@ import { ErrorsAnd, hasErrors, mapErrorsK } from "@laoban/utils";
 import { IdentityUrl, isIdentityUrl, isNamedUrl, NamedUrl, namedUrlToPathAndDetails, OrganisationUrlStoreConfig, parseUrl, repoFrom, UrlLoadFn, UrlLoadResult, urlToDetails } from "@intellimaintain/url";
 import * as fs from "fs";
 import { GitOps } from "@intellimaintain/git";
+import path from "path";
 
 
 export const loadFromNamedUrl = ( gitOps: GitOps, config: OrganisationUrlStoreConfig ) => ( named: NamedUrl ): Promise<ErrorsAnd<UrlLoadResult>> => {
-  return mapErrorsK ( namedUrlToPathAndDetails ( config ) ( named ), async ( { path, details } ) => {
-    console.log('loadFromNamedUrl path', path)
-    let stats = await fs.promises.stat ( path )
+  return mapErrorsK ( namedUrlToPathAndDetails ( config ) ( named ), async ( { path:p, details } ) => {
+    console.log('loadFromNamedUrl path', p)
+    let stats = await fs.promises.stat ( p )
     const fileSize = stats.size
-    let buffer = await fs.promises.readFile ( path );
+    let buffer = await fs.promises.readFile ( p );
     const string = buffer.toString ( details.encoding )
     const result = details.parser ( named.url, string )
     const repo = repoFrom ( config, named )
-    const hash = await gitOps.hashFor ( repo, path )
+    const hash = await gitOps.hashFor ( repo, path.relative(repo, p ))
     const id = `itsmid:${named.organisation}:${named.namespace}:${hash}`
     return { url: named.url, mimeType: details.mimeType, result, id, fileSize }
   } )

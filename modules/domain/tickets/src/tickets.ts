@@ -26,11 +26,12 @@ export const ticketParser: ParserStoreParser = ( id, s ) => {
   let ticket: Ticket = { id, name, severity: priority, description }
   return ticket
 }
+export const ticketWriter = ( ticket: Ticket ) => `${ticket.name}\n${ticket.severity}\n${ticket.description}`;
 export function ticketsPlugin ( rootPath: string ): DomainPlugin<Ticket> {
   return {
     prefix: 'ticket',
     parser: ticketParser,
-    writer: ( ticket: Ticket ) => `${ticket.name}\n${ticket.severity}\n${ticket.description}`,
+    writer: ticketWriter,
     variablesExtractor: variablesFromTicket,
     idStoreDetails: { extension: 'md', rootPath, mimeType: 'text/markdown; charset=UTF-8' }
   }

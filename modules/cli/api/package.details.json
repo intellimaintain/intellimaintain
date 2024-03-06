@@ -18,6 +18,7 @@
     "@intellimaintain/cli",
     "@intellimaintain/url",
     "@intellimaintain/domain",
+    "@intellimaintain/shell_git",
     "@intellimaintain/defaultdomains",
     "@intellimaintain/fileeventstore"
   ],

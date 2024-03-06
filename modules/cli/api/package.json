@@ -27,6 +27,7 @@
     "@intellimaintain/cli": "0.1.1",
     "@intellimaintain/url": "0.1.1",
     "@intellimaintain/domain": "0.1.1",
+    "@intellimaintain/shell_git": "0.1.1",
     "@intellimaintain/defaultdomains": "0.1.1",
     "@intellimaintain/fileeventstore": "0.1.1",
     "debug": "^4.3.4"
